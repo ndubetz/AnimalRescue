@@ -22,8 +22,22 @@ public class Hello {
 		donuts.add(DonutFactory.makeDonut(false, "no"));
 		donuts.add(DonutFactory.makeDonut(true, "chocolate"));
 		
+		ArrayList<Donut> eatenDonuts = new ArrayList<Donut>();
+		
 		for (Donut donut : donuts) {
 			System.out.println(donut);
+			if(donut.hasSprinkles()){
+				eatenDonuts.add(donut);
+			}
+		}
+		
+		for (Donut donut : eatenDonuts) {
+			donuts.remove(donut);
+			System.out.println("I ate a donut with sprinkles and " + donut.getFrosting() + " frosting.");
+		}
+		
+		for (Donut donut : donuts) {
+			System.out.println("I did not eat a donut with no sprinkles and " + donut.getFrosting() + " frosting.");
 		}
 	}
 }
