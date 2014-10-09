@@ -21,14 +21,14 @@ import javax.swing.JFrame;
 public class MainView implements java.util.Observer{
 
 	private Button button;
-//	private String name;
+
 
 
 	public MainView(String frameName) {
 		JFrame frame = new JFrame(frameName);
 		addFileMenu(frame);
 		frame.add("North", new Label("Add Cat"));
-		
+		//hey
 		TextField nameTextField = new TextField();
 		TextField ageTextField = new TextField();
 		
