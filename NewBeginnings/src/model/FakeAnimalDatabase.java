@@ -17,8 +17,8 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 		_searchFilter = "";
 	
 		_fakeCats = new LinkedList<Cat>();
-		/*_fakeCats.add(new Cat("Boots", 3, "M", "Siberian", "Jet Black", "NB-14-0", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("Storm"));
+		_fakeCats.add(new Cat("Boots", 3, "M", "Siberian", "Jet Black", "NB-14-0", true, new GregorianCalendar(), new GregorianCalendar()));
+		/*_fakeCats.add(new Cat("Storm"));
 		_fakeCats.add(new Cat("Nero"));
 		_fakeCats.add(new Cat("Sylvester"));
 		_fakeCats.add(new Cat("Han Solo"));
