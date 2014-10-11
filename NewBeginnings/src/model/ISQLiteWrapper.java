@@ -32,4 +32,16 @@ public interface ISQLiteWrapper
 	 * @param connectionString the path to the database
 	 */
 	public void setConnection(String connectionString);
+	
+	/**
+	 * Runs the specified sequence of commands on the database.
+	 * SQLite will automatically create the database file at
+	 * the current connection path if it is not already there.
+	 * The initialization commands should contain a set of
+	 * "CREATE TABLE IF NOT EXISTS" commands, as well as
+	 * insertion of any special properties to insert.
+	 * 
+	 * @param initializationScript
+	 */
+	public void initializeDatabase(String[] initializationScript);
 }

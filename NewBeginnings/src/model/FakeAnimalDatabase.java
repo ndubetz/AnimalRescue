@@ -31,16 +31,19 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 		_fakeCats.add(new Cat("Geoff", 5, "M", "California Spangled", "Spotted Orange", "NB-14-7", false, new GregorianCalendar(), new GregorianCalendar()));
 	}
 	
+	@Override
 	public void setSearchFilterType(SearchFilterType filterType)
 	{
 		_filterType = filterType;
 	}
 
+	@Override
 	public void setSearchFiler(String filter)
 	{
 		_searchFilter = filter;
 	}
 	
+	@Override
 	public List<Cat> getFilteredCats()
 	{
 		return _fakeCats;

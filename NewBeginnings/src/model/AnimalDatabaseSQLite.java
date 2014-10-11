@@ -5,20 +5,20 @@ import java.util.List;
 
 public class AnimalDatabaseSQLite implements IAnimalDatabase
 {
-	private String _databasePath;
 	private SearchFilterType _filterType;
 	private String _searchFilter;
 	private ISQLiteWrapper _sqlite;
-
-	private static final String C_SQLCatListQuery = 
-		"SELECT *\n" + 
-		"FROM Cats C\n" +
-		"WHERE C.%s LIKE \"%s%%\";\n";
 	
 	public AnimalDatabaseSQLite(ISQLiteWrapper sqliteWrapper)
 	{
 		_sqlite = sqliteWrapper;
 		_sqlite.setConnection(getDefaultDatabaseConnectionString());
+		
+		//for now, I'm just creating the database if need be
+		//eventually, we may want to compare against a version
+		//number to know how to upgrade an existing database
+		//to accommodate schema changes
+		_sqlite.initializeDatabase(SQLCodeConstants.C_DatabaseSchema);
 		
 		_filterType = SearchFilterType.Name;
 		_searchFilter = "";
@@ -43,7 +43,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		
 		if(results == null)	return catList;
 
-		//TODO:Martial resultSet data into a real list of cats
+		//TODO: Martial resultSet data into a real list of cats
 		
 		return null;
 	}
@@ -68,7 +68,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 			filterColumn = "";
 		}
 		
-		return String.format(C_SQLCatListQuery, filterColumn, _searchFilter);
+		return String.format(SQLCodeConstants.C_GeneralCatSearch, filterColumn, _searchFilter);
 	}
 	
 	private String getDefaultDatabaseConnectionString()

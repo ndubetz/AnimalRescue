@@ -10,12 +10,14 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 	private List<String> _executeQueryCallHistory;
 	private List<String> _executeUpdateCallHistory;
 	private List<String> _setConectionCallHistory;
+	private List<String[]> _initializeDatabaseCallHistory;
 	
 	public FakeSQLiteWrapper()
 	{
 		_executeQueryCallHistory = new LinkedList<String>();
 		_executeUpdateCallHistory = new LinkedList<String>();
 		_setConectionCallHistory = new LinkedList<String>();
+		_initializeDatabaseCallHistory = new LinkedList<String[]>();
 	}
 	
 	@Override
@@ -37,6 +39,12 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 		_setConectionCallHistory.add(connectionString);
 	}
 
+	@Override
+	public void initializeDatabase(String[] initializationScript) 
+	{
+		_initializeDatabaseCallHistory.add(initializationScript);
+	}
+	
 	public List<String> getExecuteQueryCallHistory() 
 	{
 		return _executeQueryCallHistory;
@@ -50,5 +58,10 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 	public List<String> getSetConectionCallHistory() 
 	{
 		return _setConectionCallHistory;
+	}
+
+	public List<String[]> getInitializeDatabaseCallHistory() 
+	{
+		return _initializeDatabaseCallHistory;
 	}
 }

@@ -18,12 +18,17 @@ public class AnimalDatabaseSQLiteTest
 	}
 
 	@Test
-	public void constructorSetsDatabaseConnection() 
+	public void constructorSetsUpWrapper() 
 	{
 		//by this point, there should be at least
 		//one call to set the database connection
 		//from the constructor in the setup
 		assertTrue(_fakeSQLite.getSetConectionCallHistory().size() >= 1);
+		
+		//until we're doing a version check and migration, we
+		//should also always be running the initialization script
+		assertTrue(_fakeSQLite.getInitializeDatabaseCallHistory().size() >= 1);
+		assertArrayEquals(SQLCodeConstants.C_DatabaseSchema, _fakeSQLite.getInitializeDatabaseCallHistory().get(0));
 	}
 	
 	@Test
@@ -40,10 +45,9 @@ public class AnimalDatabaseSQLiteTest
 		String expectedSQL = 
 				"SELECT *\n" + 
 				"FROM Cats C\n" + 
-				"WHERE C.Name LIKE \"Stormy%\";\n";
+				"WHERE C.Name LIKE 'Stormy%';\n";
 		
 		String actualSQL = _fakeSQLite.getExecuteQueryCallHistory().get(callCount - 1);
 		assertEquals(expectedSQL, actualSQL);
 	}
-
 }
