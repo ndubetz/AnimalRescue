@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1412897261025_1" label="MainWorkingSet" name="MainWorkingSet">
-<item elementID="=NewBeginnings" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=NewBeginningsTest" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=NewBeginnings" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1412895795806_0" label="Window Working Set" name="Aggregate for window 1412895795804"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1413046663497_2" label="Window Working Set" name="Aggregate for window 1413046663497"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1413046700656_3" label="Window Working Set" name="Aggregate for window 1413046700656"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1413046889646_4" label="Window Working Set" name="Aggregate for window 1413046889646"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1413048099703_5" label="Window Working Set" name="Aggregate for window 1413048099703"/>
 </workingSetManager>

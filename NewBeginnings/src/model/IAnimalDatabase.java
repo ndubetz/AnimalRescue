@@ -24,10 +24,19 @@ public interface IAnimalDatabase
 	
 	/**
 	 * Retrieves the list of cats that match
-	 * the current search paraeters from
+	 * the current search parameters from
 	 * the database
 	 * 
 	 * @return the list of cats
 	 */
 	public List<Cat> getFilteredCats();
+	
+	/**
+	 * Gets the single cat from the database
+	 * with the given cat ID
+	 * 
+	 * @param catID
+	 * @return
+	 */
+	public Cat getSingleCat(String catID);
 }
