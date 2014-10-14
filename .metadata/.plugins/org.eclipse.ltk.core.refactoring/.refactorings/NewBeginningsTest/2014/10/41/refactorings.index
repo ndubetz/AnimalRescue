@@ -1,0 +1,7 @@
+1413050873647	Delete element
+1413051014955	Delete element
+1413051671470	Encapsulate field '_executeQueryCallHistory'
+1413051702977	Encapsulate field '_executeUpdateCallHistory'
+1413051727644	Encapsulate field '_setConectionCallHistory'
+1413058333054	Encapsulate field '_initializeDatabaseCallHistory'
+1413060516741	Rename method 'constructorSetsDatabaseConnection'

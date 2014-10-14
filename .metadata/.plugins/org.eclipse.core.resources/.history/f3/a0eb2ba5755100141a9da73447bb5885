@@ -1,0 +1,44 @@
+package model;
+
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import fakes.FakeSQLiteWrapper;
+
+public class AnimalDatabaseSQLiteTest 
+{
+	AnimalDatabaseSQLite _animalDB;
+	FakeSQLiteWrapper _fakeSQLite;
+	
+	@Before
+	public void setUp() throws Exception 
+	{
+		_fakeSQLite = new FakeSQLiteWrapper();
+		_animalDB = new AnimalDatabaseSQLite(_fakeSQLite);
+	}
+
+	@Test
+	public void constructorSetsDatabaseConnection() 
+	{
+		//by this point, there should be at least
+		//one call to set the database connection
+		//from the constructor in the setup
+		assertTrue(_fakeSQLite.getSetConectionCallHistory().size() >= 1);
+	}
+	
+	@Test
+	public void getFilteredCatsUsesProperQuery()
+	{
+		String filterString = "Stormy";
+		
+		_animalDB.setSearchFiler(filterString);
+		_animalDB.setSearchFilterType(SearchFilterType.Name);
+		_animalDB.getFilteredCats();
+		
+		String expectedSQL = 
+				"SELECT *" + 
+				"FROM Cats C" + 
+				"WHERE C.";
+	}
+
+}

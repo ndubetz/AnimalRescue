@@ -1,0 +1,43 @@
+package model;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class FakeAnimalDatabase implements IAnimalDatabase
+{
+	private SearchFilterType _filterType;
+	private String _searchFilter;
+
+	private List<Cat> _fakeCats;
+	
+	public FakeAnimalDatabase()
+	{
+		_filterType = SearchFilterType.Name;
+		_searchFilter = "";
+	
+		_fakeCats = new LinkedList<Cat>();
+		_fakeCats.add(new Cat("Boots"));
+		_fakeCats.add(new Cat("Storm"));
+		_fakeCats.add(new Cat("Nero"));
+		_fakeCats.add(new Cat("Sylvester"));
+		_fakeCats.add(new Cat("Han Solo"));
+		_fakeCats.add(new Cat("Captain Picard"));
+		_fakeCats.add(new Cat("Coal"));
+		_fakeCats.add(new Cat("Fluffy"));
+	}
+	
+	public void setSearchFilterType(SearchFilterType filterType)
+	{
+		_filterType = filterType;
+	}
+
+	public void setSearchFiler(String filter)
+	{
+		_searchFilter = filter;
+	}
+	
+	public List<Cat> getFilteredCats()
+	{
+		return _fakeCats;
+	}
+}

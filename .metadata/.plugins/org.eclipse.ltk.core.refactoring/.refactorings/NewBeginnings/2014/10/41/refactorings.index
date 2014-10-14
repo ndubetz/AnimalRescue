@@ -1,0 +1,6 @@
+1413048257123	Rename type 'AnimalDatabase'
+1413053581487	Rename field 'C_SQLQuery'
+1413057473661	Rename local variable 'databaseSchema'
+1413058083441	Rename local variable 'SQLCatListQuery'
+1413059092697	Rename type 'Constants'
+1413059120788	Rename field 'C_GeneralCatSearchSQL'

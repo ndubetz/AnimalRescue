@@ -1,0 +1,51 @@
+package model;
+
+/**
+ * Class to hold some static constants to avoid cluttering up
+ * other classes
+ */
+public class SQLCodeConstants 
+{
+	public static final String[][] C_Columns = 
+		{
+			{"id", "TEXT"},
+			{"name", "TEXT"},
+			{"age", "INTEGER"},
+			{"gender", "TEXT"},
+			{"hairColor", "TEXT"},
+			{"isFixed", "INTEGER"},
+			{"arrivalDate", "TEXT"},
+			{"departureDate", "TEXT"}
+		};
+	
+	public static final String[] C_DatabaseInit = 
+		{
+			//initialization of the database properties table
+			"DROP TABLE IF EXISTS DBProperties;",
+			"CRETE TABLE DBProperties(propKey, propValue);",
+			
+			//we should be incrementing this number as we go to help check for changes
+			"INSERT INTO DBProperties VALUES ('dbVersion', 0);",
+			
+			//schema for the main cats database
+			"CREATE TABLE IF NOT EXISTS Cats(is, name, age, gender, breed, hairColor, isFixed, arrivalDate, departureDate);"
+		};
+	
+	public static final String C_GeneralCatSearch = 
+			"SELECT *\n" + 
+			"FROM Cats C\n" +
+			"WHERE C.%s LIKE '%s%%';\n";
+	
+	public static final String C_SpecificCatByID = 
+			"SELECT *\n" + 
+			"FROM Cats C\n" + 
+			"WHERE C.id='%s';\n";
+	
+	public static final String C_InsertNewCat = 
+			"INSERT INTO CATS VALUES('%s', '%s', '%s', '%i', '%s', '%s', '%s');";
+	
+	public static final String C_UpdateExistingCat = 
+			"UPDATE Cats\n" + 
+			"SET name='%s', gender='%s', age='%i', breed='%s', color='%s', comments='%s'\n" +
+			"WHERE id='%s';\n";
+}

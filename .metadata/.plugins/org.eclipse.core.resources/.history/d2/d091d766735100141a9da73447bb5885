@@ -1,0 +1,40 @@
+package fakes;
+
+import java.sql.ResultSet;
+import model.ISQLiteWrapper;
+import java.util.LinkedList;
+import java.util.List;
+
+public class FakeSQLiteWrapper implements ISQLiteWrapper
+{
+	private List<String> _executeQueryCallHistory;
+	private List<String> _executeUpdateCallHistory;
+	private List<String> _setConectionCallHistory;
+	
+	public FakeSQLiteWrapper()
+	{
+		_executeQueryCallHistory = new LinkedList<String>();
+		_executeUpdateCallHistory = new LinkedList<String>();
+		_setConectionCallHistory = new LinkedList<String>();
+	}
+	
+	@Override
+	public ResultSet executeQuery(String SQLQuery) 
+	{
+		_executeQueryCallHistory.add(SQLQuery);
+		return null;
+	}
+
+	@Override
+	public void executeUpdate(String SQLCommand) 
+	{
+		_executeUpdateCallHistory.add(SQLCommand);
+	}
+
+	@Override
+	public void setConnection(String connectionString) 
+	{
+		_setConectionCallHistory.add(connectionString);
+	}
+
+}
