@@ -23,12 +23,12 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 		_searchFilter = "";
 	
 		_fakeCats = new LinkedList<Cat>();
-		_fakeCats.add(new Cat("Boots", 3, "M", "Siberian", "Jet Black", "NB-14-3", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("Storm", 2, "F", "Aegean", "Brown and White", "NB-14-1", false, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("Han Solo", 4, "M", "American Curl", "Black with White Stripes", "NB-14-2", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("Fluffy", 3, "F", "Australian Mist", "White", "NB-14-5", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("Boots", 3, "M", "Siberian", "Jet Black", "NB-14-4", true, new GregorianCalendar(), new GregorianCalendar()));//this repeat is intentional. Note the different ID number
-		_fakeCats.add(new Cat("Geoff", 5, "M", "California Spangled", "Spotted Orange", "NB-14-7", false, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(new Cat("NB-14-3", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(new Cat("NB-14-1", "Storm", 2, "F", "Aegean", "Brown and White", false, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(new Cat("NB-14-2", "Han Solo", 4, "M", "American Curl", "Black with White Stripes", true, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(new Cat("NB-14-5", "Fluffy", 3, "F", "Australian Mist", "White", true, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(new Cat("NB-14-4", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar()));//this repeat is intentional. Note the different ID number
+		_fakeCats.add(new Cat("NB-14-7", "Geoff", 5, "M", "California Spangled", "Spotted Orange", false, new GregorianCalendar(), new GregorianCalendar()));
 	}
 	
 	@Override
@@ -53,5 +53,17 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	public Cat getSingleCat(String catID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addNewCat(Cat cat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCat(Cat cat) {
+		// TODO Auto-generated method stub
+		
 	}
 }

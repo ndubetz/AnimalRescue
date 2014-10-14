@@ -5,4 +5,5 @@
 <fullyQualifiedTypeName name="fakes.FakeSQLiteWrapper"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

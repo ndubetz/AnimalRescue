@@ -1,24 +1,51 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Class to hold some static constants to avoid cluttering up
  * other classes
  */
 public class SQLCodeConstants 
 {
-	public static final String[] C_DatabaseSchema = 
+	//NOTE The idea behind this is that any change we make to the Cat constructor
+	//will also be updated here
+	public static final String[][] C_CatsColumns = 
 		{
-			//initialization of the database properties table
-			"DROP TABLE IF EXISTS DBProperties;",
-			"CRETE TABLE DBProperties(propKey, propValue);",
-			
-			//we should be incrementing this number as we go to help check for changes
-			"INSERT INTO DBProperties VALUES ('dbVersion', 0);",
-			
-			//schema for the main cats database
-			"CREATE TABLE IF NOT EXISTS Cats(id, name, gender, age, breed, color, comments);"
+			{"id", "TEXT"},
+			{"name", "TEXT"},
+			{"age", "INTEGER"},
+			{"gender", "TEXT"},
+			{"hairColor", "TEXT"},
+			{"isFixed", "INTEGER"},
+			{"arrivalDate", "TEXT"},
+			{"departureDate", "TEXT"}
 		};
 	
+	public static String[] databaseInit() 
+	{
+		ArrayList<String> script = new ArrayList<String>();
+		//initialization of the database properties table
+		script.add("DROP TABLE IF EXISTS DBProperties;");
+		script.add("CRETE TABLE DBProperties(propKey, propValue);");
+				
+		//we should be incrementing this number as we go to help check for changes
+		script.add("INSERT INTO DBProperties VALUES ('dbVersion', 0);");
+		
+		String catsSchemaLine = "CREATE TABLE IF NOT EXISTS Cats(";
+		
+		catsSchemaLine += C_CatsColumns[0][0];
+		for(int i = 1; i < C_CatsColumns.length; i++)
+		{
+			catsSchemaLine += ", " + C_CatsColumns[i][0];
+		}
+		
+		catsSchemaLine += ");";
+		script.add(catsSchemaLine);
+		
+		return script.toArray(new String[script.size()]);
+	}
+
 	public static final String C_GeneralCatSearch = 
 			"SELECT *\n" + 
 			"FROM Cats C\n" +
@@ -29,6 +56,53 @@ public class SQLCodeConstants
 			"FROM Cats C\n" + 
 			"WHERE C.id='%s';\n";
 	
-	public static final String C_InsertNewCat = 
-			"INSERT INTO CATS VALUES('%s', '%s', '%s', '%i', '%s', '%s', '%s');";
+	public static String insertNewCatSQL() 
+	{
+		String statement = "INSERT INTO CATS VALUES(";
+		
+		statement += formatType(C_CatsColumns[0]);
+		for(int i = 1; i < C_CatsColumns.length; i++)
+		{
+			statement += ", " + formatType(C_CatsColumns[i]);
+		}
+		
+		statement += ");";
+		
+		return statement;
+	}
+	
+	public static String updateExistingCatSQL() 
+	{
+		String statement = 
+				"UPDATE Cats\n" + 
+				"SET ";
+		
+		String idSet = fullFormat(C_CatsColumns[0]);		
+		statement += idSet;
+		for(int i = 1; i < C_CatsColumns.length; i++)
+		{
+			statement += ", " + fullFormat(C_CatsColumns[i]);
+		}
+		
+		statement += "\nWHERE " + idSet + ";\n";
+		
+		return statement;
+	}
+	
+	private static String formatType(String[] item)
+	{
+		if(item[1] == "INTEGER")
+		{
+			return "%i";
+		}
+		else
+		{
+			return "'%s'";
+		}
+	}
+	
+	private static String fullFormat(String[] item)
+	{
+		return item[0] + "=" + formatType(item);
+	}
 }

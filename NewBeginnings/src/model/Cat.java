@@ -13,7 +13,7 @@ public class Cat{
 	private String id;
 	private boolean isFixed;
 	
-	public Cat(String name, int age, String gender, String breed, String hairColor, String id, boolean isFixed, GregorianCalendar arrivalDate, GregorianCalendar departureDate){
+	public Cat(String id, String name, int age, String gender, String breed, String hairColor, boolean isFixed, GregorianCalendar arrivalDate, GregorianCalendar departureDate){
 		this.name = name;
 		this.age = age;
 		this.gender = gender;

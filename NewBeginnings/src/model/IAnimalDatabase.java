@@ -39,4 +39,18 @@ public interface IAnimalDatabase
 	 * @return
 	 */
 	public Cat getSingleCat(String catID);
+	
+	/**
+	 * Adds a new cat to the database
+	 * 
+	 * @param cat the new cat
+	 */
+	public void addNewCat(Cat cat);
+	
+	/**
+	 * Update a cat already in the database
+	 * 
+	 * @param cat the cat to update
+	 */
+	public void updateCat(Cat cat);
 }

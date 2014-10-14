@@ -28,8 +28,14 @@ public class AnimalDatabaseSQLiteTest
 		//until we're doing a version check and migration, we
 		//should also always be running the initialization script
 		assertTrue(_fakeSQLite.getInitializeDatabaseCallHistory().size() >= 1);
-		assertArrayEquals(SQLCodeConstants.C_DatabaseSchema, _fakeSQLite.getInitializeDatabaseCallHistory().get(0));
+		assertArrayEquals(SQLCodeConstants.databaseInit(), _fakeSQLite.getInitializeDatabaseCallHistory().get(0));
 	}
+	
+	//TODO: These next few tests are really tests of the SQLCodeConstants class.
+	//In order to test true conversion of an SQL result into a Cat, we may
+	//need to wrap up the ResultSet object to give fake results to the
+	//AnimalDatabaseSQLite object, and I think that kind of testing
+	//of these adapters isn't really standard practice
 	
 	@Test
 	public void getFilteredCatsUsesProperQuery()
@@ -46,6 +52,24 @@ public class AnimalDatabaseSQLiteTest
 				"SELECT *\n" + 
 				"FROM Cats C\n" + 
 				"WHERE C.Name LIKE 'Stormy%';\n";
+		
+		String actualSQL = _fakeSQLite.getExecuteQueryCallHistory().get(callCount - 1);
+		assertEquals(expectedSQL, actualSQL);
+	}
+	
+	@Test
+	public void getSingleCatUserProperQuery()
+	{
+		String fakeID = "NB-14-1337";
+		_animalDB.getSingleCat(fakeID);
+		
+		int callCount = _fakeSQLite.getExecuteQueryCallHistory().size();
+		assertTrue(callCount >= 1);
+		
+		String expectedSQL = 
+				"SELECT *\n" + 
+				"FROM Cats C\n" + 
+				"WHERE C.id='" + fakeID + "';\n";
 		
 		String actualSQL = _fakeSQLite.getExecuteQueryCallHistory().get(callCount - 1);
 		assertEquals(expectedSQL, actualSQL);

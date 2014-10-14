@@ -20,7 +20,7 @@ public class CatTest {
 		GregorianCalendar expectedArrivalDate = new GregorianCalendar(2011, 0, 11);
 		GregorianCalendar expectedDepartureDate = new GregorianCalendar(2013, 4, 12);
 		
-		Cat cat = new Cat(expectedName, expectedAge, expectedGender, expectedBreed, expectedHairColor, expectedID, expectedIsFixed, expectedArrivalDate, expectedDepartureDate);
+		Cat cat = new Cat(expectedID, expectedName, expectedAge, expectedGender, expectedBreed, expectedHairColor, expectedIsFixed, expectedArrivalDate, expectedDepartureDate);
 		
 		assertSame(expectedName, cat.getName());
 		assertSame(expectedAge, cat.getAge());
