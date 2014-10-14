@@ -11,11 +11,15 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 	private List<String> _executeUpdateCallHistory;
 	private List<String[]> _initializeDatabaseCallHistory;
 	
+	private int _closeEverythingCallCount;
+	
 	public FakeSQLiteWrapper()
 	{
 		_executeQueryCallHistory = new LinkedList<String>();
 		_executeUpdateCallHistory = new LinkedList<String>();
 		_initializeDatabaseCallHistory = new LinkedList<String[]>();
+		
+		_closeEverythingCallCount = 0;
 	}
 	
 	@Override
@@ -37,6 +41,12 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 		_initializeDatabaseCallHistory.add(initializationScript);
 	}
 	
+	@Override
+	public void closeEverything()
+	{
+		_closeEverythingCallCount++;	
+	}
+	
 	public List<String> getExecuteQueryCallHistory() 
 	{
 		return _executeQueryCallHistory;
@@ -50,5 +60,10 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 	public List<String[]> getInitializeDatabaseCallHistory() 
 	{
 		return _initializeDatabaseCallHistory;
+	}
+	
+	public int getCloseEverythingCallCount()
+	{
+		return _closeEverythingCallCount;
 	}
 }

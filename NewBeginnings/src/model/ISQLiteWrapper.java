@@ -13,6 +13,8 @@ public interface ISQLiteWrapper
 	 * Connects to the database and gets the
 	 * results of the query
 	 * 
+	 * Be sure to call closeEverything()when finished
+	 * 
 	 * @param SQLQuery the SQL query to execute
 	 * @return the set of results from the query
 	 */
@@ -37,4 +39,11 @@ public interface ISQLiteWrapper
 	 * @param initializationScript
 	 */
 	public void initializeDatabase(String[] initializationScript);
+	
+	/**
+	 * Closes the current connection and statement
+	 * used when results need to be passed back
+	 * out of another method before closure
+	 */
+	public void closeEverything();
 }

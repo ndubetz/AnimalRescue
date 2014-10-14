@@ -9,7 +9,8 @@ import java.sql.Statement;
 public class SQLiteWrapper implements ISQLiteWrapper 
 {
 	String _connectionString;
-	Connection _conn;
+	Connection _currentConn;
+	Statement _currentStatement;
 	
 	public SQLiteWrapper(String connectionString) throws ClassNotFoundException 
 	{
@@ -20,37 +21,85 @@ public class SQLiteWrapper implements ISQLiteWrapper
 	@Override
 	public ResultSet executeQuery(String SQLQuery) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		try 
+		{
+			setConnetion(30);
+			
+			ResultSet results = _currentStatement.executeQuery(SQLQuery);
+			return results;
+		} 
+		catch (SQLException e) 
+		{
+			return null;
+		}
 	}
 
 	@Override
 	public void executeUpdate(String SQLCommand) 
 	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void initializeDatabase(String[] initializationScript) 
-	{
-		for(String command : initializationScript)
+		try 
+		{
+			setConnetion(30);
+			_currentStatement.executeUpdate(SQLCommand);
+			
+			_currentStatement.close();
+			_currentConn.close();
+		} 
+		catch (SQLException e) 
 		{
 			
 		}
 	}
 
-	private Statement setConnetion(int timeout) throws SQLException
+	@Override
+	public void initializeDatabase(String[] initializationScript) 
 	{
-		if(_conn != null)
+		try 
 		{
-			_conn.close();
+			setConnetion(30);
+			
+			for(String command : initializationScript)
+			{
+				_currentStatement.executeUpdate(command);
+			}
+			
+			_currentStatement.close();
+			_currentConn.close();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void closeEverything() 
+	{
+		try 
+		{
+			if(_currentConn != null)
+			{
+				_currentConn.close();
+			}
+			
+			if(_currentStatement != null)
+			{
+				_currentStatement.close();
+			}
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void setConnetion(int timeout) throws SQLException
+	{
+		closeEverything();
 		
-		_conn = DriverManager.getConnection(_connectionString);
-		Statement statement = _conn.createStatement();
-		statement.setQueryTimeout(timeout);
-		
-		return statement;
+		_currentConn = DriverManager.getConnection(_connectionString);
+		_currentStatement = _currentConn.createStatement();
+		_currentStatement.setQueryTimeout(timeout);
 	}
 }

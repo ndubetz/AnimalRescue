@@ -28,7 +28,7 @@ public class SQLiteDatabaseInterface
 		ArrayList<String> script = new ArrayList<String>();
 		//initialization of the database properties table
 		script.add("DROP TABLE IF EXISTS DBProperties;");
-		script.add("CRETE TABLE DBProperties(propKey, propValue);");
+		script.add("CREATE TABLE DBProperties(propKey, propValue);");
 				
 		//we should be incrementing this number as we go to help check for changes
 		script.add("INSERT INTO DBProperties VALUES ('dbVersion', 0);");
@@ -109,7 +109,7 @@ public class SQLiteDatabaseInterface
 	    	slash = "/";
 	    }
 	    
-	    return "jdbc:sqlite:" + systemPath + slash + "NewBeginningsAnimalRescue" + slash + "cats.db";
+	    return "jdbc:sqlite:" + systemPath + slash + "NewBeginningsAnimalRescueCats.db";
 	}
 	
 	private static String formatType(String[] item)

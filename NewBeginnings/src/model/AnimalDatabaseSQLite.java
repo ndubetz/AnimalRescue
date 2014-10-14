@@ -54,6 +54,8 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				Cat newCat = createCatFromSQLResult(results);
 				if (newCat != null) catList.add(newCat);
 			}
+			
+			_sqlite.closeEverything();
 		} 
 		catch (SQLException e) 
 		{
@@ -83,7 +85,6 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		{
 			return null;
 		}
-		
 	}
 	
 	@Override

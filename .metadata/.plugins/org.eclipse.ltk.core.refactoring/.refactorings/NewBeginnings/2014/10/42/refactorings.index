@@ -6,3 +6,4 @@
 1413305087238	Rename method 'buildQuery'
 1413320360537	Rename type 'SQLCodeConstants'
 1413320398048	Rename type 'SQLiteDatabaseAccessor'
+1413326281744	Rename field '_conn'
