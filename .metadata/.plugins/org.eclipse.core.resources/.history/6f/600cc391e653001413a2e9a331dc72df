@@ -1,0 +1,39 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+public class SQLiteWrapper implements ISQLiteWrapper 
+{
+	String _connectionString;
+
+	public SQLiteWrapper(String connectionString) throws ClassNotFoundException 
+	{
+		Class.forName("org.sqlite.JDBC");
+		_connectionString = connectionString;
+	}
+	
+	@Override
+	public ResultSet executeQuery(String SQLQuery) 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void executeUpdate(String SQLCommand) 
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initializeDatabase(String[] initializationScript) 
+	{
+		for(String command : initializationScript)
+		{
+			executeUpdate(command);
+		}
+	}
+
+}

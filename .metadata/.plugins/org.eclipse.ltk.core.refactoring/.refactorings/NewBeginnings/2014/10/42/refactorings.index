@@ -4,3 +4,5 @@
 1413304264278	Encapsulate field 'C_InsertNewCat'
 1413304702772	Encapsulate field 'C_UpdateExistingCat'
 1413305087238	Rename method 'buildQuery'
+1413320360537	Rename type 'SQLCodeConstants'
+1413320398048	Rename type 'SQLiteDatabaseAccessor'

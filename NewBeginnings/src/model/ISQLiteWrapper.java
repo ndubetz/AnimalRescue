@@ -27,13 +27,6 @@ public interface ISQLiteWrapper
 	public void executeUpdate(String SQLCommand);
 	
 	/**
-	 * Sets the path to the current database
-	 * 
-	 * @param connectionString the path to the database
-	 */
-	public void setConnection(String connectionString);
-	
-	/**
 	 * Runs the specified sequence of commands on the database.
 	 * SQLite will automatically create the database file at
 	 * the current connection path if it is not already there.

@@ -14,13 +14,12 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 	public AnimalDatabaseSQLite(ISQLiteWrapper sqliteWrapper)
 	{
 		_sqlite = sqliteWrapper;
-		_sqlite.setConnection(getDefaultDatabaseConnectionString());
 		
 		//For now, I'm just creating the database if need be.
 		//Eventually, we may want to compare against a version
 		//number to know how to upgrade an existing database
 		//to accommodate schema changes.
-		_sqlite.initializeDatabase(SQLCodeConstants.databaseInit());
+		_sqlite.initializeDatabase(SQLiteDatabaseInterface.databaseInit());
 		
 		_filterType = SearchFilterType.Name;
 		_searchFilter = "";
@@ -70,7 +69,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 	@Override
 	public Cat getSingleCat(String catID) 
 	{
-		String query = String.format(SQLCodeConstants.C_SpecificCatByID, catID);
+		String query = String.format(SQLiteDatabaseInterface.C_SpecificCatByID, catID);
 		ResultSet result = _sqlite.executeQuery(query);
 		
 		if(result == null) return null;
@@ -90,15 +89,38 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 	@Override
 	public void addNewCat(Cat cat) 
 	{
-		// TODO Auto-generated method stub
+		String statement = String.format(SQLiteDatabaseInterface.insertNewCatSQL(), 
+				cat.getID(),
+				cat.getName(),
+				cat.getAge(),
+				cat.getGender(),
+				cat.getBreed(),
+				cat.getHairColor(),
+				cat.isFixed()? 0 : 1,
+				cat.getArrivalDate().toString(),
+				cat.getExpectedDepartureDate().toString()
+				);
 		
+		_sqlite.executeUpdate(statement);
 	}
 
 	@Override
 	public void updateCat(Cat cat) 
 	{
-		// TODO Auto-generated method stub
+		String statement = String.format(SQLiteDatabaseInterface.updateExistingCatSQL(), 
+				cat.getID(),
+				cat.getName(),
+				cat.getAge(),
+				cat.getGender(),
+				cat.getBreed(),
+				cat.getHairColor(),
+				cat.isFixed()? 0 : 1, //convert boolean to integer
+				cat.getArrivalDate().toString(),
+				cat.getExpectedDepartureDate().toString(),
+				cat.getID()
+				);
 		
+		_sqlite.executeUpdate(statement);
 	}
 	
 	private Cat createCatFromSQLResult(ResultSet result)
@@ -140,27 +162,6 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 			filterColumn = "";
 		}
 		
-		return String.format(SQLCodeConstants.C_GeneralCatSearch, filterColumn, _searchFilter);
-	}
-	
-	private String getDefaultDatabaseConnectionString()
-	{
-		String systemPath;
-		String slash;
-		
-		String OS = System.getProperty("os.name").toLowerCase();
-		
-	    if (OS.contains("win"))
-	    {
-	    	systemPath = System.getenv("APPDATA");
-	    	slash = "\\";
-	    }
-	    else
-	    {
-	    	systemPath = System.getProperty("user.dir");
-	    	slash = "/";
-	    }
-	    
-	    return "jdbc:sqlite:" + systemPath + slash + "NewBeginningsAnimalRescue" + slash + "cats.db";
+		return String.format(SQLiteDatabaseInterface.C_GeneralCatSearch, filterColumn, _searchFilter);
 	}
 }
