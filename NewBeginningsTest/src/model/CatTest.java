@@ -33,5 +33,18 @@ public class CatTest {
 		assertSame(expectedDepartureDate, cat.getExpectedDepartureDate());
 	}
 	
-
+	@Test
+	public void testEmptyCatIsEmpty() throws Exception {
+		Cat cat = Cat.emptyCat();
+		String blankID = "NB-XX-YYY";
+		assertEquals(blankID, cat.getID());
+		assertEquals("", cat.getName());
+		assertEquals(-1, cat.getAge());
+		assertEquals("", cat.getGender());
+		assertEquals("", cat.getBreed());
+		assertEquals("", cat.getHairColor());
+		assertEquals(false, cat.isFixed());
+		assertEquals(new GregorianCalendar(0,0,0), cat.getArrivalDate());
+		assertEquals(new GregorianCalendar(0,0,0), cat.getExpectedDepartureDate());
+	}
 }

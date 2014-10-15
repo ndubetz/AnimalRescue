@@ -25,10 +25,11 @@ import javax.swing.JTextField;
 public class MainView implements java.util.Observer{
 
 	private JButton addNewCatButton;
+	private JFrame frame;
 
 
 	public MainView(String frameName) {
-		JFrame frame = new JFrame("New Beginnings");
+		frame = new JFrame("New Beginnings");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		addComponentsToPane(frame);
@@ -100,6 +101,10 @@ public class MainView implements java.util.Observer{
 	public void addController(MainController controller){
 		System.out.println("Adding Controller");
 		addNewCatButton.addActionListener(controller);
+	}
+	
+	public JFrame getFrame(){
+		return this.frame;
 	}
 	
 	public static class CloseListener extends WindowAdapter{

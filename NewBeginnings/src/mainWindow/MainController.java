@@ -1,6 +1,14 @@
 package mainWindow;
 
-class MainController implements java.awt.event.ActionListener{
+import hostView.AnimalInfoView;
+import hostView.AnimalInfoViewBuilder;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import model.Cat;
+
+public class MainController implements ActionListener{
 	MainView view;
 	MainModel model;
 	
@@ -9,7 +17,10 @@ class MainController implements java.awt.event.ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(java.awt.event.ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
+		AnimalInfoView animalView = AnimalInfoViewBuilder.singleton().build(Cat.emptyCat());
+		//this animalView needs to be plumbed up to the MainView's JScrollPane 
+		//so it can replace the current view in the JScrollPane
 		model.newAnimal();	
 	}
 

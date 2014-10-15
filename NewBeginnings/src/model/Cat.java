@@ -14,17 +14,21 @@ public class Cat{
 	private boolean isFixed;
 	
 	public Cat(String id, String name, int age, String gender, String breed, String hairColor, boolean isFixed, GregorianCalendar arrivalDate, GregorianCalendar departureDate){
+		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
 		this.breed = breed;
 		this.hairColor = hairColor;
-		this.id = id;
 		this.isFixed = isFixed;
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
 	}
 	
+	public static Cat emptyCat() {
+		return new Cat("NB-XX-YYY", "", -1, "", "", "", false, new GregorianCalendar(0,0,0), new GregorianCalendar(0,0,0));
+	}
+
 	public int getAge() {
 		return this.age;
 	}
@@ -60,4 +64,5 @@ public class Cat{
 	public boolean isFixed() {
 		return this.isFixed;
 	}
+
 }

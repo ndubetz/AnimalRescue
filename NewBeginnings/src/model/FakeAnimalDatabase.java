@@ -23,6 +23,7 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 		_fakeCats.add(new Cat("NB-14-5", "Fluffy", 3, "F", "Australian Mist", "White", true, new GregorianCalendar(), new GregorianCalendar()));
 		_fakeCats.add(new Cat("NB-14-4", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar()));//this repeat is intentional. Note the different ID number
 		_fakeCats.add(new Cat("NB-14-7", "Geoff", 5, "M", "California Spangled", "Spotted Orange", false, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(Cat.emptyCat());
 	}
 	
 	@Override
