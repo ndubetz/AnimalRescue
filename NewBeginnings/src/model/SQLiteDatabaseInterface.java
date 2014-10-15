@@ -91,7 +91,7 @@ public class SQLiteDatabaseInterface
 	}
 	
 	
-	public static String getDefaultDatabaseConnectionString()
+	public static String defaultDatabasePath()
 	{
 		String systemPath;
 		String slash;

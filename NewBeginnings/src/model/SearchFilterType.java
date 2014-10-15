@@ -6,5 +6,19 @@ package model;
  */
 public enum SearchFilterType
 {
-	Name
-};
+	Name,
+	Color;
+	
+	public String toString()
+	{
+		switch(this)
+		{
+		case Name:
+			return "Name";
+		case Color:
+			return "Color";
+		default:
+			return "";
+		}
+	}
+}

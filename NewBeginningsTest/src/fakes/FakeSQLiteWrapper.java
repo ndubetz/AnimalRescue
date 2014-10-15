@@ -36,7 +36,7 @@ public class FakeSQLiteWrapper implements ISQLiteWrapper
 	}
 
 	@Override
-	public void initializeDatabase(String[] initializationScript) 
+	public void executeMultipleUpdate(String[] initializationScript) 
 	{
 		_initializeDatabaseCallHistory.add(initializationScript);
 	}

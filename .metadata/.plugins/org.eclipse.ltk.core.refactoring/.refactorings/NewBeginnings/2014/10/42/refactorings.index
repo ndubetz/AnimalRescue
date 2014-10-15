@@ -7,3 +7,6 @@
 1413320360537	Rename type 'SQLCodeConstants'
 1413320398048	Rename type 'SQLiteDatabaseAccessor'
 1413326281744	Rename field '_conn'
+1413330734218	Rename method 'initializeDatabase'
+1413330742053	Rename local variable 'initializationScript'
+1413331200719	Rename method 'getDefaultDatabaseConnectionString'

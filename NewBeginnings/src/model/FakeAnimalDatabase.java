@@ -12,16 +12,10 @@ import java.util.List;
  */
 public class FakeAnimalDatabase implements IAnimalDatabase
 {
-	private SearchFilterType _filterType;
-	private String _searchFilter;
-
 	private List<Cat> _fakeCats;
 	
 	public FakeAnimalDatabase()
-	{
-		_filterType = SearchFilterType.Name;
-		_searchFilter = "";
-	
+	{	
 		_fakeCats = new LinkedList<Cat>();
 		_fakeCats.add(new Cat("NB-14-3", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar()));
 		_fakeCats.add(new Cat("NB-14-1", "Storm", 2, "F", "Aegean", "Brown and White", false, new GregorianCalendar(), new GregorianCalendar()));
@@ -32,19 +26,7 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	}
 	
 	@Override
-	public void setSearchFilterType(SearchFilterType filterType)
-	{
-		_filterType = filterType;
-	}
-
-	@Override
-	public void setSearchFiler(String filter)
-	{
-		_searchFilter = filter;
-	}
-	
-	@Override
-	public List<Cat> getFilteredCats()
+	public List<Cat> getFilteredCats(SearchFilterType filterType, String filter)
 	{
 		return _fakeCats;
 	}

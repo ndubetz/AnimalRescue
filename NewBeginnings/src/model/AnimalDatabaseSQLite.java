@@ -7,8 +7,6 @@ import java.util.List;
 
 public class AnimalDatabaseSQLite implements IAnimalDatabase
 {
-	private SearchFilterType _filterType;
-	private String _searchFilter;
 	private ISQLiteWrapper _sqlite;
 	
 	public AnimalDatabaseSQLite(ISQLiteWrapper sqliteWrapper)
@@ -19,28 +17,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		//Eventually, we may want to compare against a version
 		//number to know how to upgrade an existing database
 		//to accommodate schema changes.
-		_sqlite.initializeDatabase(SQLiteDatabaseInterface.databaseInit());
-		
-		_filterType = SearchFilterType.Name;
-		_searchFilter = "";
+		_sqlite.executeMultipleUpdate(SQLiteDatabaseInterface.databaseInit());
 	}
 	
 	@Override
-	public void setSearchFilterType(SearchFilterType filterType)
+	public List<Cat> getFilteredCats(SearchFilterType filterType, String filter)
 	{
-		_filterType = filterType;
-	}
-
-	@Override
-	public void setSearchFiler(String filter)
-	{
-		_searchFilter = filter;
-	}
-	
-	@Override
-	public List<Cat> getFilteredCats()
-	{
-		String query = buildGeneralCatSearchQuery();
+		String query = String.format(SQLiteDatabaseInterface.C_GeneralCatSearch, filterType, filter);
 		
 		List<Cat> catList = new LinkedList<Cat>();
 		ResultSet results = _sqlite.executeQuery(query);
@@ -79,7 +62,9 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		try 
 		{
 			result.next();
-			return createCatFromSQLResult(result);
+			Cat cat = createCatFromSQLResult(result);
+			_sqlite.closeEverything();			
+			return cat;
 		} 
 		catch (SQLException e) 
 		{
@@ -148,21 +133,5 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 			//if we get a corrupted cat, just return null
 			return null;
 		}
-	}
-	
-	private String buildGeneralCatSearchQuery()
-	{
-		String filterColumn;
-		
-		switch(_filterType)
-		{
-		case Name: 
-			filterColumn = "Name";
-			break;
-		default:
-			filterColumn = "";
-		}
-		
-		return String.format(SQLiteDatabaseInterface.C_GeneralCatSearch, filterColumn, _searchFilter);
 	}
 }

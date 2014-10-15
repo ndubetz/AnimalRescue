@@ -9,27 +9,13 @@ import java.util.List;
 public interface IAnimalDatabase
 {
 	/**
-	 * Sets the filter type 
-	 *
-	 * @param filterType the type of filter
-	 */
-	public void setSearchFilterType(SearchFilterType filterType);
-
-	/**
-	 * Sets the filter string
-	 * 
-	 * @param filter the filter string
-	 */
-	public void setSearchFiler(String filter);
-	
-	/**
 	 * Retrieves the list of cats that match
 	 * the current search parameters from
 	 * the database
 	 * 
 	 * @return the list of cats
 	 */
-	public List<Cat> getFilteredCats();
+	public List<Cat> getFilteredCats(SearchFilterType filterType, String filter);
 	
 	/**
 	 * Gets the single cat from the database

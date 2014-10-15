@@ -38,7 +38,7 @@ public interface ISQLiteWrapper
 	 * 
 	 * @param initializationScript
 	 */
-	public void initializeDatabase(String[] initializationScript);
+	public void executeMultipleUpdate(String[] initializationScript);
 	
 	/**
 	 * Closes the current connection and statement

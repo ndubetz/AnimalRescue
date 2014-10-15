@@ -52,13 +52,13 @@ public class SQLiteWrapper implements ISQLiteWrapper
 	}
 
 	@Override
-	public void initializeDatabase(String[] initializationScript) 
+	public void executeMultipleUpdate(String[] script) 
 	{
 		try 
 		{
 			setConnetion(30);
 			
-			for(String command : initializationScript)
+			for(String command : script)
 			{
 				_currentStatement.executeUpdate(command);
 			}
@@ -77,20 +77,18 @@ public class SQLiteWrapper implements ISQLiteWrapper
 	{
 		try 
 		{
-			if(_currentConn != null)
+			if(_currentConn != null && !_currentConn.isClosed())
 			{
 				_currentConn.close();
 			}
 			
-			if(_currentStatement != null)
+			if(_currentStatement != null && !_currentStatement.isClosed())
 			{
 				_currentStatement.close();
 			}
 		}
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
