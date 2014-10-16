@@ -43,16 +43,18 @@ public class MainView implements java.util.Observer{
 	private void addComponentsToPane(JFrame frame) {
 		JTextField searchBar = new JTextField("Search For A Cat");
 		addNewCatButton = new JButton("Add New Cat");
+		JButton searchButton = new JButton("Search");
 		
 		JPanel topPanel = new JPanel();
+		JPanel searchPanel = new JPanel();		
 		
-		topPanel.setLayout( new FlowLayout(FlowLayout.CENTER, 360, 20) );
+		topPanel.setLayout( new FlowLayout(FlowLayout.CENTER, 300, 20) );		
+		
 		JPanel bottomPanel = new JPanel();
 		
 		JScrollPane scrollPane = new JScrollPane(bottomPanel);
 		
-		JMenuBar menuBar = new JMenuBar();
-		
+		JMenuBar menuBar = new JMenuBar();	
 		
 		JMenu fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
@@ -67,30 +69,29 @@ public class MainView implements java.util.Observer{
 			}
 		});	
 		
-		for(int i = 0; i < 100; i++){
-			JLabel label = new JLabel("CAT!!!!!!");
+		for(int i = 1; i <= 100; i++){
+			JLabel label = new JLabel("CAT " + i);
 			bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
 			bottomPanel.add(label);
 		}
 
 		frame.setJMenuBar(menuBar);
 		
-		topPanel.setBackground(Color.RED);
-		bottomPanel.setBackground(Color.GREEN);
-		
-		
-		
+		menuBar.setBackground(new Color(252,245,235));
+		topPanel.setBackground(new Color(47,140,171));
+		searchPanel.setBackground(new Color(47,140,171));		
+		bottomPanel.setBackground(new Color(201,226,233));
+	
 		topPanel.setPreferredSize(new Dimension(1000, 100));
 		searchBar.setPreferredSize(new Dimension(150, 20));
+		searchPanel.add(searchBar);
+		searchPanel.add(searchButton);
 		
-		
-		topPanel.add(searchBar);
+		topPanel.add(searchPanel);
 		topPanel.add(addNewCatButton);
 		
 		frame.getContentPane().add(topPanel, BorderLayout.PAGE_START);
-		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		
-		
+		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);		
 	}
 
 	@Override
