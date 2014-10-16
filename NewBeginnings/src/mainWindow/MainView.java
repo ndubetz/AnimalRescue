@@ -35,7 +35,7 @@ public class MainView implements java.util.Observer{
 		addComponentsToPane(frame);
 		
 		frame.setSize(1000, 700);
-		frame.setLocation(200, 200);
+		frame.setLocation(200, 25);
 		frame.setVisible(true);	
 		
 	}
