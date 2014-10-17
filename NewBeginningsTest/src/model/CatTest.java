@@ -47,4 +47,14 @@ public class CatTest {
 		assertEquals(new GregorianCalendar(0,0,0), cat.getArrivalDate());
 		assertEquals(new GregorianCalendar(0,0,0), cat.getExpectedDepartureDate());
 	}
+	
+	@Test
+	public void testIsTheEmptyCat() throws Exception {
+		assertTrue(Cat.isTheEmptyCat(Cat.emptyCat()));
+		
+		Cat catThatIsEmptyExceptForID = new Cat("skroob", "", 0, "", "", "", 
+			false, new GregorianCalendar(), new GregorianCalendar());
+		
+		assertFalse(Cat.isTheEmptyCat(catThatIsEmptyExceptForID));		
+	}
 }

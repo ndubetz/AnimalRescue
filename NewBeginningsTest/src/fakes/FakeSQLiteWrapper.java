@@ -1,9 +1,10 @@
 package fakes;
 
 import java.sql.ResultSet;
-import model.ISQLiteWrapper;
 import java.util.LinkedList;
 import java.util.List;
+
+import database.ISQLiteWrapper;
 
 public class FakeSQLiteWrapper implements ISQLiteWrapper
 {
