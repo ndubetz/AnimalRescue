@@ -98,8 +98,10 @@ public class AnimalInfoViewBuilder {
 				Boolean.toString(this.theCat.isFixed()), constraints, 9);
 
 		this.theView.add(this.basicInfoPanel);
+		// Yi, use this code to get info from textfield. Odd indices
 		// Component[] components = this.basicInfoPanel.getComponents();
-		// components[1].ge
+		// String str = ((JTextField) components[1]).getText();
+		// String str = ((JTextField) components[3]).getText();
 	}
 
 	private void buildLabelAndTextfieldPair(String label, String content,
