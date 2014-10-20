@@ -1,11 +1,10 @@
 package hostView;
 
-import java.awt.GridLayout;
-
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class AnimalInfoView extends JPanel {
 	public AnimalInfoView() {
-		this.setLayout(new GridLayout(9, 2));
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
 }

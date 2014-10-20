@@ -2,7 +2,7 @@ package database;
 
 import static org.junit.Assert.*;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 import model.Cat;
 
@@ -79,7 +79,7 @@ public class AnimalDatabaseSQLiteTest
 	@Test
 	public void addCatUsesProperQuery()
 	{
-		Cat cat = new Cat("NB-14-3", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar());
+		Cat cat = new Cat("NB-14-3", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance());
 
 		_animalDB.addNewCat(cat);
 		int callCount = _fakeSQLite.getExecuteUpdateCallHistory().size();
@@ -88,13 +88,13 @@ public class AnimalDatabaseSQLiteTest
 		String expectedSQL = String.format(SQLiteDatabaseInterface.insertNewCatSQL(), 
 				cat.getID(),
 				cat.getName(),
-				cat.getAge(),
+				cat.getBirthdate().getTimeInMillis(),
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
 				cat.isFixed()? 0 : 1,
-				cat.getArrivalDate().toString(),
-				cat.getExpectedDepartureDate().toString()
+				cat.getArrivalDate().getTimeInMillis(),
+				cat.getExpectedDepartureDate().getTimeInMillis()
 				);
 		
 		String actualSQL = _fakeSQLite.getExecuteUpdateCallHistory().get(callCount - 1);
@@ -104,7 +104,7 @@ public class AnimalDatabaseSQLiteTest
 	@Test
 	public void updateCatUsesProperQuery()
 	{
-		Cat cat = new Cat("NB-14-3", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar());
+		Cat cat = new Cat("NB-14-3", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance());
 
 		_animalDB.updateCat(cat);
 		int callCount = _fakeSQLite.getExecuteUpdateCallHistory().size();
@@ -113,13 +113,13 @@ public class AnimalDatabaseSQLiteTest
 		String expectedSQL = String.format(SQLiteDatabaseInterface.updateExistingCatSQL(), 
 				cat.getID(),
 				cat.getName(),
-				cat.getAge(),
+				cat.getBirthdate().getTimeInMillis(),
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
 				cat.isFixed()? 0 : 1,
-				cat.getArrivalDate().toString(),
-				cat.getExpectedDepartureDate().toString(),
+				cat.getArrivalDate().getTimeInMillis(),
+				cat.getExpectedDepartureDate().getTimeInMillis(),
 				cat.getID()
 				);
 		

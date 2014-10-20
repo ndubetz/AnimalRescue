@@ -1,5 +1,6 @@
 package database;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,12 +20,12 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	public FakeAnimalDatabase()
 	{	
 		_fakeCats = new LinkedList<Cat>();
-		_fakeCats.add(new Cat("NB-14-3", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("NB-14-1", "Storm", 2, "F", "Aegean", "Brown and White", false, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("NB-14-2", "Han Solo", 4, "M", "American Curl", "Black with White Stripes", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("NB-14-5", "Fluffy", 3, "F", "Australian Mist", "White", true, new GregorianCalendar(), new GregorianCalendar()));
-		_fakeCats.add(new Cat("NB-14-4", "Boots", 3, "M", "Siberian", "Jet Black", true, new GregorianCalendar(), new GregorianCalendar()));//this repeat is intentional. Note the different ID number
-		_fakeCats.add(new Cat("NB-14-7", "Geoff", 5, "M", "California Spangled", "Spotted Orange", false, new GregorianCalendar(), new GregorianCalendar()));
+		_fakeCats.add(new Cat("NB-14-3", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-1", "Storm", Calendar.getInstance(), "F", "Aegean", "Brown and White", false, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-2", "Han Solo", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-5", "Fluffy", Calendar.getInstance(), "F", "Australian Mist", "White", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-4", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));//this repeat is intentional. Note the different ID number
+		_fakeCats.add(new Cat("NB-14-7", "Geoff", Calendar.getInstance(), "M", "California Spangled", "Spotted Orange", false, Calendar.getInstance(), Calendar.getInstance()));
 		_fakeCats.add(Cat.emptyCat());
 	}
 	
@@ -42,8 +43,7 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 
 	@Override
 	public void addNewCat(Cat cat) {
-		// TODO Auto-generated method stub
-		
+		_fakeCats.add(cat);		
 	}
 
 	@Override

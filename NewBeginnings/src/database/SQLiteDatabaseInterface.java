@@ -14,13 +14,13 @@ public class SQLiteDatabaseInterface
 		{
 			{"id", "TEXT"},
 			{"name", "TEXT"},
-			{"age", "INTEGER"},
+			{"birthdate", "INTEGER"},
 			{"gender", "TEXT"},
 			{"breed", "TEXT"},
 			{"hairColor", "TEXT"},
 			{"isFixed", "INTEGER"},
-			{"arrivalDate", "TEXT"},
-			{"departureDate", "TEXT"}
+			{"arrivalDate", "INTEGER"},
+			{"departureDate", "INTEGER"}
 		};
 	
 	public static String[] databaseInit() 
