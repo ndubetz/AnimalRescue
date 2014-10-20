@@ -1,9 +1,0 @@
-package model;
-
-public class Constants 
-{
-	public static final String[] C_DatabaseSchema = 
-		{
-			"CREATE TABLE Cats()"
-		};
-}

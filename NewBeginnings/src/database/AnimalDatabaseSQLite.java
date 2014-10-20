@@ -1,7 +1,7 @@
 package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -81,13 +81,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		String statement = String.format(SQLiteDatabaseInterface.insertNewCatSQL(), 
 				cat.getID(),
 				cat.getName(),
-				cat.getAge(),
+				cat.getBirthdate().getTimeInMillis(),
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
 				cat.isFixed()? 0 : 1,
-				cat.getArrivalDate().toString(),
-				cat.getExpectedDepartureDate().toString()
+				cat.getArrivalDate().getTimeInMillis(),
+				cat.getExpectedDepartureDate().getTimeInMillis()
 				);
 		
 		_sqlite.executeUpdate(statement);
@@ -99,13 +99,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		String statement = String.format(SQLiteDatabaseInterface.updateExistingCatSQL(), 
 				cat.getID(),
 				cat.getName(),
-				cat.getAge(),
+				cat.getBirthdate().getTimeInMillis(),
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
 				cat.isFixed()? 0 : 1, //convert boolean to integer
-				cat.getArrivalDate().toString(),
-				cat.getExpectedDepartureDate().toString(),
+				cat.getArrivalDate().getTimeInMillis(),
+				cat.getExpectedDepartureDate().getTimeInMillis(),
 				cat.getID()
 				);
 		
@@ -119,16 +119,14 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 					(
 							result.getString("id"),
 							result.getString("name"),
-							result.getInt("age"),
+							longToCalander(result.getLong("birthdate")),
 							result.getString("gender"),
 							result.getString("breed"),
 							result.getString("hairColor"),
 							//currently storing fixed status as an integer, need to convert
 							(result.getInt("isFixed") == 0),
-							//not sure how we want to serialize/deserialize these
-							//may change to SQL "BLOB" type
-							new GregorianCalendar(),
-							new GregorianCalendar()
+							longToCalander(result.getLong("arrivalDate")),
+							longToCalander(result.getLong("departureDate"))
 					);
 		} 
 		catch (SQLException e) 
@@ -136,5 +134,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 			//if we get a corrupted cat, just return the empty Cat
 			return Cat.emptyCat();
 		}
+	}
+	
+	private Calendar longToCalander(long timeInMs)
+	{
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timeInMs);
+		
+		return calendar;
 	}
 }

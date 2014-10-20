@@ -25,12 +25,11 @@ public class AnimalInfoViewBuilder {
 		// or whenever more information gets added
 		buildLabelAndTextfieldPair("ID", cat.getID());
 		buildLabelAndTextfieldPair("Name", cat.getName());
-		buildLabelAndTextfieldPair("Age", Integer.toString(cat.getAge()));
+		buildLabelAndTextfieldPair("Age", cat.getAge());
 		buildLabelAndTextfieldPair("Gender", cat.getGender());
 		buildLabelAndTextfieldPair("Breed", cat.getBreed());
 		buildLabelAndTextfieldPair("Hair Color", cat.getHairColor());
-		buildLabelAndTextfieldPair("Arrival Date", cat.getArrivalDate()
-				.getTime().toString());
+		buildLabelAndTextfieldPair("Arrival Date", cat.getArrivalDate().getTime().toString());
 		if (cat.getExpectedDepartureDate() == null) {
 			buildLabelAndTextfieldPair("Departure Date", "Not yet known");
 		} else {

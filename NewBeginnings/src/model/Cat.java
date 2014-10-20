@@ -1,6 +1,6 @@
 package model;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 /**
  *	TODO Possible refactors depending on growing complexity:
  *	-Create CatAttribute wrapper class so we don't have to worry about type conversion
@@ -11,19 +11,19 @@ import java.util.GregorianCalendar;
 public class Cat{
 	private static final String EMPTY_CAT_ID = "NB-XX-YYY";
 	private String name;
-	private int age;
+	private Calendar birthdate;
 	private String gender;
 	private String breed;
 	private String hairColor;
-	private GregorianCalendar arrivalDate;
-	private GregorianCalendar departureDate;
+	private Calendar arrivalDate;
+	private Calendar departureDate;
 	private String id;
 	private boolean isFixed;
 	
-	public Cat(String id, String name, int age, String gender, String breed, String hairColor, boolean isFixed, GregorianCalendar arrivalDate, GregorianCalendar departureDate){
+	public Cat(String id, String name, Calendar birthdate, String gender, String breed, String hairColor, boolean isFixed, Calendar arrivalDate, Calendar departureDate){
 		this.id = id;
 		this.name = name;
-		this.age = age;
+		this.birthdate = birthdate;
 		this.gender = gender;
 		this.breed = breed;
 		this.hairColor = hairColor;
@@ -33,7 +33,7 @@ public class Cat{
 	}
 	
 	public static Cat emptyCat() {
-		return new Cat(EMPTY_CAT_ID, "", -1, "", "", "", false, new GregorianCalendar(0,0,0), new GregorianCalendar(0,0,0));
+		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "", false, Calendar.getInstance(), Calendar.getInstance());
 	}
 
 	//pass in the cat that is under scrutiny
@@ -41,8 +41,8 @@ public class Cat{
 		return thisCat.getID().equals(EMPTY_CAT_ID);
 	}
 	
-	public int getAge() {
-		return this.age;
+	public Calendar getBirthdate(){
+		return this.birthdate;
 	}
 	
 	public String getName() {
@@ -61,11 +61,11 @@ public class Cat{
 		return this.hairColor;
 	}
 
-	public GregorianCalendar getArrivalDate() {
+	public Calendar getArrivalDate() {
 		return this.arrivalDate;
 	}
 
-	public GregorianCalendar getExpectedDepartureDate() {
+	public Calendar getExpectedDepartureDate() {
 		return this.departureDate;
 	}
 
@@ -77,4 +77,16 @@ public class Cat{
 		return this.isFixed;
 	}
 
+	public String getAge() {
+		String age = "%d Year%s, %d Month%s";
+		
+		long difference = Calendar.getInstance().getTimeInMillis() - this.birthdate.getTimeInMillis();
+		
+		long msPerYear = 31557600000l;
+		long msPerMonth = 2557440000l;
+		long years = difference/msPerYear;
+		long months = (difference % msPerYear) / msPerMonth;
+		
+		return String.format(age, years, (years == 1l)? "" : "s", months, (months == 1l)? "" : "s");
+	}
 }
