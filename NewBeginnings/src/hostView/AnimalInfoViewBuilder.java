@@ -66,7 +66,6 @@ public class AnimalInfoViewBuilder {
 	private void buildAndAddBasicInfoPanel() {
 		// the build labels calls will get refactored after the first iteration
 		// or whenever more information gets added
-		// anticipating getBirthDate and calculateAge
 		this.basicInfoPanel = new JPanel();
 		this.basicInfoPanel.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -89,6 +88,7 @@ public class AnimalInfoViewBuilder {
 		if (this.theCat.getExpectedDepartureDate() == null) {
 			buildLabelAndTextfieldPair("Departure Date", "Not yet known",
 					constraints, 8);
+
 		} else {
 			buildLabelAndTextfieldPair("Departure Date", this.theCat
 					.getExpectedDepartureDate().getTime().toString(),
