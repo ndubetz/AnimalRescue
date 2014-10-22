@@ -26,6 +26,8 @@ public class MainView implements java.util.Observer {
 	private JButton addNewCatButton;
 	private JFrame frame;
 	private JScrollPane scrollPane;
+	private JPanel hostPanel;
+	private JPanel previousPanel = new JPanel();
 
 	public MainView() {
 		build();
@@ -53,8 +55,8 @@ public class MainView implements java.util.Observer {
 
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 20));
 
-		final JPanel bottomPanel = makeBottomPanel();
-		setPanelToScrollPane(bottomPanel);
+		this.hostPanel = makeBottomPanel();
+		setPanelToScrollPane(this.hostPanel);
 
 		final JMenuBar menuBar = new JMenuBar();
 
@@ -95,7 +97,9 @@ public class MainView implements java.util.Observer {
 
 	public void changePanelOnScrollPane(JPanel bottomPanel) {
 		this.frame.getContentPane().remove(this.scrollPane);
-		setPanelToScrollPane(bottomPanel);
+		this.previousPanel = this.hostPanel;
+		this.hostPanel = bottomPanel;
+		setPanelToScrollPane(this.hostPanel);
 		this.frame.validate();
 	}
 
@@ -136,4 +140,11 @@ public class MainView implements java.util.Observer {
 		}
 	}
 
+	protected JPanel getPreviousPanel() {
+		return this.previousPanel;
+	}
+
+	protected JButton getAddNewCatButton() {
+		return this.addNewCatButton;
+	}
 }
