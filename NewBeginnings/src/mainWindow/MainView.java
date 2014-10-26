@@ -110,16 +110,13 @@ public class MainView{
 	}
 
 	public void changePanelOnScrollPane(JPanel bottomPanel) {
-		this.panelToContainThemAll.remove(this.scrollPane);
 		this.previousPanel = this.hostPanel;
 		this.hostPanel = bottomPanel;
+		
+		this.panelToContainThemAll.remove(this.scrollPane);
+		
 		setPanelToScrollPane(this.hostPanel);
 		this.panelToContainThemAll.validate();
-		this.frame.getContentPane().remove(this.scrollPane);
-		this.previousPanel = this.hostPanel;
-		this.hostPanel = bottomPanel;
-		setPanelToScrollPane(this.hostPanel);
-		this.frame.validate();
 	}
 
 	private JPanel makeBottomPanel() {
