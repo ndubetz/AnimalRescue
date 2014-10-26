@@ -1,7 +1,7 @@
 package mainWindow;
 
 import hostView.AnimalInfoView;
-import hostView.AnimalInfoViewBuilder;
+import hostView.AnimalInfoViewController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,20 +11,24 @@ import model.Cat;
 public class MainController implements ActionListener {
 	MainView view;
 	MainModel model;
+	private final AnimalInfoViewController animalInfoViewController;
 
 	public MainController() {
 		System.out.println("Controller");
+		this.animalInfoViewController = new AnimalInfoViewController(this);
 	}
 
+	// all listeners for the MainView class go here
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		AnimalInfoView animalView = AnimalInfoViewBuilder.singleton().build(
-				Cat.emptyCat());
-		// this animalView needs to be plumbed up to the MainView's JScrollPane
-		// so it can replace the current view in the JScrollPane
-		this.model.newAnimal();
+		if (e.getSource() == this.view.getAddNewCatButton()) {
+			AnimalInfoView animalView = this.animalInfoViewController
+					.buildView(Cat.emptyCat());
 
-		this.view.changePanelOnScrollPane(animalView);
+			this.model.newAnimal();
+
+			this.view.changePanelOnScrollPane(animalView);
+		}
 	}
 
 	public void addModel(MainModel model) {
@@ -35,6 +39,14 @@ public class MainController implements ActionListener {
 	public void addView(MainView view) {
 		System.out.println("adding view");
 		this.view = view;
+	}
+
+	public MainView getView() {
+		return this.view;
+	}
+
+	public void reloadPreviousPanel() {
+		this.view.changePanelOnScrollPane(this.view.getPreviousPanel());
 	}
 
 }
