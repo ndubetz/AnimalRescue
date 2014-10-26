@@ -23,10 +23,7 @@ public class MainView{
 	private JButton addNewCatButton;
 	private JFrame frame;
 	private JScrollPane scrollPane;
-<<<<<<< HEAD
 	private JPanel panelToContainThemAll;
-=======
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
 	private JPanel hostPanel;
 	private JPanel previousPanel = new JPanel();
 
@@ -53,24 +50,16 @@ public class MainView{
 		final JMenuBar menuBar = createTheMenuBar();
 
 		final JPanel topPanel = createTopPanel();
-
-<<<<<<< HEAD
-		final JPanel bottomPanel = makeBottomPanel();
 		
 		this.hostPanel = makeBottomPanel();
-		bottomPanel.add(this.hostPanel);
 		
-		setPanelToScrollPane(bottomPanel);
+		setPanelToScrollPane(this.hostPanel);
 		
 		this.frame.setJMenuBar(menuBar);
 		
 		this.panelToContainThemAll.add(topPanel, BorderLayout.PAGE_START);
 		this.frame.getContentPane().add(panelToContainThemAll);
 	}
-=======
-		this.hostPanel = makeBottomPanel();
-		setPanelToScrollPane(this.hostPanel);
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
 
 	private JMenuBar createTheMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -121,30 +110,20 @@ public class MainView{
 	}
 
 	public void changePanelOnScrollPane(JPanel bottomPanel) {
-<<<<<<< HEAD
 		this.panelToContainThemAll.remove(this.scrollPane);
 		this.previousPanel = this.hostPanel;
 		this.hostPanel = bottomPanel;
 		setPanelToScrollPane(this.hostPanel);
 		this.panelToContainThemAll.validate();
-=======
 		this.frame.getContentPane().remove(this.scrollPane);
 		this.previousPanel = this.hostPanel;
 		this.hostPanel = bottomPanel;
 		setPanelToScrollPane(this.hostPanel);
 		this.frame.validate();
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
 	}
 
 	private JPanel makeBottomPanel() {
 		JPanel bottomPanel = new JPanel();
-		
-		for (int i = 1; i <= 100; i++) {
-			final JLabel label = new JLabel("CAT " + i);
-			bottomPanel.setLayout(new BoxLayout(bottomPanel,
-					BoxLayout.PAGE_AXIS));
-			bottomPanel.add(label);
-		}
 		
 		bottomPanel.setBackground(new Color(201, 226, 233));
 
