@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Observable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,11 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class MainView implements java.util.Observer {
+public class MainView{
 
 	private JButton addNewCatButton;
 	private JFrame frame;
 	private JScrollPane scrollPane;
+	private JPanel panelToContainThemAll;
+	private JPanel hostPanel;
+	private JPanel previousPanel = new JPanel();
 
 	public MainView() {
 		build();
@@ -44,79 +44,95 @@ public class MainView implements java.util.Observer {
 	}
 
 	private void addComponentsToPane() {
-		final JTextField searchBar = new JTextField("Search For A Cat");
-		this.addNewCatButton = new JButton("Add New Cat");
-		final JButton searchButton = new JButton("Search");
+		panelToContainThemAll = new JPanel();
+		this.panelToContainThemAll.setLayout(new BorderLayout());
 
-		final JPanel topPanel = new JPanel();
-		final JPanel searchPanel = new JPanel();
+		final JMenuBar menuBar = createTheMenuBar();
 
-		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 20));
+		final JPanel topPanel = createTopPanel();
 
 		final JPanel bottomPanel = makeBottomPanel();
+		
+		this.hostPanel = makeBottomPanel();
+		bottomPanel.add(this.hostPanel);
+		
 		setPanelToScrollPane(bottomPanel);
+		
+		this.frame.setJMenuBar(menuBar);
+		
+		this.panelToContainThemAll.add(topPanel, BorderLayout.PAGE_START);
+		this.frame.getContentPane().add(panelToContainThemAll);
+	}
 
-		final JMenuBar menuBar = new JMenuBar();
-
+	private JMenuBar createTheMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
 		final JMenu fileMenu = new JMenu("File");
+		final JMenu formMenu = new JMenu("Forms");
 		menuBar.add(fileMenu);
-
+		menuBar.add(formMenu);
+		menuBar.setBackground(new Color(252, 245, 235));	
 		final JMenuItem exitAction = new JMenuItem("Exit");
 		fileMenu.add(exitAction);
-		exitAction.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		
+		return menuBar;
+	}
 
-		this.frame.setJMenuBar(menuBar);
-
-		menuBar.setBackground(new Color(252, 245, 235));
-		topPanel.setBackground(new Color(47, 140, 171));
-		searchPanel.setBackground(new Color(47, 140, 171));
-
+	private JPanel createTopPanel() {
+		JPanel topPanel = new JPanel();
+		final JPanel searchPanel = createSearchPanel();
+		
+		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 20));
 		topPanel.setPreferredSize(new Dimension(1000, 100));
+		topPanel.setBackground(new Color(47, 140, 171));
+		this.addNewCatButton = new JButton("Add New Cat");
+		
+		topPanel.add(searchPanel);
+		topPanel.add(this.addNewCatButton);
+		
+		return topPanel;
+	}
+
+	private JPanel createSearchPanel() {
+		JPanel searchPanel = new JPanel();
+		final JTextField searchBar = new JTextField("Search For A Cat");
+		
+		final JButton searchButton = new JButton("Search");
+		
+		searchPanel.setBackground(new Color(47, 140, 171));
+	
 		searchBar.setPreferredSize(new Dimension(150, 20));
 		searchPanel.add(searchBar);
 		searchPanel.add(searchButton);
-
-		topPanel.add(searchPanel);
-		topPanel.add(this.addNewCatButton);
-
-		this.frame.getContentPane().add(topPanel, BorderLayout.PAGE_START);
-		this.frame.getContentPane().add(this.scrollPane, BorderLayout.CENTER);
+		
+		return searchPanel;
 	}
 
 	private void setPanelToScrollPane(JPanel bottomPanel) {
 		this.scrollPane = new JScrollPane(bottomPanel);
-		this.frame.getContentPane().add(this.scrollPane, BorderLayout.CENTER);
+		this.panelToContainThemAll.add(this.scrollPane, BorderLayout.CENTER);
 	}
 
 	public void changePanelOnScrollPane(JPanel bottomPanel) {
-		this.frame.getContentPane().remove(this.scrollPane);
-		setPanelToScrollPane(bottomPanel);
-		this.frame.validate();
+		this.panelToContainThemAll.remove(this.scrollPane);
+		this.previousPanel = this.hostPanel;
+		this.hostPanel = bottomPanel;
+		setPanelToScrollPane(this.hostPanel);
+		this.panelToContainThemAll.validate();
 	}
 
 	private JPanel makeBottomPanel() {
 		JPanel bottomPanel = new JPanel();
-
+		
 		for (int i = 1; i <= 100; i++) {
 			final JLabel label = new JLabel("CAT " + i);
 			bottomPanel.setLayout(new BoxLayout(bottomPanel,
 					BoxLayout.PAGE_AXIS));
 			bottomPanel.add(label);
 		}
-
+		
 		bottomPanel.setBackground(new Color(201, 226, 233));
 
 		return bottomPanel;
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		System.out.println("I was called");
 	}
 
 	public void addController(MainController controller) {
@@ -136,4 +152,11 @@ public class MainView implements java.util.Observer {
 		}
 	}
 
+	protected JPanel getPreviousPanel() {
+		return this.previousPanel;
+	}
+
+	protected JButton getAddNewCatButton() {
+		return this.addNewCatButton;
+	}
 }
