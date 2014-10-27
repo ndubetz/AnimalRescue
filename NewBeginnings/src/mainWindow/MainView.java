@@ -4,13 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -26,6 +22,9 @@ public class MainView{
 	private JPanel panelToContainThemAll;
 	private JPanel hostPanel;
 	private JPanel previousPanel = new JPanel();
+	private JMenuItem exitAction;
+	private JMenuItem formAction;
+	private JMenuItem dataBaseAction;
 
 	public MainView() {
 		build();
@@ -35,6 +34,7 @@ public class MainView{
 		this.frame = new JFrame("New Beginnings");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		
 		addComponentsToPane();
 
 		this.frame.setSize(1000, 700);
@@ -43,8 +43,9 @@ public class MainView{
 		this.frame.setVisible(true);
 	}
 
-	private void addComponentsToPane() {
+	public void addComponentsToPane() {
 		panelToContainThemAll = new JPanel();
+		
 		this.panelToContainThemAll.setLayout(new BorderLayout());
 
 		final JMenuBar menuBar = createTheMenuBar();
@@ -64,11 +65,16 @@ public class MainView{
 	private JMenuBar createTheMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		final JMenu fileMenu = new JMenu("File");
-		final JMenu formMenu = new JMenu("Forms");
+		final JMenu viewModeMenu = new JMenu("View Mode");
 		menuBar.add(fileMenu);
-		menuBar.add(formMenu);
+		menuBar.add(viewModeMenu);
 		menuBar.setBackground(new Color(252, 245, 235));	
-		final JMenuItem exitAction = new JMenuItem("Exit");
+		 exitAction = new JMenuItem("Exit");
+		 formAction = new JMenuItem("Forms View");
+		 dataBaseAction = new JMenuItem("DataBase View");
+		
+		viewModeMenu.add(formAction);
+		viewModeMenu.add(dataBaseAction);
 		fileMenu.add(exitAction);
 		
 		return menuBar;
@@ -130,18 +136,26 @@ public class MainView{
 	public void addController(MainController controller) {
 		System.out.println("Adding Controller");
 		this.addNewCatButton.addActionListener(controller);
+		this.dataBaseAction.addActionListener(controller);
+		this.exitAction.addActionListener(controller);
+		this.formAction.addActionListener(controller);
+		
+	}
+	
+	public void buildDataBaseView(){
+		this.frame.remove(this.panelToContainThemAll);
+		this.addComponentsToPane();
+		this.frame.validate();
+	}
+	
+	public void buildFormsView(JPanel mainPanel) {
+		this.frame.remove(this.panelToContainThemAll);
+		this.frame.add(mainPanel);
+		this.frame.validate();
 	}
 
 	public JFrame getFrame() {
 		return this.frame;
-	}
-
-	public static class CloseListener extends WindowAdapter {
-		@Override
-		public void windowClosing(WindowEvent e) {
-			e.getWindow().setVisible(false);
-			System.exit(0);
-		}
 	}
 
 	protected JPanel getPreviousPanel() {
@@ -151,4 +165,18 @@ public class MainView{
 	protected JButton getAddNewCatButton() {
 		return this.addNewCatButton;
 	}
+	
+	public JMenuItem getExitActionMenuItem() {
+		return exitAction;
+	}
+	
+	public JMenuItem getFormActionMenuItem() {
+		return formAction;
+	}
+	
+	public JMenuItem getDataBaseActionMenuItem() {
+		return dataBaseAction;
+	}
+
+	
 }
