@@ -150,6 +150,8 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 			}
 		}
 		
+		_sqlite.closeEverything();
+		
 		return suggestedID;
 	}
 	

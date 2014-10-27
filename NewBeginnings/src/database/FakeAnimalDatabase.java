@@ -52,6 +52,11 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		for(Cat cat : _fakeCats)
+		{
+			_realDatabase.addNewCat(cat);
+		}
 	}
 
 	@Override

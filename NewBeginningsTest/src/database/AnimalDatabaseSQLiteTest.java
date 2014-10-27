@@ -35,11 +35,9 @@ public class AnimalDatabaseSQLiteTest
 		assertArrayEquals(SQLiteDatabaseInterface.databaseInit(), _fakeSQLite.getInitializeDatabaseCallHistory().get(0));
 	}
 	
-	//TODO: These next few tests are really tests of the use of the SQLCodeConstants
-	//class. In order to test true conversion of an SQL result into a Cat, we may
-	//need to wrap up the ResultSet object to give fake results to the
-	//AnimalDatabaseSQLite object, and I think that kind of testing
-	//of these adapters isn't really standard practice
+	//These next few tests are really tests of the use of the SQLCodeConstants
+	//class. Further tests are in the AnimalDatabaseSQLiteTestWithLiveDatabase
+	//case. 
 	
 	@Test
 	public void getFilteredCatsUsesProperQuery()
