@@ -51,4 +51,10 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getSuggestedNextID() 
+	{
+		return "NB-14-8";
+	}
 }

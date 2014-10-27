@@ -41,4 +41,12 @@ public interface IAnimalDatabase
 	 * @param cat the cat to update
 	 */
 	public void updateCat(Cat cat);
+	
+	/**
+	 * Checks the database for the current largest ID,
+	 * and suggests a new ID o use for the next cat
+	 * 
+	 * @return the suggested new ID
+	 */
+	public String getSuggestedNextID();
 }

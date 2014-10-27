@@ -45,13 +45,13 @@ public class TemporarySQLiteDatabaseTest
 		_animalDB = new AnimalDatabaseSQLite(_wrapper);
 		
 		_fakeCats = new LinkedList<Cat>();
-		_fakeCats.add(new Cat("NB-14-3", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-1", "Storm", Calendar.getInstance(), "F", "Aegean", "Brown and White", false, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-9", "Garfield", Calendar.getInstance(), "M", "Calico", "Dark Orange", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-2", "Han Solo", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-5", "Fluffy", Calendar.getInstance(), "F", "Australian Mist", "White", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-4", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));//this repeat is intentional. Note the different ID number
-		_fakeCats.add(new Cat("NB-14-7", "Geoff", Calendar.getInstance(), "M", "California Spangled", "Spotted Orange", false, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-001", "Storm", Calendar.getInstance(), "F", "Aegean", "Brown and White", false, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-009", "Garfield", Calendar.getInstance(), "M", "Calico", "Dark Orange", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-002", "Han Solo", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-005", "Fluffy", Calendar.getInstance(), "F", "Australian Mist", "White", true, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-004", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));//this repeat is intentional. Note the different ID number
+		_fakeCats.add(new Cat("NB-14-007", "Geoff", Calendar.getInstance(), "M", "California Spangled", "Spotted Orange", false, Calendar.getInstance(), Calendar.getInstance()));
 	}
 
 	@Test
@@ -70,16 +70,16 @@ public class TemporarySQLiteDatabaseTest
 			System.out.println(cat.getID() + "\t" + cat.getName() + "\t" + cat.getBreed());
 		}
 		
-		System.out.println("\nGetting cat with ID NB-14-2:");
-		Cat idCat = _animalDB.getSingleCat("NB-14-2");
+		System.out.println("\nGetting cat with ID NB-14-002:");
+		Cat idCat = _animalDB.getSingleCat("NB-14-002");
 		System.out.println("Name: " + idCat.getName());
 		System.out.println("Changing name to 'Peppermint':");
 		
 		//currently do not have setters in the cat class
-		Cat newIDCat = new Cat("NB-14-2", "Peppermint", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance());
+		Cat newIDCat = new Cat("NB-14-002", "Peppermint", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance());
 		_animalDB.updateCat(newIDCat);
-		System.out.println("Getting cat with ID NB-14-2:");
-		Cat retrievedNewIdCat = _animalDB.getSingleCat("NB-14-2");
+		System.out.println("Getting cat with ID NB-14-002:");
+		Cat retrievedNewIdCat = _animalDB.getSingleCat("NB-14-002");
 		System.out.println("Name: " + retrievedNewIdCat.getName());
 		
 		//Test date storage format
@@ -106,5 +106,8 @@ public class TemporarySQLiteDatabaseTest
 		System.out.print(retrievedDateCat.getBirthdate().getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US));
 		System.out.print("\\");
 		System.out.println(retrievedDateCat.getBirthdate().get(Calendar.DAY_OF_MONTH));
+		
+		System.out.println("\nSuggested Next ID:");
+		System.out.println(_animalDB.getSuggestedNextID());
 	}
 }

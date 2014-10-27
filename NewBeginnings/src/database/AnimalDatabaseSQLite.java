@@ -112,6 +112,47 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		_sqlite.executeUpdate(statement);
 	}
 	
+	@Override
+	public String getSuggestedNextID() 
+	{
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR) - 2000;
+		String suggestedID;
+		String defaultID = "NB-" + currentYear + "-001";
+		
+		ResultSet result = _sqlite.executeQuery(SQLiteDatabaseInterface.C_LatestCatID);
+		
+		if(result == null)
+		{
+			suggestedID = defaultID;
+		}
+		else
+		{
+			try 
+			{
+				result.next();
+				String latestID = result.getString("id");
+				String[] idParts = latestID.split("-");
+				
+				int latestYear = Integer.parseInt(idParts[1]);
+				if(currentYear > latestYear)
+				{
+					suggestedID = defaultID;
+				}
+				else
+				{
+					int latestNumber = Integer.parseInt(idParts[2]);
+					suggestedID = "NB-" + currentYear + "-" + (latestNumber + 1);
+				}
+			} 
+			catch (SQLException e) 
+			{
+				suggestedID = defaultID;
+			}
+		}
+		
+		return suggestedID;
+	}
+	
 	private Cat createCatFromSQLResult(ResultSet result)
 	{
 		try {
