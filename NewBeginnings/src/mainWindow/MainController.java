@@ -1,5 +1,7 @@
 package mainWindow;
 
+import formView.FormViewController;
+import formView.FormsView;
 import hostView.AnimalInfoView;
 import hostView.AnimalInfoViewController;
 
@@ -12,10 +14,12 @@ public class MainController implements ActionListener {
 	MainView view;
 	MainModel model;
 	private final AnimalInfoViewController animalInfoViewController;
+	private final FormViewController formViewController;
 
 	public MainController() {
 		System.out.println("Controller");
 		this.animalInfoViewController = new AnimalInfoViewController(this);
+		this.formViewController = new FormViewController(this);
 	}
 
 	// all listeners for the MainView class go here
@@ -28,7 +32,20 @@ public class MainController implements ActionListener {
 			this.model.newAnimal();
 
 			this.view.changePanelOnScrollPane(animalView);
+		}else if(e.getSource() == this.view.getExitActionMenuItem()){
+			System.out.println("close");
+			System.exit(0);
+		}else if(e.getSource() == this.view.getDataBaseActionMenuItem()){
+			System.out.println("database View");
+			this.view.buildDataBaseView();
+			view.addController(this);		
+		}else if(e.getSource() == this.view.getFormActionMenuItem()){
+			System.out.println("forms view");
+			FormsView formView = this.formViewController.buildView();
+			this.view.buildFormsView(formView.getMainFormViewPanel());
+			view.addController(this);
 		}
+		
 	}
 
 	public void addModel(MainModel model) {
