@@ -79,7 +79,7 @@ public class AnimalDatabaseSQLiteTest
 	@Test
 	public void addCatUsesProperQuery()
 	{
-		Cat cat = new Cat("NB-14-3", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance());
+		Cat cat = new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance());
 
 		_animalDB.addNewCat(cat);
 		int callCount = _fakeSQLite.getExecuteUpdateCallHistory().size();
@@ -104,7 +104,7 @@ public class AnimalDatabaseSQLiteTest
 	@Test
 	public void updateCatUsesProperQuery()
 	{
-		Cat cat = new Cat("NB-14-3", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance());
+		Cat cat = new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance());
 
 		_animalDB.updateCat(cat);
 		int callCount = _fakeSQLite.getExecuteUpdateCallHistory().size();
@@ -125,5 +125,18 @@ public class AnimalDatabaseSQLiteTest
 		
 		String actualSQL = _fakeSQLite.getExecuteUpdateCallHistory().get(callCount - 1);
 		assertEquals(expectedSQL, actualSQL);		
+	}
+	
+	@Test
+	public void getSuggestedNextIDReturnsCorrectIDReturnsProperDefault()
+	{
+		String exectedDefaultID = 
+				"NB-"
+				+ (Calendar.getInstance().get(Calendar.YEAR) - 2000)
+				+ "-001";
+		
+		String actualID = _animalDB.getSuggestedNextID();
+		
+		assertEquals(exectedDefaultID, actualID);
 	}
 }

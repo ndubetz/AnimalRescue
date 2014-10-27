@@ -57,6 +57,10 @@ public class SQLiteDatabaseInterface
 			"FROM Cats C\n" + 
 			"WHERE C.id='%s';\n";
 	
+	public static final String C_LatestCatID = 
+			"SELECT max(C.id) AS id\n" +
+			"FROM Cats C;";
+	
 	public static String insertNewCatSQL() 
 	{
 		String statement = "INSERT INTO CATS VALUES(";
@@ -89,7 +93,6 @@ public class SQLiteDatabaseInterface
 		
 		return statement;
 	}
-	
 	
 	public static String defaultDatabasePath()
 	{

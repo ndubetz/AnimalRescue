@@ -21,6 +21,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+/**
+ * When it is time implement a user interface for the various forms, this view
+ * will likely become a view to host the database UI, while another view at the
+ * same level will handle the UI for the forms. The "forms" are: Cat History
+ * (this will probably be part of the database UI); Volunteer information;
+ * Pantry tracking; Others
+ * 
+ */
+
 public class MainView implements java.util.Observer {
 
 	private JButton addNewCatButton;
