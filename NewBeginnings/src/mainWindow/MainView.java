@@ -4,17 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-<<<<<<< HEAD
-=======
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,6 +29,7 @@ public class MainView implements java.util.Observer {
 	private JMenuItem exitAction;
 	private JMenuItem formAction;
 	private JMenuItem dataBaseAction;
+	private JPanel panelToContainThemAll;
 
 	public MainView() {
 		build();
@@ -41,7 +39,6 @@ public class MainView implements java.util.Observer {
 		this.frame = new JFrame("New Beginnings");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		
 		addComponentsToPane();
 
 		this.frame.setSize(1000, 700);
@@ -50,17 +47,13 @@ public class MainView implements java.util.Observer {
 		this.frame.setVisible(true);
 	}
 
-<<<<<<< HEAD
 	public void addComponentsToPane() {
-		panelToContainThemAll = new JPanel();
-		
+		this.panelToContainThemAll = new JPanel();
+
 		this.panelToContainThemAll.setLayout(new BorderLayout());
-=======
-	private void addComponentsToPane() {
 		final JTextField searchBar = new JTextField("Search For A Cat");
 		this.addNewCatButton = new JButton("Add New Cat");
 		final JButton searchButton = new JButton("Search");
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
 
 		final JPanel topPanel = new JPanel();
 		final JPanel searchPanel = new JPanel();
@@ -73,24 +66,22 @@ public class MainView implements java.util.Observer {
 		final JMenuBar menuBar = new JMenuBar();
 
 		final JMenu fileMenu = new JMenu("File");
-<<<<<<< HEAD
+
 		final JMenu viewModeMenu = new JMenu("View Mode");
-=======
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
+
 		menuBar.add(fileMenu);
-<<<<<<< HEAD
+
 		menuBar.add(viewModeMenu);
-		menuBar.setBackground(new Color(252, 245, 235));	
-		 exitAction = new JMenuItem("Exit");
-		 formAction = new JMenuItem("Forms View");
-		 dataBaseAction = new JMenuItem("DataBase View");
-		
-		viewModeMenu.add(formAction);
-		viewModeMenu.add(dataBaseAction);
-=======
+		menuBar.setBackground(new Color(252, 245, 235));
+		this.exitAction = new JMenuItem("Exit");
+		this.formAction = new JMenuItem("Forms View");
+		this.dataBaseAction = new JMenuItem("DataBase View");
+
+		viewModeMenu.add(this.formAction);
+		viewModeMenu.add(this.dataBaseAction);
 
 		final JMenuItem exitAction = new JMenuItem("Exit");
->>>>>>> branch 'master' of https://github.com/ndubetz/AnimalRescue.git
+
 		fileMenu.add(exitAction);
 		exitAction.addActionListener(new ActionListener() {
 			@Override
@@ -156,15 +147,15 @@ public class MainView implements java.util.Observer {
 		this.dataBaseAction.addActionListener(controller);
 		this.exitAction.addActionListener(controller);
 		this.formAction.addActionListener(controller);
-		
+
 	}
-	
-	public void buildDataBaseView(){
+
+	public void buildDataBaseView() {
 		this.frame.remove(this.panelToContainThemAll);
 		this.addComponentsToPane();
 		this.frame.validate();
 	}
-	
+
 	public void buildFormsView(JPanel mainPanel) {
 		this.frame.remove(this.panelToContainThemAll);
 		this.frame.add(mainPanel);
@@ -182,18 +173,17 @@ public class MainView implements java.util.Observer {
 	protected JButton getAddNewCatButton() {
 		return this.addNewCatButton;
 	}
-	
+
 	public JMenuItem getExitActionMenuItem() {
-		return exitAction;
-	}
-	
-	public JMenuItem getFormActionMenuItem() {
-		return formAction;
-	}
-	
-	public JMenuItem getDataBaseActionMenuItem() {
-		return dataBaseAction;
+		return this.exitAction;
 	}
 
-	
+	public JMenuItem getFormActionMenuItem() {
+		return this.formAction;
+	}
+
+	public JMenuItem getDataBaseActionMenuItem() {
+		return this.dataBaseAction;
+	}
+
 }
