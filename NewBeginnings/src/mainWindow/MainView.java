@@ -44,7 +44,7 @@ public class MainView{
 	}
 
 	public void addComponentsToPane() {
-		panelToContainThemAll = new JPanel();
+		this.panelToContainThemAll = new JPanel();
 		
 		this.panelToContainThemAll.setLayout(new BorderLayout());
 
@@ -150,7 +150,8 @@ public class MainView{
 	
 	public void buildFormsView(JPanel mainPanel) {
 		this.frame.remove(this.panelToContainThemAll);
-		this.frame.add(mainPanel);
+		this.panelToContainThemAll = mainPanel;
+		this.frame.add(this.panelToContainThemAll);
 		this.frame.validate();
 	}
 
