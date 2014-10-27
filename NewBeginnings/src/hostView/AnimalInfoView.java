@@ -50,7 +50,7 @@ public class AnimalInfoView extends JPanel {
 		this.upperControlPanel.add(this.editCatButton);
 		this.upperControlPanel.add(this.printCatButton);
 		this.upperControlPanel.add(this.exportPDFButton);
-		this.upperControlPanel.add(this.getBackButton());
+		this.upperControlPanel.add(this.backButton);
 
 		this.add(this.upperControlPanel);
 	}
@@ -106,6 +106,14 @@ public class AnimalInfoView extends JPanel {
 		this.basicInfoPanel.add(jTextField, constraints);
 	}
 
+	protected JButton getPrintButton() {
+		return this.printCatButton;
+	}
+
+	protected JButton getExportPDFButton() {
+		return this.exportPDFButton;
+	}
+
 	protected JButton getSaveButton() {
 		return this.saveCatButton;
 	}
@@ -119,12 +127,12 @@ public class AnimalInfoView extends JPanel {
 	}
 
 	protected void toggleEditMode() {
-		// Yi, use this code to get info from textfield. Odd indices
 		List<Component> basicInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		if (!this.isInEditMode) {
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
+					// Yi, use this code to get info from textfield. Odd indices
 					JTextField textField = (JTextField) basicInfoComponents
 							.get(i);
 					textField.setEditable(true);
@@ -147,6 +155,14 @@ public class AnimalInfoView extends JPanel {
 
 	protected JPanel getBasicInfoPanel() {
 		return this.basicInfoPanel;
+	}
+
+	protected JPanel getUpperControlPanel() {
+		return this.upperControlPanel;
+	}
+
+	protected Cat getCat() {
+		return this.theCat;
 	}
 
 }
