@@ -2,11 +2,15 @@ package hostView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
+import javax.swing.JTextField;
 
 import mainWindow.MainController;
 import model.Cat;
 
-public class AnimalInfoViewController implements ActionListener {
+public class AnimalInfoViewController implements ActionListener, FocusListener {
 	private AnimalInfoView animalInfoView;
 	private final MainController mainController;
 
@@ -29,14 +33,40 @@ public class AnimalInfoViewController implements ActionListener {
 		// Print Button Listener
 	}
 
+	// Validation for certain textfields
+	@Override
+	public void focusLost(FocusEvent e) {
+		if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
+				.getComponent(1)) {// ID Field
+			validateID((JTextField) e.getSource());
+		}
+	}
+
+	private void validateID(JTextField idField) {
+		if (!idField.getText().matches("NB-[0-9][0-9]-[0-9][0-9][0-9]")) {
+			idField.setText("Please enter a valid ID");
+		}
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+	}
+
 	public AnimalInfoView buildView(Cat cat) {
 		this.animalInfoView = new AnimalInfoView(cat);
-		addActionListeners();
+		addActionListenersToButtons();
+		addFocusListenersToTextFields();
 		return this.animalInfoView;
 	}
 
-	private void addActionListeners() {
+	private void addFocusListenersToTextFields() {
+		this.animalInfoView.getBasicInfoPanel().getComponent(1)
+				.addFocusListener(this);
+	}
+
+	private void addActionListenersToButtons() {
 		this.animalInfoView.getBackButton().addActionListener(this);
 		this.animalInfoView.getEditCatButton().addActionListener(this);
 	}
+
 }
