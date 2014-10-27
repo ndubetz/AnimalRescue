@@ -49,7 +49,7 @@ public class CatTest {
 	@Test
 	public void testEmptyCatIsEmpty() throws Exception {
 		Cat cat = Cat.emptyCat();
-		String blankID = "NB-XX-YYY";
+		String blankID = "NB-00-000";
 		assertEquals(blankID, cat.getID());
 		assertEquals("", cat.getName());
 		//Possible that time may tick over during the test itself
