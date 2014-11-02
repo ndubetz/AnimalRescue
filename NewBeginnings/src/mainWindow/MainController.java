@@ -32,20 +32,20 @@ public class MainController implements ActionListener {
 			this.model.newAnimal();
 
 			this.view.changePanelOnScrollPane(animalView);
-		}else if(e.getSource() == this.view.getExitActionMenuItem()){
+		} else if (e.getSource() == this.view.getExitActionMenuItem()) {
 			System.out.println("close");
 			System.exit(0);
-		}else if(e.getSource() == this.view.getDataBaseActionMenuItem()){
+		} else if (e.getSource() == this.view.getDataBaseActionMenuItem()) {
 			System.out.println("database View");
 			this.view.buildDataBaseView();
-			view.addController(this);		
-		}else if(e.getSource() == this.view.getFormActionMenuItem()){
+			this.view.addController(this);
+		} else if (e.getSource() == this.view.getFormActionMenuItem()) {
 			System.out.println("forms view");
 			FormsView formView = this.formViewController.buildView();
-			this.view.buildFormsView(formView.getMainFormViewPanel());
-			view.addController(this);
+			this.view.buildFormsView(formView);
+			this.view.addController(this);
 		}
-		
+
 	}
 
 	public void addModel(MainModel model) {
