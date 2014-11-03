@@ -20,10 +20,17 @@ public class Cat {
 	private final Calendar departureDate;
 	private final String id;
 	private final boolean isFixed;
+	private final boolean rabies;
+	private final boolean feLeuk;
+	private final boolean distemper;
+	private final String[] medicalHistory;
 
 	public Cat(String id, String name, Calendar birthdate, String gender,
 			String breed, String hairColor, boolean isFixed,
-			Calendar arrivalDate, Calendar departureDate) {
+			Calendar arrivalDate, Calendar departureDate,
+			boolean rabies, boolean feLeuk, boolean distemper,
+			String[] medicalHistory) {
+		
 		this.id = id;
 		this.name = name;
 		this.birthdate = birthdate;
@@ -33,11 +40,16 @@ public class Cat {
 		this.isFixed = isFixed;
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
+		this.rabies = rabies;
+		this.feLeuk = feLeuk;
+		this.distemper = distemper;
+		this.medicalHistory = medicalHistory;
 	}
 
 	public static Cat emptyCat() {
 		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "",
-				false, Calendar.getInstance(), Calendar.getInstance());
+				false, Calendar.getInstance(), Calendar.getInstance(),
+				false, false, false, new String[] {});
 	}
 
 	// pass in the cat that is under scrutiny
@@ -79,6 +91,22 @@ public class Cat {
 
 	public boolean isFixed() {
 		return this.isFixed;
+	}
+
+	public boolean isRabies() {
+		return rabies;
+	}
+
+	public boolean isFeLeuk() {
+		return feLeuk;
+	}
+
+	public boolean isDistemper() {
+		return distemper;
+	}
+
+	public String[] getMedicalHistory() {
+		return medicalHistory;
 	}
 
 	public String getAge() {

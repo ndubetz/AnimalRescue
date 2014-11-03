@@ -85,9 +85,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
-				cat.isFixed()? 0 : 1,
+				booleanToInt(cat.isFixed()),
 				cat.getArrivalDate().getTimeInMillis(),
-				cat.getExpectedDepartureDate().getTimeInMillis()
+				cat.getExpectedDepartureDate().getTimeInMillis(),
+				booleanToInt(cat.isRabies()),
+				booleanToInt(cat.isFeLeuk()),
+				booleanToInt(cat.isDistemper()),
+				medicalHistoryToFlatString(cat.getMedicalHistory())
 				);
 		
 		_sqlite.executeUpdate(statement);
@@ -103,9 +107,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
-				cat.isFixed()? 0 : 1, //convert boolean to integer
+				booleanToInt(cat.isFixed()),
 				cat.getArrivalDate().getTimeInMillis(),
 				cat.getExpectedDepartureDate().getTimeInMillis(),
+				booleanToInt(cat.isRabies()),
+				booleanToInt(cat.isFeLeuk()),
+				booleanToInt(cat.isDistemper()),
+				medicalHistoryToFlatString(cat.getMedicalHistory()),
 				cat.getID()
 				);
 		
@@ -166,10 +174,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 							result.getString("gender"),
 							result.getString("breed"),
 							result.getString("hairColor"),
-							//currently storing fixed status as an integer, need to convert
-							(result.getInt("isFixed") == 0),
+							intToBoolean(result.getInt("isFixed")),
 							longToCalander(result.getLong("arrivalDate")),
-							longToCalander(result.getLong("departureDate"))
+							longToCalander(result.getLong("departureDate")),
+							intToBoolean(result.getInt("isRabies")),
+							intToBoolean(result.getInt("isFeLeuk")),
+							intToBoolean(result.getInt("isDistemper")),
+							flatStringToMedicalHistory(result.getString("medicalHistory"))
 					);
 		} 
 		catch (SQLException e) 
@@ -185,5 +196,45 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		calendar.setTimeInMillis(timeInMs);
 		
 		return calendar;
+	}
+	
+	private boolean intToBoolean(int value)
+	{
+		return (value == 0);
+	}
+	
+	private int booleanToInt(boolean value)
+	{
+		return value? 1: 0;
+	}
+	
+	private final String C_MedicalItemSeperator = "%~`~%";
+	private String medicalHistoryToFlatString(String[] medicalHistory)
+	{
+		String flatString = "";
+		
+		boolean setFirst = false;
+		for(String item : medicalHistory)
+		{
+			if(!setFirst)
+			{
+				setFirst = true;
+			}
+			else
+			{
+				flatString += C_MedicalItemSeperator;
+			}
+			
+			flatString += item;
+		}
+		
+		return flatString;
+	}
+	
+	private String[] flatStringToMedicalHistory(String flatString)
+	{		
+		String[] history = flatString.split(C_MedicalItemSeperator);
+		
+		return (history != null)? history : new String[]{};
 	}
 }
