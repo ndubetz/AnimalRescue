@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -14,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import database.FakeAnimalDatabase;
 import model.Cat;
 
 @SuppressWarnings("serial")
@@ -27,7 +29,9 @@ public class AnimalInfoView extends JPanel {
 	private JPanel basicInfoPanel;
 	private final Cat theCat;
 	private boolean isInEditMode;
-
+	
+	database.FakeAnimalDatabase fkdb = new database.FakeAnimalDatabase();
+	
 	public AnimalInfoView(Cat cat) {
 		this.theCat = cat;
 		this.isInEditMode = false;
@@ -104,6 +108,26 @@ public class AnimalInfoView extends JPanel {
 		jTextField.setEditable(false);
 		constraints.gridx = 1;
 		this.basicInfoPanel.add(jTextField, constraints);
+	}
+	
+	protected void savenewcat(){
+		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
+				.getComponents());
+		JTextField textfield1 = (JTextField) bInfoComponents.get(1);
+		JTextField textfield2 = (JTextField) bInfoComponents.get(3);
+		JTextField textfield3 = (JTextField) bInfoComponents.get(5);
+		JTextField textfield4 = (JTextField) bInfoComponents.get(7);
+		JTextField textfield5 = (JTextField) bInfoComponents.get(9);
+		JTextField textfield6 = (JTextField) bInfoComponents.get(11);
+		JTextField textfield7 = (JTextField) bInfoComponents.get(13);
+		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
+		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
+		JTextField textfield10 = (JTextField) bInfoComponents.get(19);
+		Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), Boolean.parseBoolean(textfield10.toString()), Calendar.getInstance(), Calendar.getInstance());
+		//Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), "F", Calendar.getInstance(), Calendar.getInstance());
+		fkdb.addNewCat(nc);
+		fkdb.check();
+		
 	}
 
 	protected JButton getPrintButton() {

@@ -71,6 +71,7 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	@Override
 	public void addNewCat(Cat cat) {
 		_realDatabase.addNewCat(cat);
+		_fakeCats.add(cat);
 	}
 
 	@Override
@@ -81,5 +82,9 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	@Override
 	public String getSuggestedNextID() {
 		return _realDatabase.getSuggestedNextID();
+	}
+	
+	public void check(){
+		System.out.println(_fakeCats.get(7).getName());
 	}
 }

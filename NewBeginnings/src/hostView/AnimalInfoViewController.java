@@ -27,10 +27,13 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			this.mainController.reloadPreviousPanel();
 		} else if (e.getSource() == this.animalInfoView.getEditCatButton()) {
 			this.animalInfoView.toggleEditMode();
+		} else if (e.getSource() == this.animalInfoView.getSaveButton()) {
+			this.animalInfoView.savenewcat();
+		} else if (e.getSource() == this.animalInfoView.getPrintButton()) {
+			this.animalInfoView.toggleEditMode();
+		}else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
+			this.animalInfoView.toggleEditMode();
 		}
-		// Save Button Listener
-		// Export to PDF Button Listener
-		// Print Button Listener
 	}
 
 	// Validation for certain textfields
@@ -67,6 +70,9 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 	private void addActionListenersToButtons() {
 		this.animalInfoView.getBackButton().addActionListener(this);
 		this.animalInfoView.getEditCatButton().addActionListener(this);
+		this.animalInfoView.getSaveButton().addActionListener(this);
+		this.animalInfoView.getPrintButton().addActionListener(this);
+		this.animalInfoView.getExportPDFButton().addActionListener(this);
 	}
 
 }
