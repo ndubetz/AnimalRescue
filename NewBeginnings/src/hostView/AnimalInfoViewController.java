@@ -30,9 +30,9 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 		} else if (e.getSource() == this.animalInfoView.getSaveButton()) {
 			this.animalInfoView.savenewcat();
 		} else if (e.getSource() == this.animalInfoView.getPrintButton()) {
-			this.animalInfoView.toggleEditMode();
-		}else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
-			this.animalInfoView.toggleEditMode();
+			// TODO implement printing
+		} else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
+			// TODO implement PDF export
 		}
 	}
 

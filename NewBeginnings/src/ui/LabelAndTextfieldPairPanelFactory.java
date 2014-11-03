@@ -11,8 +11,7 @@ import javax.swing.JTextField;
 
 public class LabelAndTextfieldPairPanelFactory {
 
-	public static JPanel buildPanel(String[] labels,
-			String[] content) {
+	public static JPanel buildPanel(String[] labels, String[] content) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		panel.setBackground(new Color(201, 226, 233));
@@ -28,7 +27,7 @@ public class LabelAndTextfieldPairPanelFactory {
 			JTextField jTextField = new JTextField(25);
 
 			if (content[i] != null) {
-				jLabel.setText(content[i] + ": ");
+				jTextField.setText(content[i]);
 			}
 
 			constraints.gridx = 1;

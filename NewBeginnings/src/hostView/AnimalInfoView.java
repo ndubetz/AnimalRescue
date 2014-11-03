@@ -2,21 +2,18 @@ package hostView;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import database.FakeAnimalDatabase;
 import model.Cat;
+import ui.LabelAndTextfieldPairPanelFactory;
+import database.FakeAnimalDatabase;
 
 @SuppressWarnings("serial")
 public class AnimalInfoView extends JPanel {
@@ -29,9 +26,9 @@ public class AnimalInfoView extends JPanel {
 	private JPanel basicInfoPanel;
 	private final Cat theCat;
 	private boolean isInEditMode;
-	
-	database.FakeAnimalDatabase fkdb = new database.FakeAnimalDatabase();
-	
+
+	FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
+
 	public AnimalInfoView(Cat cat) {
 		this.theCat = cat;
 		this.isInEditMode = false;
@@ -60,57 +57,29 @@ public class AnimalInfoView extends JPanel {
 	}
 
 	private void buildAndAddBasicInfoPanel() {
-		// the build labels calls will get refactored after the first iteration
-		// or whenever more information gets added
-		this.basicInfoPanel = new JPanel();
-		this.basicInfoPanel.setLayout(new GridBagLayout());
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.insets = new Insets(10, 10, 10, 10);
+		String[] labels = new String[] { "ID", "Name", "Birth Date", "Age",
+				"Gender", "Breed", "Hair Color", "Arrival Date",
+				"Departure Date" };
 
-		buildLabelAndTextfieldPair("ID", this.theCat.getID(), constraints, 0);
-		buildLabelAndTextfieldPair("Name", this.theCat.getName(), constraints,
-				1);
-		buildLabelAndTextfieldPair("Birth Date", this.theCat.getBirthdate()
-				.getTime().toString(), constraints, 2);
-		buildLabelAndTextfieldPair("Age", this.theCat.getAge(), constraints, 3);
-		buildLabelAndTextfieldPair("Gender", this.theCat.getGender(),
-				constraints, 4);
-		buildLabelAndTextfieldPair("Breed", this.theCat.getBreed(),
-				constraints, 5);
-		buildLabelAndTextfieldPair("Hair Color", this.theCat.getHairColor(),
-				constraints, 6);
-		buildLabelAndTextfieldPair("Arrival Date", this.theCat.getArrivalDate()
-				.getTime().toString(), constraints, 7);
-		if (this.theCat.getExpectedDepartureDate() == null) {
-			buildLabelAndTextfieldPair("Departure Date", "Not yet known",
-					constraints, 8);
+		String[] content = new String[] { this.theCat.getID(),
+				this.theCat.getName(),
+				this.theCat.getBirthdate().getTime().toString(),
+				this.theCat.getAge(), this.theCat.getGender(),
+				this.theCat.getBreed(), this.theCat.getHairColor(),
+				this.theCat.getArrivalDate().getTime().toString(),
+				this.theCat.getExpectedDepartureDate().getTime().toString(),
+				Boolean.toString(this.theCat.isFixed()) };
 
-		} else {
-			buildLabelAndTextfieldPair("Departure Date", this.theCat
-					.getExpectedDepartureDate().getTime().toString(),
-					constraints, 8);
+		if (content[8] == null) {// Departure date not known
+			content[8] = "Not yet known";
 		}
-		buildLabelAndTextfieldPair("Is Fixed",
-				Boolean.toString(this.theCat.isFixed()), constraints, 9);
 
+		this.basicInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+				labels, content);
 		this.add(this.basicInfoPanel);
 	}
 
-	private void buildLabelAndTextfieldPair(String label, String content,
-			GridBagConstraints constraints, int row) {
-		JLabel jLabel = new JLabel();
-		jLabel.setText(label + ": ");
-		constraints.gridy = row;
-		constraints.gridx = 0;
-		this.basicInfoPanel.add(jLabel, constraints);
-		JTextField jTextField = new JTextField(25);
-		jTextField.setText(content);
-		jTextField.setEditable(false);
-		constraints.gridx = 1;
-		this.basicInfoPanel.add(jTextField, constraints);
-	}
-	
-	protected void savenewcat(){
+	protected void savenewcat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		JTextField textfield1 = (JTextField) bInfoComponents.get(1);
@@ -123,11 +92,19 @@ public class AnimalInfoView extends JPanel {
 		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
 		JTextField textfield10 = (JTextField) bInfoComponents.get(19);
-		Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), Boolean.parseBoolean(textfield10.toString()), Calendar.getInstance(), Calendar.getInstance(), false, false, false, new String[]{});
-		//Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), "F", Calendar.getInstance(), Calendar.getInstance());
-		fkdb.addNewCat(nc);
-		fkdb.check();
-		
+		Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
+				Calendar.getInstance(), textfield5.toString(),
+				textfield6.toString(), textfield7.toString(),
+				Boolean.parseBoolean(textfield10.toString()),
+				Calendar.getInstance(), Calendar.getInstance(), false, false,
+				false, new String[] {});
+		// Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
+		// Calendar.getInstance(), textfield5.toString(), textfield6.toString(),
+		// textfield7.toString(), "F", Calendar.getInstance(),
+		// Calendar.getInstance());
+		this.fkdb.addNewCat(nc);
+		this.fkdb.check();
+
 	}
 
 	protected JButton getPrintButton() {
