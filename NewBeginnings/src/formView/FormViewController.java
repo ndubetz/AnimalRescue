@@ -27,9 +27,9 @@ public class FormViewController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.formView.getFormSelectionComboBox()) {
-			String string = this.formView.getFormSelectionComboBox()
+			String formToLoad = this.formView.getFormSelectionComboBox()
 					.getSelectedItem().toString();
-			this.formView.loadSelectedForm(string);
+			this.formView.loadSelectedForm(formToLoad);
 		}
 	}
 
