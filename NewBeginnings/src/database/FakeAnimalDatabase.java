@@ -25,13 +25,13 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	public FakeAnimalDatabase(boolean deleteFile)
 	{	
 		_fakeCats = new LinkedList<Cat>();
-		_fakeCats.add(new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-001", "Storm", Calendar.getInstance(), "F", "Aegean", "Brown and White", false, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-009", "Garfield", Calendar.getInstance(), "M", "Calico", "Dark Orange", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-002", "Han Solo", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-005", "Fluffy", Calendar.getInstance(), "F", "Australian Mist", "White", true, Calendar.getInstance(), Calendar.getInstance()));
-		_fakeCats.add(new Cat("NB-14-004", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance()));//this repeat is intentional. Note the different ID number
-		_fakeCats.add(new Cat("NB-14-007", "Geoff", Calendar.getInstance(), "M", "California Spangled", "Spotted Orange", false, Calendar.getInstance(), Calendar.getInstance()));
+		_fakeCats.add(new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance(), false, false, true, new String[]{"10-4-2014 | Got rabies shot", "11-2-2014 | Open heart surgery"}));
+		_fakeCats.add(new Cat("NB-14-001", "Storm", Calendar.getInstance(), "F", "Aegean", "Brown and White", false, Calendar.getInstance(), Calendar.getInstance(), false, true, false, new String[]{"9-10-2014 | Gave bith to kittens"}));
+		_fakeCats.add(new Cat("NB-14-009", "Garfield", Calendar.getInstance(), "M", "Calico", "Dark Orange", true, Calendar.getInstance(), Calendar.getInstance(), false, true, true, new String[]{"12-13-2013 | Prescribed medication", "1-4-2014 | Stopped taking medication", "3-6-2014 | Broken leg", "5-4-2014 | Cast removed"}));
+		_fakeCats.add(new Cat("NB-14-002", "Han Solo", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance(), true, false, false, new String[]{}));
+		_fakeCats.add(new Cat("NB-14-005", "Fluffy", Calendar.getInstance(), "F", "Australian Mist", "White", true, Calendar.getInstance(), Calendar.getInstance(), true, false, true, new String[]{}));
+		_fakeCats.add(new Cat("NB-14-004", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", true, Calendar.getInstance(), Calendar.getInstance(), true, true, false, new String[]{}));//this repeat is intentional. Note the different ID number
+		_fakeCats.add(new Cat("NB-14-007", "Geoff", Calendar.getInstance(), "M", "California Spangled", "Spotted Orange", false, Calendar.getInstance(), Calendar.getInstance(), true, true, true, new String[]{}));
 		
 		String fakeFilename = "test.db";
 		String fakeDatabasePath = "jdbc:sqlite:" + fakeFilename;
@@ -82,6 +82,10 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	@Override
 	public String getSuggestedNextID() {
 		return _realDatabase.getSuggestedNextID();
+	}
+	
+	public List<Cat> getFakeCatsList(){
+		return _fakeCats;
 	}
 	
 	public void check(){

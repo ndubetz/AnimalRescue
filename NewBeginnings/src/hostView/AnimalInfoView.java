@@ -123,7 +123,7 @@ public class AnimalInfoView extends JPanel {
 		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
 		JTextField textfield10 = (JTextField) bInfoComponents.get(19);
-		Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), Boolean.parseBoolean(textfield10.toString()), Calendar.getInstance(), Calendar.getInstance());
+		Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), Boolean.parseBoolean(textfield10.toString()), Calendar.getInstance(), Calendar.getInstance(), false, false, false, new String[]{});
 		//Cat nc = new Cat(textfield1.toString(), textfield2.toString(), Calendar.getInstance(), textfield5.toString(), textfield6.toString(), textfield7.toString(), "F", Calendar.getInstance(), Calendar.getInstance());
 		fkdb.addNewCat(nc);
 		fkdb.check();
