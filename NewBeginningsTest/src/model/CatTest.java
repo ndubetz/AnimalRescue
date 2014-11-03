@@ -33,7 +33,13 @@ public class CatTest {
 		expectedDepartureDate.set(Calendar.MONTH, Calendar.DECEMBER);
 		expectedDepartureDate.set(Calendar.DAY_OF_MONTH, 7);
 		
-		Cat cat = new Cat(expectedID, expectedName, expectedBirthdate, expectedGender, expectedBreed, expectedHairColor, expectedIsFixed, expectedArrivalDate, expectedDepartureDate);
+		boolean expectedRabies = false;
+		boolean expectedFeLeuk = false;
+		boolean expectedDistemper = false;
+		String[] expectedMedicalHistory = new String[]{};
+		
+		Cat cat = new Cat(expectedID, expectedName, expectedBirthdate, expectedGender, expectedBreed, expectedHairColor, expectedIsFixed, expectedArrivalDate, expectedDepartureDate,
+				expectedRabies, expectedFeLeuk, expectedDistemper, expectedMedicalHistory);
 		
 		assertSame(expectedName, cat.getName());
 		assertSame(expectedBirthdate, cat.getBirthdate());
@@ -44,6 +50,10 @@ public class CatTest {
 		assertSame(expectedIsFixed, cat.isFixed());
 		assertSame(expectedArrivalDate, cat.getArrivalDate());
 		assertSame(expectedDepartureDate, cat.getExpectedDepartureDate());
+		assertSame(expectedRabies, cat.isRabies());
+		assertSame(expectedFeLeuk, cat.isFeLeuk());
+		assertSame(expectedDistemper, cat.isDistemper());
+		assertSame(expectedMedicalHistory, cat.getMedicalHistory());
 	}
 	
 	@Test
@@ -67,7 +77,7 @@ public class CatTest {
 		assertTrue(Cat.isTheEmptyCat(Cat.emptyCat()));
 		
 		Cat catThatIsEmptyExceptForID = new Cat("skroob", "", Calendar.getInstance(), "", "", "", 
-			false, Calendar.getInstance(), Calendar.getInstance());
+			false, Calendar.getInstance(), Calendar.getInstance(), false, false, false, new String[]{});
 		
 		assertFalse(Cat.isTheEmptyCat(catThatIsEmptyExceptForID));		
 	}
@@ -84,7 +94,8 @@ public class CatTest {
 		birthdate.setTimeInMillis(birthdateMs);
 		
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", 
-				false, Calendar.getInstance(), Calendar.getInstance());
+				false, Calendar.getInstance(), Calendar.getInstance(),
+				false, false, false, new String[]{});
 		
 		assertEquals("2 Years, 2 Months", cat.getAge());
 	}
@@ -101,7 +112,8 @@ public class CatTest {
 		birthdate.setTimeInMillis(birthdateMs);
 		
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", 
-				false, Calendar.getInstance(), Calendar.getInstance());
+				false, Calendar.getInstance(), Calendar.getInstance(),
+				false, false, false, new String[]{});
 		
 		assertEquals("1 Year, 1 Month", cat.getAge());
 	}

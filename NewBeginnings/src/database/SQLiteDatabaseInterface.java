@@ -10,6 +10,9 @@ public class SQLiteDatabaseInterface
 {
 	//NOTE The idea behind this is that any change we make to the Cat constructor
 	//will also be updated here
+	/**
+	 * Schema for the Cats table
+	 */
 	public static final String[][] C_CatsColumns = 
 		{
 			{"id", "TEXT"},
@@ -20,9 +23,17 @@ public class SQLiteDatabaseInterface
 			{"hairColor", "TEXT"},
 			{"isFixed", "INTEGER"},
 			{"arrivalDate", "INTEGER"},
-			{"departureDate", "INTEGER"}
+			{"departureDate", "INTEGER"},
+			{"isRabies", "INTEGER"},
+			{"isFeLeuk", "INTEGER"},
+			{"isDistemper", "INTEGER"},
+			{"medicalHistory", "TEXT"}
 		};
 	
+	/**
+	 * Returns the list of commands to run to initialize
+	 * the database
+	 */
 	public static String[] databaseInit() 
 	{
 		ArrayList<String> script = new ArrayList<String>();
@@ -47,16 +58,26 @@ public class SQLiteDatabaseInterface
 		return script.toArray(new String[script.size()]);
 	}
 
+	/**
+	 * Formatable query to get the list of cats
+	 * that match the search pattern
+	 */
 	public static final String C_GeneralCatSearch = 
 			"SELECT *\n" + 
 			"FROM Cats C\n" +
 			"WHERE C.%s LIKE '%s%%';\n";
 	
+	/**
+	 * Formattable query to get a specific cat
+	 */
 	public static final String C_SpecificCatByID = 
 			"SELECT *\n" + 
 			"FROM Cats C\n" + 
 			"WHERE C.id='%s';\n";
 	
+	/**
+	 * Query to get the highest ID number in the database
+	 */
 	public static final String C_LatestCatID = 
 			"SELECT max(C.id) AS id\n" +
 			"FROM Cats C;";
@@ -76,6 +97,10 @@ public class SQLiteDatabaseInterface
 		return statement;
 	}
 	
+	/**
+	 * Generates a formatable query to update an 
+	 * existing cat
+	 */
 	public static String updateExistingCatSQL() 
 	{
 		String statement = 
@@ -94,6 +119,9 @@ public class SQLiteDatabaseInterface
 		return statement;
 	}
 	
+	/**
+	 * Determines the default path to the database file to open
+	 */
 	public static String defaultDatabasePath()
 	{
 		String systemPath;
