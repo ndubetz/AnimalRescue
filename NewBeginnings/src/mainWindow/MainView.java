@@ -117,6 +117,7 @@ public class MainView {
 	}
 
 	private void setPanelToScrollPane(JPanel bottomPanel) {
+		bottomPanel.setBackground(new Color(201, 226, 233));
 		this.scrollPane = new JScrollPane(bottomPanel);
 		this.panelToContainThemAll.add(this.scrollPane, BorderLayout.CENTER);
 	}
