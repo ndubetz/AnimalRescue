@@ -3,12 +3,20 @@ package hostView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.BoxLayout;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -27,22 +35,31 @@ public class AnimalInfoView extends JPanel {
 	private JPanel medicalHistoryPanel;
 	private final Cat theCat;
 	private boolean isInEditMode;
+	private JPanel imageDisplayPanel;
 
 	// FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
 
 	public AnimalInfoView(Cat cat) {
 		this.theCat = cat;
 		this.isInEditMode = false;
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new GridBagLayout());
 		buildAndAddUpperControlPanel();
+		buildAndAddImageDisplayPanel();
 		buildAndAddBasicInfoPanel();
 		buildAndAddMedicalHistoryPanel();
 	}
 
 	private void buildAndAddUpperControlPanel() {
 		this.upperControlPanel = new JPanel();
-		this.upperControlPanel.setMaximumSize(new Dimension(700, 100));
+		this.upperControlPanel.setMaximumSize(new Dimension(500, 60));
 		this.upperControlPanel.setBackground(new Color(201, 226, 233));
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2, 2, 2, 2);
+		constraints.gridy = 0;
+		constraints.gridx = 0;
+		constraints.weighty = 0.1;
+		constraints.weightx = 1;
+		constraints.anchor = GridBagConstraints.PAGE_START;
 
 		this.saveCatButton = new JButton("Save");
 		this.editCatButton = new JButton("Edit");
@@ -56,10 +73,49 @@ public class AnimalInfoView extends JPanel {
 		this.upperControlPanel.add(this.exportPDFButton);
 		this.upperControlPanel.add(this.backButton);
 
-		this.add(this.upperControlPanel);
+		this.add(this.upperControlPanel, constraints);
+	}
+
+	private void buildAndAddImageDisplayPanel() {
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2, 2, 2, 2);
+		constraints.gridy = 1;
+		constraints.gridx = 1;
+		constraints.weighty = 0.3;
+		constraints.weightx = 0.5;
+		constraints.anchor = GridBagConstraints.LINE_END;
+
+		BufferedImage image = null;
+
+		try {
+			File file = new File("src/resources/Images/TestImage.jpg");
+			System.out.println(file.getAbsolutePath());
+			System.out.println(file.getPath());
+			System.out.println(file.getCanonicalPath());
+			image = ImageIO.read(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		JLabel imageLabel = new JLabel(new ImageIcon(image));
+
+		this.imageDisplayPanel = new JPanel();
+		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));
+		this.imageDisplayPanel.setMinimumSize(new Dimension(250, 250));
+		this.imageDisplayPanel.setMaximumSize(new Dimension(250, 250));
+		this.imageDisplayPanel.add(imageLabel);
+		this.add(this.imageDisplayPanel, constraints);
 	}
 
 	private void buildAndAddBasicInfoPanel() {
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2, 2, 2, 2);
+		constraints.gridy = 1;
+		constraints.gridx = 0;
+		constraints.weighty = 0.3;
+		constraints.weightx = 0.3;
+		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+
 		String[] labels = new String[] { "ID", "Name", "Birth Date", "Age",
 				"Gender", "Breed", "Hair Color", "Arrival Date",
 				"Departure Date" };
@@ -78,10 +134,18 @@ public class AnimalInfoView extends JPanel {
 
 		this.basicInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
 				labels, content);
-		this.add(this.basicInfoPanel);
+		this.add(this.basicInfoPanel, constraints);
 	}
 
 	private void buildAndAddMedicalHistoryPanel() {
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2, 2, 2, 2);
+		constraints.gridy = 2;
+		constraints.gridx = 0;
+		constraints.weighty = 0.3;
+		constraints.weightx = 0.3;
+		constraints.anchor = GridBagConstraints.LINE_START;
+
 		String[] labels = new String[] { "Spayed/Neutered", "Rabies",
 				"Distemper", "FiV/FeLeuk" };
 
@@ -91,10 +155,11 @@ public class AnimalInfoView extends JPanel {
 
 		this.medicalHistoryPanel = LabelAndTextfieldPairPanelFactory
 				.buildPanel(labels, content);
-		this.add(this.medicalHistoryPanel);
+		this.add(this.medicalHistoryPanel, constraints);
 
 	}
 
+	// will need to be refactored to accommodate changes
 	protected void savenewcat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());

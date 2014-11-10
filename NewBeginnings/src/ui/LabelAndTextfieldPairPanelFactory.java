@@ -23,6 +23,7 @@ public class LabelAndTextfieldPairPanelFactory {
 			jLabel.setText(labels[i] + ": ");
 			constraints.gridy = i;
 			constraints.gridx = 0;
+			constraints.anchor = GridBagConstraints.LINE_START;
 			panel.add(jLabel, constraints);
 			JTextField jTextField = new JTextField(25);
 
@@ -31,6 +32,7 @@ public class LabelAndTextfieldPairPanelFactory {
 			}
 			jTextField.setEditable(false);
 			constraints.gridx = 1;
+			constraints.anchor = GridBagConstraints.LINE_END;
 			panel.add(jTextField, constraints);
 		}
 
