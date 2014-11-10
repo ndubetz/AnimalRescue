@@ -2,7 +2,7 @@ package resources;
 
 import java.io.InputStream;
 
-/*
+/**
  * Provides access to project resources.Defining this allows for cross-
  * package and cross-project access to resources saved in the resources 
  * package of the NewBeginnings project.
