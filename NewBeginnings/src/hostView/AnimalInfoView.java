@@ -1,5 +1,6 @@
 package hostView;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Arrays;
@@ -13,7 +14,6 @@ import javax.swing.JTextField;
 
 import model.Cat;
 import ui.LabelAndTextfieldPairPanelFactory;
-import database.FakeAnimalDatabase;
 
 @SuppressWarnings("serial")
 public class AnimalInfoView extends JPanel {
@@ -24,10 +24,11 @@ public class AnimalInfoView extends JPanel {
 	private JButton exportPDFButton;
 	private JButton backButton;
 	private JPanel basicInfoPanel;
+	private JPanel medicalHistoryPanel;
 	private final Cat theCat;
 	private boolean isInEditMode;
 
-	FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
+	// FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
 
 	public AnimalInfoView(Cat cat) {
 		this.theCat = cat;
@@ -35,11 +36,13 @@ public class AnimalInfoView extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		buildAndAddUpperControlPanel();
 		buildAndAddBasicInfoPanel();
+		buildAndAddMedicalHistoryPanel();
 	}
 
 	private void buildAndAddUpperControlPanel() {
 		this.upperControlPanel = new JPanel();
 		this.upperControlPanel.setMaximumSize(new Dimension(700, 100));
+		this.upperControlPanel.setBackground(new Color(201, 226, 233));
 
 		this.saveCatButton = new JButton("Save");
 		this.editCatButton = new JButton("Edit");
@@ -67,8 +70,7 @@ public class AnimalInfoView extends JPanel {
 				this.theCat.getAge(), this.theCat.getGender(),
 				this.theCat.getBreed(), this.theCat.getHairColor(),
 				this.theCat.getArrivalDate().getTime().toString(),
-				this.theCat.getExpectedDepartureDate().getTime().toString(),
-				Boolean.toString(this.theCat.isFixed()) };
+				this.theCat.getExpectedDepartureDate().getTime().toString() };
 
 		if (content[8] == null) {// Departure date not known
 			content[8] = "Not yet known";
@@ -77,6 +79,20 @@ public class AnimalInfoView extends JPanel {
 		this.basicInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
 				labels, content);
 		this.add(this.basicInfoPanel);
+	}
+
+	private void buildAndAddMedicalHistoryPanel() {
+		String[] labels = new String[] { "Spayed/Neutered", "Rabies",
+				"Distemper", "FiV/FeLeuk" };
+
+		String[] content = new String[] { this.theCat.getFixed(),
+				this.theCat.getRabies(), this.theCat.getDistemper(),
+				this.theCat.getFeLeuk() };
+
+		this.medicalHistoryPanel = LabelAndTextfieldPairPanelFactory
+				.buildPanel(labels, content);
+		this.add(this.medicalHistoryPanel);
+
 	}
 
 	protected void savenewcat() {
@@ -91,19 +107,18 @@ public class AnimalInfoView extends JPanel {
 		JTextField textfield7 = (JTextField) bInfoComponents.get(13);
 		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
-		JTextField textfield10 = (JTextField) bInfoComponents.get(19);
+		// JTextField textfield10 = (JTextField) bInfoComponents.get(19);
 		Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
 				Calendar.getInstance(), textfield5.toString(),
-				textfield6.toString(), textfield7.toString(),
-				Boolean.parseBoolean(textfield10.toString()),
-				Calendar.getInstance(), Calendar.getInstance(), false, false,
-				false, new String[] {});
+				textfield6.toString(), textfield7.toString(), "",
+				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
+				new String[] {});
 		// Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
 		// Calendar.getInstance(), textfield5.toString(), textfield6.toString(),
 		// textfield7.toString(), "F", Calendar.getInstance(),
 		// Calendar.getInstance());
-		this.fkdb.addNewCat(nc);
-		this.fkdb.check();
+		// this.fkdb.addNewCat(nc);
+		// this.fkdb.check();
 
 	}
 
@@ -130,11 +145,19 @@ public class AnimalInfoView extends JPanel {
 	protected void toggleEditMode() {
 		List<Component> basicInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
+		List<Component> medicalHistoryComponents = Arrays
+				.asList(this.medicalHistoryPanel.getComponents());
 		if (!this.isInEditMode) {
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
-					// Yi, use this code to get info from textfield. Odd indices
 					JTextField textField = (JTextField) basicInfoComponents
+							.get(i);
+					textField.setEditable(true);
+				}
+			}
+			for (int i = 0; i < medicalHistoryComponents.size(); i++) {
+				if (i % 2 == 1) {
+					JTextField textField = (JTextField) medicalHistoryComponents
 							.get(i);
 					textField.setEditable(true);
 				}
@@ -145,6 +168,13 @@ public class AnimalInfoView extends JPanel {
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
 					JTextField textField = (JTextField) basicInfoComponents
+							.get(i);
+					textField.setEditable(false);
+				}
+			}
+			for (int i = 0; i < medicalHistoryComponents.size(); i++) {
+				if (i % 2 == 1) {
+					JTextField textField = (JTextField) medicalHistoryComponents
 							.get(i);
 					textField.setEditable(false);
 				}

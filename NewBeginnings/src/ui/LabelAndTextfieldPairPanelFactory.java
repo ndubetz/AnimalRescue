@@ -29,7 +29,7 @@ public class LabelAndTextfieldPairPanelFactory {
 			if (content[i] != null) {
 				jTextField.setText(content[i]);
 			}
-
+			jTextField.setEditable(false);
 			constraints.gridx = 1;
 			panel.add(jTextField, constraints);
 		}
