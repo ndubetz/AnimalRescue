@@ -57,7 +57,7 @@ public class AnimalInfoView extends JPanel {
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridy = 0;
 		constraints.gridx = 0;
-		constraints.weighty = 0.1;
+		constraints.weighty = 0.2;
 		constraints.weightx = 1;
 		constraints.anchor = GridBagConstraints.PAGE_START;
 
@@ -89,9 +89,6 @@ public class AnimalInfoView extends JPanel {
 
 		try {
 			File file = new File("src/resources/Images/TestImage.jpg");
-			System.out.println(file.getAbsolutePath());
-			System.out.println(file.getPath());
-			System.out.println(file.getCanonicalPath());
 			image = ImageIO.read(file);
 		} catch (IOException e) {
 			e.printStackTrace();
