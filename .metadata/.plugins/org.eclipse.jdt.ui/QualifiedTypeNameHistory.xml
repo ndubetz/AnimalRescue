@@ -15,4 +15,10 @@
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="model.Cat"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="resources.ResourceProvider"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="org.apache.pdfbox.pdmodel.PDDocument"/>
+<fullyQualifiedTypeName name="org.apache.pdfbox.pdmodel.edit.PDPageContentStream"/>
+<fullyQualifiedTypeName name="org.apache.pdfbox.pdmodel.font.PDType1Font"/>
 </qualifiedTypeNameHistroy>
