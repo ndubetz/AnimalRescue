@@ -44,8 +44,8 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		String newName = "Peppermint";
 		
 		//currently do not have setters in the cat class
-		Cat updatedCat = new Cat("NB-14-002", newName, Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", true, Calendar.getInstance(), Calendar.getInstance(),
-				false, false, false, new String[]{});
+		Cat updatedCat = new Cat("NB-14-002", newName, Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", "", Calendar.getInstance(), Calendar.getInstance(),
+				"", "", "", new String[]{});
 		_animalDB.updateCat(updatedCat);
 		
 		Cat retrievedNewIdCat = _animalDB.getSingleCat("NB-14-002");
@@ -58,8 +58,8 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 	{
 		Calendar birthdate = Calendar.getInstance();
 		birthdate.set(2011, Calendar.JUNE, 3);
-		Cat dateCat = new Cat("NB-14-789", "Smeagol", birthdate, "M", "Siamese", "White", false, Calendar.getInstance(), Calendar.getInstance(),
-				false, false, false, new String[]{});
+		Cat dateCat = new Cat("NB-14-789", "Smeagol", birthdate, "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
+				"", "", "", new String[]{});
 		_animalDB.addNewCat(dateCat);
 		
 		Cat retrievedDateCat = _animalDB.getSingleCat(dateCat.getID());
@@ -76,8 +76,8 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		String tempMaxID = "NB-" + currentYear + "-998";
 		String expectedSuggestedID = "NB-" + currentYear + "-999";
 		
-		Cat tempMaxCat = new Cat(tempMaxID, "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", false, Calendar.getInstance(), Calendar.getInstance(),
-				false, false, false, new String[]{});
+		Cat tempMaxCat = new Cat(tempMaxID, "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
+				"", "", "", new String[]{});
 		_animalDB.addNewCat(tempMaxCat);
 		
 		assertEquals(expectedSuggestedID, _animalDB.getSuggestedNextID());

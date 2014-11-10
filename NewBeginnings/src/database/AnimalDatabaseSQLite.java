@@ -85,12 +85,12 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
-				booleanToInt(cat.isFixed()),
+				cat.getFixed(),
 				cat.getArrivalDate().getTimeInMillis(),
 				cat.getExpectedDepartureDate().getTimeInMillis(),
-				booleanToInt(cat.isRabies()),
-				booleanToInt(cat.isFeLeuk()),
-				booleanToInt(cat.isDistemper()),
+				cat.getRabies(),
+				cat.getFeLeuk(),
+				cat.getDistemper(),
 				medicalHistoryToFlatString(cat.getMedicalHistory())
 				);
 		
@@ -107,12 +107,12 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getGender(),
 				cat.getBreed(),
 				cat.getHairColor(),
-				booleanToInt(cat.isFixed()),
+				cat.getFixed(),
 				cat.getArrivalDate().getTimeInMillis(),
 				cat.getExpectedDepartureDate().getTimeInMillis(),
-				booleanToInt(cat.isRabies()),
-				booleanToInt(cat.isFeLeuk()),
-				booleanToInt(cat.isDistemper()),
+				cat.getRabies(),
+				cat.getFeLeuk(),
+				cat.getDistemper(),
 				medicalHistoryToFlatString(cat.getMedicalHistory()),
 				cat.getID()
 				);
@@ -174,12 +174,12 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 							result.getString("gender"),
 							result.getString("breed"),
 							result.getString("hairColor"),
-							intToBoolean(result.getInt("isFixed")),
+							result.getString("fixed"),
 							longToCalander(result.getLong("arrivalDate")),
 							longToCalander(result.getLong("departureDate")),
-							intToBoolean(result.getInt("isRabies")),
-							intToBoolean(result.getInt("isFeLeuk")),
-							intToBoolean(result.getInt("isDistemper")),
+							result.getString("rabies"),
+							result.getString("feLeuk"),
+							result.getString("distemper"),
 							flatStringToMedicalHistory(result.getString("medicalHistory"))
 					);
 		} 
@@ -197,7 +197,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		
 		return calendar;
 	}
-	
+	/**
 	private boolean intToBoolean(int value)
 	{
 		return (value == 0);
@@ -207,7 +207,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 	{
 		return value? 1: 0;
 	}
-	
+	*/
 	private final String C_MedicalItemSeperator = "%~`~%";
 	private String medicalHistoryToFlatString(String[] medicalHistory)
 	{

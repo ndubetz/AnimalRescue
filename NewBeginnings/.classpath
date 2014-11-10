@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="../3rdParty/sqlite-jdbc-3.8.6.jar"/>
 	<classpathentry kind="lib" path="../3rdParty/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="../3rdParty/jgoodies-looks-2.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Alex/Documents/AnimalRescue/3rdParty/pdfbox-app-1.8.7.jar"/>
+	<classpathentry kind="lib" path="../3rdParty/pdfbox-app-1.8.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -21,12 +21,12 @@ public class SQLiteDatabaseInterface
 			{"gender", "TEXT"},
 			{"breed", "TEXT"},
 			{"hairColor", "TEXT"},
-			{"isFixed", "INTEGER"},
+			{"fixed", "TEXT"},
 			{"arrivalDate", "INTEGER"},
 			{"departureDate", "INTEGER"},
-			{"isRabies", "INTEGER"},
-			{"isFeLeuk", "INTEGER"},
-			{"isDistemper", "INTEGER"},
+			{"rabies", "TEXT"},
+			{"feLeuk", "TEXT"},
+			{"distemper", "TEXT"},
 			{"medicalHistory", "TEXT"}
 		};
 	
