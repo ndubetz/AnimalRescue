@@ -8,6 +8,9 @@ import hostView.AnimalInfoViewController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import database.SearchFilterType;
+import searchResultsView.SearchResultItemViewController;
+import searchResultsView.SearchResultsView;
 import model.Cat;
 
 public class MainController implements ActionListener {
@@ -44,6 +47,16 @@ public class MainController implements ActionListener {
 			FormsView formView = this.formViewController.buildView();
 			this.view.buildFormsView(formView);
 			this.view.addController(this);
+		} else if (e.getSource() == this.view.getSearchButton()) {
+			System.out.println("Searching for " + this.view.getSearchText());
+			
+			SearchResultsView resultsView = new SearchResultsView(
+					this.model.getAnimalDatabase()
+					.getFilteredCats(
+							SearchFilterType.Name, 
+							this.view.getSearchText()));
+			
+			this.view.changePanelOnScrollPane(resultsView);
 		}
 
 	}

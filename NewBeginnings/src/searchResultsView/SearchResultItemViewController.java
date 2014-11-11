@@ -9,6 +9,8 @@ import model.Cat;
 
 public class SearchResultItemViewController implements ActionListener, FocusListener 
 {	
+	private SearchResultItemView _itemView;
+	
 	public SearchResultItemViewController()
 	{
 		
@@ -16,7 +18,17 @@ public class SearchResultItemViewController implements ActionListener, FocusList
 	
 	public SearchResultItemView buildView(Cat cat)
 	{
-		return new SearchResultItemView(cat);
+		_itemView = new SearchResultItemView(cat);
+		return _itemView;
+	}
+	
+	/**
+	 * call this when you are finished with the object,
+	 * removes the listeners to help disposal
+	 */
+	public void removeListeners()
+	{
+		
 	}
 	
 	@Override

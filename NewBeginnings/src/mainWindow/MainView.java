@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 public class MainView {
 
 	private JButton addNewCatButton;
+	private JButton searchButton;
+	private JTextField searchBar;
 	private JFrame frame;
 	private JScrollPane scrollPane;
 	private JPanel panelToContainThemAll;
@@ -103,9 +105,9 @@ public class MainView {
 
 	private JPanel createSearchPanel() {
 		JPanel searchPanel = new JPanel();
-		final JTextField searchBar = new JTextField("Search For A Cat");
+		searchBar = new JTextField("Search For A Cat");
 
-		final JButton searchButton = new JButton("Search");
+		searchButton = new JButton("Search");
 
 		searchPanel.setBackground(new Color(47, 140, 171));
 
@@ -143,10 +145,11 @@ public class MainView {
 	public void addController(MainController controller) {
 		System.out.println("Adding Controller");
 		this.addNewCatButton.addActionListener(controller);
+		this.searchButton.addActionListener(controller);
 		this.dataBaseAction.addActionListener(controller);
 		this.exitAction.addActionListener(controller);
 		this.formAction.addActionListener(controller);
-
+		
 	}
 
 	public void buildDataBaseView() {
@@ -174,6 +177,14 @@ public class MainView {
 		return this.addNewCatButton;
 	}
 
+	protected JButton getSearchButton() {
+		return this.searchButton;
+	}
+	
+	protected String getSearchText() {
+		return this.searchBar.getText();
+	}
+	
 	public JMenuItem getExitActionMenuItem() {
 		return this.exitAction;
 	}
