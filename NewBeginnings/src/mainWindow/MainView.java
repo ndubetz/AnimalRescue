@@ -16,11 +16,14 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import searchResults.SearchResultsViewController;
+
 public class MainView {
 
 	private JButton addNewCatButton;
 	private JButton searchButton;
 	private JTextField searchBar;
+	private SearchResultsViewController searchResults;
 	private JFrame frame;
 	private JScrollPane scrollPane;
 	private JPanel panelToContainThemAll;
@@ -29,7 +32,7 @@ public class MainView {
 	private JMenuItem exitAction;
 	private JMenuItem formAction;
 	private JMenuItem dataBaseAction;
-
+	
 	public MainView() {
 		build();
 	}
@@ -149,7 +152,6 @@ public class MainView {
 		this.dataBaseAction.addActionListener(controller);
 		this.exitAction.addActionListener(controller);
 		this.formAction.addActionListener(controller);
-		
 	}
 
 	public void buildDataBaseView() {
@@ -195,6 +197,14 @@ public class MainView {
 
 	public JMenuItem getDataBaseActionMenuItem() {
 		return this.dataBaseAction;
+	}
+
+	public SearchResultsViewController getSearchResults() {
+		return this.searchResults;
+	}
+
+	public void setSearchResults(SearchResultsViewController searchResults) {
+		this.searchResults = searchResults;
 	}
 
 }

@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="searchBar" key="selection"/>
+		<item value="getResultControllers" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="getResultControllers"/>
 			<item value="searchBar"/>
 			<item value="searchbar"/>
 			<item value="search "/>
@@ -15,9 +16,9 @@
 			<item value="searchButton"/>
 			<item value="searchbu"/>
 			<item value="search"/>
-			<item value="addnewcat"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="&quot;10/11/12, 3 year&quot;, &quot;FiV+ FlV-&quot;, &quot;1 year&quot;,"/>
 			<item value="&quot;&quot;, &quot;&quot;, &quot;&quot;,"/>
 			<item value="-14-"/>

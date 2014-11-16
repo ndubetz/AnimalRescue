@@ -32,4 +32,5 @@
 <fullyQualifiedTypeName name="database.SearchFilterType"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="java.awt.GridBagConstraints"/>
+<fullyQualifiedTypeName name="searchResultsView.SearchResultsViewController"/>
 </qualifiedTypeNameHistroy>

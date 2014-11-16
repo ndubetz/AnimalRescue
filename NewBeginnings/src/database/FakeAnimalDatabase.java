@@ -30,7 +30,7 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 		_fakeCats.add(new Cat("NB-14-009", "Garfield", Calendar.getInstance(), "M", "Calico", "Dark Orange", "no", Calendar.getInstance(), Calendar.getInstance(), "July 11 2013, 1 year", "FiV- FlV-", "1 year", new String[]{"12-13-2013 | Prescribed medication", "1-4-2014 | Stopped taking medication", "3-6-2014 | Broken leg", "5-4-2014 | Cast removed"}));
 		_fakeCats.add(new Cat("NB-14-002", "Han Solo", Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", "YES 3/10/1013", Calendar.getInstance(), Calendar.getInstance(), "11/10/13, 3 year", "FiV+ FlV-", "1 year", new String[]{}));
 		_fakeCats.add(new Cat("NB-14-005", "Fluffy", Calendar.getInstance(), "F", "Australian Mist", "White", "january 1st 2011", Calendar.getInstance(), Calendar.getInstance(), "Feb fourth 2011 3-year", "FiV- FlV-", "1 year", new String[]{}));
-		_fakeCats.add(new Cat("NB-14-004", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", "no", Calendar.getInstance(), Calendar.getInstance(), "9/6/14, 1year", "FiV+ FlV-", "3 year", new String[]{}));//this repeat is intentional. Note the different ID number
+		_fakeCats.add(new Cat("NB-14-004", "Zephram", Calendar.getInstance(), "M", "Hungarian Tabby", "Light Black", "no", Calendar.getInstance(), Calendar.getInstance(), "9/6/14, 1year", "FiV+ FlV-", "3 year", new String[]{}));
 		_fakeCats.add(new Cat("NB-14-007", "Geoff", Calendar.getInstance(), "M", "California Spangled", "Spotted Orange", "yes", Calendar.getInstance(), Calendar.getInstance(), "December 7th 2013 1-yr", "FiV+ FlV-", "3 year", new String[]{}));
 		
 		String fakeFilename = "test.db";

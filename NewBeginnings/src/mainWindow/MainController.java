@@ -9,8 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import database.SearchFilterType;
-import searchResultsView.SearchResultItemViewController;
-import searchResultsView.SearchResultsView;
+import searchResults.SearchResultItemViewController;
+import searchResults.SearchResultsView;
+import searchResults.SearchResultsViewController;
 import model.Cat;
 
 public class MainController implements ActionListener {
@@ -18,11 +19,13 @@ public class MainController implements ActionListener {
 	MainModel model;
 	private final AnimalInfoViewController animalInfoViewController;
 	private final FormViewController formViewController;
-
+	private final SearchResultsViewController searchResultsViewController;
+	
 	public MainController() {
 		System.out.println("Controller");
 		this.animalInfoViewController = new AnimalInfoViewController(this);
 		this.formViewController = new FormViewController(this);
+		searchResultsViewController = new SearchResultsViewController(this);
 	}
 
 	// all listeners for the MainView class go here
@@ -47,18 +50,20 @@ public class MainController implements ActionListener {
 			FormsView formView = this.formViewController.buildView();
 			this.view.buildFormsView(formView);
 			this.view.addController(this);
-		} else if (e.getSource() == this.view.getSearchButton()) {
-			System.out.println("Searching for " + this.view.getSearchText());
-			
-			SearchResultsView resultsView = new SearchResultsView(
+		} else if (e.getSource() == this.view.getSearchButton()) {			
+			SearchResultsView resultsView = this.searchResultsViewController.buildView(
 					this.model.getAnimalDatabase()
 					.getFilteredCats(
 							SearchFilterType.Name, 
 							this.view.getSearchText()));
 			
 			this.view.changePanelOnScrollPane(resultsView);
-		}
+		} else if(e.getSource() == this.searchResultsViewController){
+			AnimalInfoView animalView = this.animalInfoViewController
+					.buildView(searchResultsViewController.getSelectedCat());
 
+			this.view.changePanelOnScrollPane(animalView);
+		}
 	}
 
 	public void addModel(MainModel model) {
@@ -78,5 +83,4 @@ public class MainController implements ActionListener {
 	public void reloadPreviousPanel() {
 		this.view.changePanelOnScrollPane(this.view.getPreviousPanel());
 	}
-
 }
