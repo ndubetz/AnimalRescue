@@ -47,6 +47,7 @@ public class MainView {
 		this.frame.setMaximumSize(new Dimension(1000, 700));
 		this.frame.setLocation(200, 25);
 		this.frame.setVisible(true);
+		this.addNewCatButton.requestFocus();
 	}
 
 	public void addComponentsToPane() {
@@ -108,8 +109,8 @@ public class MainView {
 
 	private JPanel createSearchPanel() {
 		JPanel searchPanel = new JPanel();
-		searchBar = new JTextField("Search For A Cat");
-
+		searchBar = new JTextField(MainModel.C_DefaultSearchText);
+		
 		searchButton = new JButton("Search");
 
 		searchPanel.setBackground(new Color(47, 140, 171));
@@ -152,6 +153,8 @@ public class MainView {
 		this.dataBaseAction.addActionListener(controller);
 		this.exitAction.addActionListener(controller);
 		this.formAction.addActionListener(controller);
+		this.searchBar.addActionListener(controller);
+		this.searchBar.addFocusListener(controller);
 	}
 
 	public void buildDataBaseView() {
@@ -183,8 +186,8 @@ public class MainView {
 		return this.searchButton;
 	}
 	
-	protected String getSearchText() {
-		return this.searchBar.getText();
+	protected JTextField getSearchBar() {
+		return this.searchBar;
 	}
 	
 	public JMenuItem getExitActionMenuItem() {

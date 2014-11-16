@@ -1,10 +1,7 @@
 package searchResults;
 
 import java.awt.GridBagLayout;
-import java.util.LinkedList;
-import java.util.List;
 import javax.swing.JPanel;
-import model.Cat;
 
 /**
  * View object for displaying the search results from a cat search

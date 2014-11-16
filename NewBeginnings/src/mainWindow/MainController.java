@@ -7,14 +7,15 @@ import hostView.AnimalInfoViewController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import database.SearchFilterType;
-import searchResults.SearchResultItemViewController;
 import searchResults.SearchResultsView;
 import searchResults.SearchResultsViewController;
 import model.Cat;
 
-public class MainController implements ActionListener {
+public class MainController implements ActionListener, FocusListener {
 	MainView view;
 	MainModel model;
 	private final AnimalInfoViewController animalInfoViewController;
@@ -50,12 +51,12 @@ public class MainController implements ActionListener {
 			FormsView formView = this.formViewController.buildView();
 			this.view.buildFormsView(formView);
 			this.view.addController(this);
-		} else if (e.getSource() == this.view.getSearchButton()) {			
+		} else if (e.getSource() == this.view.getSearchButton() || e.getSource() == this.view.getSearchBar()) {	
 			SearchResultsView resultsView = this.searchResultsViewController.buildView(
 					this.model.getAnimalDatabase()
 					.getFilteredCats(
 							SearchFilterType.Name, 
-							this.view.getSearchText()));
+							this.view.getSearchBar().getText()));
 			
 			this.view.changePanelOnScrollPane(resultsView);
 		} else if(e.getSource() == this.searchResultsViewController){
@@ -66,6 +67,23 @@ public class MainController implements ActionListener {
 		}
 	}
 
+	@Override
+	public void focusGained(FocusEvent e) {
+		if(e.getSource() == this.view.getSearchBar()) {
+			if(this.view.getSearchBar().getText().equals(MainModel.C_DefaultSearchText)) {
+				this.view.getSearchBar().setText("");
+			} else {
+				this.view.getSearchBar().selectAll();
+			}
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		// TODO We need this here to compile even
+		//though we aren't using it quite yet
+	}
+	
 	public void addModel(MainModel model) {
 		System.out.println("adding model");
 		this.model = model;

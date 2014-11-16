@@ -6,6 +6,8 @@ import database.IAnimalDatabase;
 import model.Cat;
 
 public class MainModel extends java.util.Observable{
+	public static final String C_DefaultSearchText = "Search For A Cat";
+	
 	ArrayList<Cat> catsList = new ArrayList<Cat>();
 	
 	private IAnimalDatabase animalDatabase;
