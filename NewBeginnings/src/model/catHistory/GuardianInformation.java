@@ -8,10 +8,10 @@ import java.util.LinkedList;
  */
 
 public class GuardianInformation {
-	private final String guardianName;
-	private final String guardianPhoneNumber;
-	private final String guardianAddress;
-	private final String guardianEmail;
+	private String guardianName;
+	private String guardianPhoneNumber;
+	private String guardianAddress;
+	private String guardianEmail;
 
 	private String durationOfOwnership;
 	private LinkedList<String> reasonsForGivingUp;
@@ -19,11 +19,50 @@ public class GuardianInformation {
 	private String whereWasTheCatKept;
 
 	public GuardianInformation(String guardianName, String guardianPhoneNumber,
-			String guardianAddress, String guardianEmail) {
+			String guardianAddress, String guardianEmail, String duration,
+			LinkedList<String> reasons, String howWasTheCatRaised,
+			String whereWasTheCatKept) {
 		this.guardianName = guardianName;
 		this.guardianPhoneNumber = guardianPhoneNumber;
 		this.guardianAddress = guardianAddress;
 		this.guardianEmail = guardianEmail;
+
+		this.durationOfOwnership = duration;
+		this.reasonsForGivingUp = reasons;
+		this.howWasTheCatRaised = howWasTheCatRaised;
+		this.whereWasTheCatKept = whereWasTheCatKept;
+	}
+
+	public void updateGuardianName(String name) {
+		this.guardianName = name;
+	}
+
+	public void updateGuardianPhoneNumber(String phoneNumber) {
+		this.guardianPhoneNumber = phoneNumber;
+	}
+
+	public void updateGuardianAddress(String address) {
+		this.guardianAddress = address;
+	}
+
+	public void updateGuardianEmail(String email) {
+		this.guardianEmail = email;
+	}
+
+	public void updateDurationOfOwnership(String duration) {
+		this.durationOfOwnership = duration;
+	}
+
+	public void updateReasonsForGivingUp(LinkedList<String> reasons) {
+		this.reasonsForGivingUp = reasons;
+	}
+
+	public void updateHowWasTheCatRaised(String howWasTheCatRaised) {
+		this.howWasTheCatRaised = howWasTheCatRaised;
+	}
+
+	public void updateWhereWasTheCatKept(String whereWasTheCatKept) {
+		this.whereWasTheCatKept = whereWasTheCatKept;
 	}
 
 	public String getGuardianName() {
