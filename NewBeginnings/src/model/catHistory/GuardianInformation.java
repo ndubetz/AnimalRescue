@@ -17,7 +17,7 @@ public class GuardianInformation {
 	private LinkedList<String> reasonsForGivingUp;
 	private String howWasTheCatRaised;
 	private String whereWasTheCatKept;
-	private final String howDoesItGetOutside;
+	private String howDoesItGetOutside;
 
 	public GuardianInformation(String guardianName, String guardianPhoneNumber,
 			String guardianAddress, String guardianEmail, String duration,
@@ -99,11 +99,12 @@ public class GuardianInformation {
 		return this.whereWasTheCatKept;
 	}
 
-	public String getWhoLetsItOut() {
-		return whoLetsItOut;
+	public String getHowDoesItGetOutside() {
+		return this.howDoesItGetOutside;
 	}
 
-	public void updateWhoLetsItOut(String whoLetsItOut) {
-		this.whoLetsItOut = whoLetsItOut;
+	public void updateHowDoesItGetOutside(String howDoesItGetOutside) {
+		this.howDoesItGetOutside = howDoesItGetOutside;
 	}
+
 }
