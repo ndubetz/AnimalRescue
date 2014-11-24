@@ -14,8 +14,11 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,6 +39,7 @@ public class AnimalInfoView extends JPanel {
 	private final Cat theCat;
 	private boolean isInEditMode;
 	private JPanel imageDisplayPanel;
+	private JButton changeCatImageButton;
 
 	// FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
 
@@ -97,11 +101,26 @@ public class AnimalInfoView extends JPanel {
 		JLabel imageLabel = new JLabel(new ImageIcon(image));
 
 		this.imageDisplayPanel = new JPanel();
+		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel, BoxLayout.PAGE_AXIS));
 		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));
+		
 		this.imageDisplayPanel.setMinimumSize(new Dimension(250, 250));
 		this.imageDisplayPanel.setMaximumSize(new Dimension(250, 250));
+		imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.imageDisplayPanel.add(imageLabel);
+		changeImageButton(this.imageDisplayPanel);
 		this.add(this.imageDisplayPanel, constraints);
+	}
+	
+	private void changeImageButton(JPanel imageDisplayPanel){
+		JPanel changeCatImagePanel = new JPanel();
+		changeCatImagePanel.setBorder(BorderFactory.createEmptyBorder(2,2,0,0));
+		changeCatImagePanel.setBackground((new Color(201, 226, 233)));
+		this.changeCatImageButton = new JButton("Picture");
+		this.changeCatImageButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		changeCatImagePanel.add(this.changeCatImageButton);
+		
+		imageDisplayPanel.add(changeCatImagePanel);
 	}
 
 	private void buildAndAddBasicInfoPanel() {
@@ -183,6 +202,15 @@ public class AnimalInfoView extends JPanel {
 		// this.fkdb.check();
 
 	}
+	
+	protected void openFileMenuChooserForCatImage(){
+		JFileChooser fileChooser = new JFileChooser();
+		int option = fileChooser.showOpenDialog(this);
+		if (option == JFileChooser.APPROVE_OPTION) {
+			System.out.println("in here");
+            	fileChooser.getSelectedFile();          
+        }
+	}
 
 	protected JButton getPrintButton() {
 		return this.printCatButton;
@@ -202,6 +230,10 @@ public class AnimalInfoView extends JPanel {
 
 	protected JButton getEditCatButton() {
 		return this.editCatButton;
+	}
+	
+	protected JButton getChangeCatImageButton() {
+		return this.changeCatImageButton;
 	}
 
 	protected void toggleEditMode() {

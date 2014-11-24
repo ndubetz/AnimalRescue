@@ -33,6 +33,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			// TODO implement printing
 		} else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
 			// TODO implement PDF export
+		}else if(e.getSource() == this.animalInfoView.getChangeCatImageButton()){
+			this.animalInfoView.openFileMenuChooserForCatImage();
 		}
 	}
 
@@ -73,6 +75,7 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 		this.animalInfoView.getSaveButton().addActionListener(this);
 		this.animalInfoView.getPrintButton().addActionListener(this);
 		this.animalInfoView.getExportPDFButton().addActionListener(this);
+		this.animalInfoView.getChangeCatImageButton().addActionListener(this);
 	}
 
 }
