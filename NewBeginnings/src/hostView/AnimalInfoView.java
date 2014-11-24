@@ -26,10 +26,16 @@ import javax.swing.JTextField;
 import model.Cat;
 import ui.LabelAndTextfieldPairPanelFactory;
 
+/**
+ * AnimalInfoView displays the top layer of animal data, which is currently the
+ * basic information and the medical history. Has a control panel of buttons
+ * 
+ */
+
 @SuppressWarnings("serial")
 public class AnimalInfoView extends JPanel {
 	private JPanel upperControlPanel;
-	private JButton saveCatButton;
+	private JButton viewCatHistoryButton;
 	private JButton editAndSaveCatButton;
 	private JButton printCatButton;
 	private JButton exportPDFButton;
@@ -65,13 +71,13 @@ public class AnimalInfoView extends JPanel {
 		constraints.weightx = 1;
 		constraints.anchor = GridBagConstraints.PAGE_START;
 
-		this.saveCatButton = new JButton("Save");
+		this.viewCatHistoryButton = new JButton("View History");
 		this.editAndSaveCatButton = new JButton("Edit");
 		this.printCatButton = new JButton("Print");
 		this.exportPDFButton = new JButton("Export PDF");
 		this.backButton = new JButton("Back");
 
-		this.upperControlPanel.add(this.saveCatButton);
+		this.upperControlPanel.add(this.viewCatHistoryButton);
 		this.upperControlPanel.add(this.editAndSaveCatButton);
 		this.upperControlPanel.add(this.printCatButton);
 		this.upperControlPanel.add(this.exportPDFButton);
@@ -175,8 +181,8 @@ public class AnimalInfoView extends JPanel {
 
 	}
 
-	// will need to be refactored to accommodate changes
-	protected void savenewcat() {
+	// needs to be refactored to accommodate changes
+	protected void saveNewCat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		JTextField textfield1 = (JTextField) bInfoComponents.get(1);
@@ -220,15 +226,15 @@ public class AnimalInfoView extends JPanel {
 		return this.exportPDFButton;
 	}
 
-	protected JButton getSaveButton() {
-		return this.saveCatButton;
+	protected JButton getViewCatHistoryButton() {
+		return this.viewCatHistoryButton;
 	}
 
 	protected JButton getBackButton() {
 		return this.backButton;
 	}
 
-	protected JButton getEditCatButton() {
+	protected JButton getEditAndSaveCatButton() {
 		return this.editAndSaveCatButton;
 	}
 	
@@ -241,6 +247,7 @@ public class AnimalInfoView extends JPanel {
 				.getComponents());
 		List<Component> medicalHistoryComponents = Arrays
 				.asList(this.medicalHistoryPanel.getComponents());
+		// switch on edit mode, requires login
 		if (!this.isInEditMode) {
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
@@ -256,9 +263,17 @@ public class AnimalInfoView extends JPanel {
 					textField.setEditable(true);
 				}
 			}
-			this.editAndSaveCatButton.setText("Done");
+			this.editAndSaveCatButton.setText("Save");
 			this.isInEditMode = true;
+			// save, then switch off edit mode
+			// NOTE: This code should only be reached if a user has
+			// admin privilege
 		} else {
+			// save if in login mode
+			// will fill in shortly
+			if (!true) {
+				// saveNewCat();
+			}
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
 					JTextField textField = (JTextField) basicInfoComponents
