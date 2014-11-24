@@ -3,7 +3,7 @@ package formView;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import ui.LabelAndTextfieldPairPanelFactory;
+import ui.PanelFactory;
 
 @SuppressWarnings("serial")
 public class FosterApplicationFormView extends JPanel {
@@ -18,7 +18,7 @@ public class FosterApplicationFormView extends JPanel {
 	private void setUpPersonalInfoPanel() {
 		String[] labels = new String[] { "Name", "Birthdate", "Address",
 				"Phone number", "Email" };
-		this.personalInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+		this.personalInfoPanel = PanelFactory.buildLabelAndTextFieldPairPanel(
 				labels, new String[labels.length]);
 		this.add(this.personalInfoPanel);
 	}

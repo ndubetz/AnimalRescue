@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Cat;
-import ui.LabelAndTextfieldPairPanelFactory;
+import ui.PanelFactory;
 
 /**
  * AnimalInfoView displays the top layer of animal data, which is currently the
@@ -154,7 +154,7 @@ public class AnimalInfoView extends JPanel {
 			content[8] = "Not yet known";
 		}
 
-		this.basicInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+		this.basicInfoPanel = PanelFactory.buildLabelAndTextFieldPairPanel(
 				labels, content);
 		this.add(this.basicInfoPanel, constraints);
 	}
@@ -175,8 +175,8 @@ public class AnimalInfoView extends JPanel {
 				this.theCat.getRabies(), this.theCat.getDistemper(),
 				this.theCat.getFeLeuk() };
 
-		this.medicalHistoryPanel = LabelAndTextfieldPairPanelFactory
-				.buildPanel(labels, content);
+		this.medicalHistoryPanel = PanelFactory
+				.buildLabelAndTextFieldPairPanel(labels, content);
 		this.add(this.medicalHistoryPanel, constraints);
 
 	}

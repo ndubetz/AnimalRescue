@@ -4,7 +4,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import ui.LabelAndTextfieldPairPanelFactory;
+import ui.PanelFactory;
 
 @SuppressWarnings("serial")
 public class VolunteerApplicationFormView extends JPanel {
@@ -43,7 +43,7 @@ public class VolunteerApplicationFormView extends JPanel {
 		String[] labels = new String[] { "Name", "Birthdate", "Address",
 				"City", "Zip Code", "Primary Phone", "Email" };
 
-		this.personalInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+		this.personalInfoPanel = PanelFactory.buildLabelAndTextFieldPairPanel(
 				labels, new String[labels.length]);
 
 		// TODO This will be a JTextArea

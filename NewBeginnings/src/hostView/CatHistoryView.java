@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import model.catHistory.CatHistory;
 import model.catHistory.FeedingInformation;
 import model.catHistory.GuardianInformation;
-import ui.LabelAndTextfieldPairPanelFactory;
+import ui.PanelFactory;
 
 @SuppressWarnings("serial")
 public class CatHistoryView extends JPanel {
@@ -29,7 +29,7 @@ public class CatHistoryView extends JPanel {
 				feedingInfo.getBrands(), feedingInfo.getSpecialDiet(),
 				feedingInfo.getEatingFrequency() };
 
-		this.feedingInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+		this.feedingInfoPanel = PanelFactory.buildLabelAndTextFieldPairPanel(
 				labels, content);
 		this.add(this.feedingInfoPanel);
 	}
@@ -51,7 +51,7 @@ public class CatHistoryView extends JPanel {
 				guardianInfo.getHowWasTheCatRaised(),
 				guardianInfo.getWhereWasTheCatKept(),
 				guardianInfo.getHowDoesItGetOutside() };
-		this.guardianInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+		this.guardianInfoPanel = PanelFactory.buildLabelAndTextFieldPairPanel(
 				labels, content);
 		this.add(this.guardianInfoPanel);
 
