@@ -23,7 +23,6 @@ public class MainController implements ActionListener, FocusListener {
 	private final SearchResultsViewController searchResultsViewController;
 
 	public MainController() {
-		System.out.println("Controller");
 		this.animalInfoViewController = new AnimalInfoViewController(this);
 		this.formViewController = new FormViewController(this);
 		this.searchResultsViewController = new SearchResultsViewController(this);
@@ -40,14 +39,11 @@ public class MainController implements ActionListener, FocusListener {
 
 			this.view.changePanelOnScrollPane(animalView);
 		} else if (e.getSource() == this.view.getExitActionMenuItem()) {
-			System.out.println("close");
 			System.exit(0);
 		} else if (e.getSource() == this.view.getDataBaseActionMenuItem()) {
-			System.out.println("database View");
 			this.view.buildDataBaseView();
 			this.view.addController(this);
 		} else if (e.getSource() == this.view.getFormActionMenuItem()) {
-			System.out.println("forms view");
 			FormsView formView = this.formViewController.buildView();
 			this.view.buildFormsView(formView);
 			this.view.addController(this);
@@ -87,12 +83,10 @@ public class MainController implements ActionListener, FocusListener {
 	}
 
 	public void addModel(MainModel model) {
-		System.out.println("adding model");
 		this.model = model;
 	}
 
 	public void addView(MainView view) {
-		System.out.println("adding view");
 		this.view = view;
 	}
 

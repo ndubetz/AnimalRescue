@@ -28,7 +28,6 @@ public class FormsView extends JPanel {
 	}
 
 	public void build() {
-		System.out.println("FormView");
 		buildAndAddUpperControlPanel();
 		setPanelToScrollPane(new JPanel());
 	}
