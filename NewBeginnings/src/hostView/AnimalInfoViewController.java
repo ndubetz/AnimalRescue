@@ -25,10 +25,12 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.animalInfoView.getBackButton()) {
 			this.mainController.reloadPreviousPanel();
-		} else if (e.getSource() == this.animalInfoView.getEditCatButton()) {
+		} else if (e.getSource() == this.animalInfoView
+				.getEditAndSaveCatButton()) {
 			this.animalInfoView.toggleEditMode();
-		} else if (e.getSource() == this.animalInfoView.getSaveButton()) {
-			this.animalInfoView.savenewcat();
+		} else if (e.getSource() == this.animalInfoView
+				.getViewCatHistoryButton()) {
+			// TODO change panel
 		} else if (e.getSource() == this.animalInfoView.getPrintButton()) {
 			// TODO implement printing
 		} else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
@@ -71,8 +73,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 
 	private void addActionListenersToButtons() {
 		this.animalInfoView.getBackButton().addActionListener(this);
-		this.animalInfoView.getEditCatButton().addActionListener(this);
-		this.animalInfoView.getSaveButton().addActionListener(this);
+		this.animalInfoView.getEditAndSaveCatButton().addActionListener(this);
+		this.animalInfoView.getViewCatHistoryButton().addActionListener(this);
 		this.animalInfoView.getPrintButton().addActionListener(this);
 		this.animalInfoView.getExportPDFButton().addActionListener(this);
 		this.animalInfoView.getChangeCatImageButton().addActionListener(this);
