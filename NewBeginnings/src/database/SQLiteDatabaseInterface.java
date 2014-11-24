@@ -45,6 +45,9 @@ public class SQLiteDatabaseInterface
 			{"overallDescription", "TEXT"}
 		};
 	
+	/**
+	 * Schema for the FeedingInformation table
+	 */
 	public static final String[][] C_FeedingInformationColumns = 
 		{
 			{"id", "TEXT"},
@@ -54,6 +57,9 @@ public class SQLiteDatabaseInterface
 			{"eatingFrequency", "TEXT"}
 		};
 	
+	/**
+	 * Schema for the GuardianInformation table
+	 */
 	public static final String[][]C_GuardianInformationColumns = 
 		{
 			{"id", "TEXT"},
@@ -67,9 +73,37 @@ public class SQLiteDatabaseInterface
 			{"whereWasTheCatKept", "TEXT"}
 		};
 	
+	/**
+	 * Schema for the LitterBoxInfo table
+	 */
 	public static final String[][] C_LitterBoxInfoColumns = 
 		{
-			{"id", "TEXT"}
+			{"id", "TEXT"},
+			{"isLitterBoxTrained", "INTEGER"},
+			{"ifNoPleaseExplain", "TEXT"},
+			{"numberOfCatsInHome", "INTEGER"},
+			{"numberOfLitterBoxesInHome", "INTEGER"},
+			{"litterBoxType", "TEXT"},
+			{"litterTypes", "TEXT"},
+			{"hasTheCatShatOutsideTheBox", "INTEGER"},
+			{"ifYesThenWhere", "TEXT"},
+			{"howOftenWereTheAccidents", "TEXT"},
+			{"recentChangesToRoutine", "TEXT"},
+			{"hasSeenTheVetForHavingAccidents", "TEXT"},
+			{"wasAccidentProblemSolved", "TEXT"}
+		};
+	
+	/**
+	 * Schema for the VeterinarianCareHistory table
+	 */
+	public static final String[][] C_VeterinarianCareHistoryColumns = 
+		{
+			{"id", "TEXT"},
+			{"hasBeenSterilized", "INTEGER"},
+			{"hasBeenVaccinatedThisYear", "INTEGER"},
+			{"hasBeenTestedFiVLeuk", "INTEGER"},
+			{"vetName", "TEXT"},
+			{"vetPhoneNumber", "TEXT"}
 		};
 	
 	/**
@@ -90,6 +124,8 @@ public class SQLiteDatabaseInterface
 		script.add(createTableSQL("BehaviourInformation", C_BehaviourInformationColumns));
 		script.add(createTableSQL("FeedingInformation", C_FeedingInformationColumns));
 		script.add(createTableSQL("GuardianInformation", C_GuardianInformationColumns));		
+		script.add(createTableSQL("LitterBoxInfo", C_LitterBoxInfoColumns));
+		script.add(createTableSQL("VeterinarianCareHistory", C_VeterinarianCareHistoryColumns));
 		
 		return script.toArray(new String[script.size()]);
 	}
@@ -144,7 +180,7 @@ public class SQLiteDatabaseInterface
 	 */
 	public static final String C_BehaviourInformationByID = 
 			"SELECT *\n" + 
-			"FROM BehaviourInformation B\n" + 
+			"FROM BehaviourInformation\n" + 
 			"WHERE B.id='%s';\n";
 
 	/**
@@ -165,12 +201,13 @@ public class SQLiteDatabaseInterface
 	}
 	
 //*********GuardianInformation Table SQL Commands****************
+	
 	/**
 	 * Formattable query to get a cat's Guardian information
 	 */
 	public static final String C_GuardianInformationByID = 
 			"SELECT *\n" + 
-			"FROM GuardianInformation B\n" + 
+			"FROM GuardianInformation\n" + 
 			"WHERE B.id='%s';\n";
 
 	/**
@@ -190,6 +227,60 @@ public class SQLiteDatabaseInterface
 		return updateExistingSomething("GuardianInformation", C_GuardianInformationColumns);
 	}
 
+//*********LitterBoxInfo Table SQL Commands****************
+	
+	/**
+	 * Formattable query to get a cat's LitterBox Info
+	 */
+	public static final String C_LitterBoxInfoByID = 
+			"SELECT *\n" + 
+			"FROM LitterBoxInfo\n" + 
+			"WHERE B.id='%s';\n";
+
+	/**
+	 * @return the SQL command for inserting a new GuardianInformation
+	 */
+	public static String insertNewLitterBoxInfoSQL() 
+	{
+		return insertNewSomething("LitterBoxInfo", C_LitterBoxInfoColumns);
+	}
+			
+	/**
+	 * Generates a formatable query to update an 
+	 * existing LitterBoxInfo
+	 */
+	public static String updateExistingLitterBoxInfoSQL() 
+	{
+		return updateExistingSomething("LitterBoxInfo", C_LitterBoxInfoColumns);
+	}
+	
+//*********VeterinarianCareHistory Table SQL Commands****************
+
+	/**
+	 * Formattable query to get a cat's VeterinarianCareHistory
+	 */
+	public static final String C_VeterinarianCareHistoryByID = 
+			"SELECT *\n" + 
+			"FROM VeterinarianCareHistory\n" + 
+			"WHERE B.id='%s';\n";
+
+	/**
+	 * @return the SQL command for inserting a new VeterinarianCareHistory
+	 */
+	public static String insertNewVeterinarianCareHistorySQL() 
+	{
+		return insertNewSomething("VeterinarianCareHistory", C_VeterinarianCareHistoryColumns);
+	}
+			
+	/**
+	 * Generates a formatable query to update an 
+	 * existing VeterinarianCareHistory
+	 */
+	public static String updateExistingVeterinarianCareHistorySQL() 
+	{
+		return updateExistingSomething("VeterinarianCareHistory", C_VeterinarianCareHistoryColumns);
+	}
+	
 //*******Abstracted SQL Commands*******
 	private static String createTableSQL(String tableName, String[][] columns)
 	{
