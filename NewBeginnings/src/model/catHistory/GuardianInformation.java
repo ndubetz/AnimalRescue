@@ -17,11 +17,12 @@ public class GuardianInformation {
 	private LinkedList<String> reasonsForGivingUp;
 	private String howWasTheCatRaised;
 	private String whereWasTheCatKept;
+	private final String howDoesItGetOutside;
 
 	public GuardianInformation(String guardianName, String guardianPhoneNumber,
 			String guardianAddress, String guardianEmail, String duration,
 			LinkedList<String> reasons, String howWasTheCatRaised,
-			String whereWasTheCatKept) {
+			String whereWasTheCatKept, String howDoesItGetOutside) {
 		this.guardianName = guardianName;
 		this.guardianPhoneNumber = guardianPhoneNumber;
 		this.guardianAddress = guardianAddress;
@@ -31,6 +32,7 @@ public class GuardianInformation {
 		this.reasonsForGivingUp = reasons;
 		this.howWasTheCatRaised = howWasTheCatRaised;
 		this.whereWasTheCatKept = whereWasTheCatKept;
+		this.howDoesItGetOutside = howDoesItGetOutside;
 	}
 
 	public void updateGuardianName(String name) {
@@ -95,5 +97,13 @@ public class GuardianInformation {
 
 	public String getWhereWasTheCatKept() {
 		return this.whereWasTheCatKept;
+	}
+
+	public String getWhoLetsItOut() {
+		return whoLetsItOut;
+	}
+
+	public void updateWhoLetsItOut(String whoLetsItOut) {
+		this.whoLetsItOut = whoLetsItOut;
 	}
 }

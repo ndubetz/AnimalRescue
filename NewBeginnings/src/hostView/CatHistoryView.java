@@ -18,8 +18,12 @@ public class CatHistoryView extends JPanel {
 
 	private void buildAndAddContactInfoPanel() {
 		GuardianInformation guardianInfo = this.catHistory.getGuardianInfo();
+
+		// add guardian contact info
 		String[] labels = new String[] { "Guardian Name",
-				"Guardian Phone Number", "Guardian Address", "Guardian Email" };
+				"Guardian Phone Number", "Guardian Address", "Guardian Email",
+				"Duration of ownsership", "How was the cat raised",
+				"Where was the cat kept at home" };
 		String[] content = new String[] { guardianInfo.getGuardianName(),
 				guardianInfo.getGuardianPhoneNumber(),
 				guardianInfo.getGuardianAddress(),
@@ -28,6 +32,8 @@ public class CatHistoryView extends JPanel {
 		this.contactInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
 				labels, content);
 		this.add(this.contactInfoPanel);
+
+		// add other information
 
 	}
 }
