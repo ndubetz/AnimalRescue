@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * training.
  * 
  */
-class LitterBoxInfo {
+public class LitterBoxInfo {
 	private boolean isLitterBoxTrained;
 	private String ifNoPleaseExplain;
 	private int numberOfCatsInHome;

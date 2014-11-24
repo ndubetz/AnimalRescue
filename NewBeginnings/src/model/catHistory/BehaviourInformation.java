@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * BehaviourInformation is a container for the behavioural information of the
  * cat.
  */
-class BehaviourInformation {
+public class BehaviourInformation {
 	private boolean useScratchingPost;
 	private LinkedList<String> scratchingPreferences;
 	private String activityLevel;

@@ -5,7 +5,7 @@ package model.catHistory;
  * only interacts with the CatHistory object.
  */
 
-class FeedingInformation {
+public class FeedingInformation {
 	private String foodType;
 	private String brands;
 	private String specialDiet;

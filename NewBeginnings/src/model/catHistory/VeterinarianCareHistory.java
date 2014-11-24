@@ -1,6 +1,6 @@
 package model.catHistory;
 
-class VeterinarianCareHistory {
+public class VeterinarianCareHistory {
 	private boolean hasBeenSterilized;
 	private boolean hasBeenVaccinatedThisYear;
 	private boolean hasBeenTestedFiVLeuk;
