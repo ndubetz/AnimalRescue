@@ -3,7 +3,8 @@ package model.catHistory;
 /**
  * CatHistory will hold all information pertaining to the history of the cat
  * upon admission into the rescue. Chunks of related information are grouped
- * into package-protected classes and interact only with the CatHistory class
+ * into classes and interact only with the CatHistory class. All the classes in
+ * this package are stupid and only contain getters, setters, and constructors.
  */
 
 public class CatHistory {
@@ -16,8 +17,36 @@ public class CatHistory {
 
 	private String additionalInfo;
 
-	public CatHistory() {
+	public CatHistory(FeedingInformation feedingInfo,
+			BehaviourInformation behaviourInfo,
+			VeterinarianCareHistory vetCareHistory,
+			LitterBoxInfo litterBoxInfo, GuardianInformation guardianInfo,
+			String additionalInfo) {
+		this.feedingInfo = feedingInfo;
+		this.behaviourInfo = behaviourInfo;
+		this.vetCareHistory = vetCareHistory;
+		this.litterBoxInfo = litterBoxInfo;
+		this.additionalInfo = additionalInfo;
+	}
 
+	public void updateFeedingInfo(FeedingInformation feedingInfo) {
+		this.feedingInfo = feedingInfo;
+	}
+
+	public void updateBehaviourInfo(BehaviourInformation behaviourInfo) {
+		this.behaviourInfo = behaviourInfo;
+	}
+
+	public void updateVetCareHistory(VeterinarianCareHistory vetCareHistory) {
+		this.vetCareHistory = vetCareHistory;
+	}
+
+	public void updateLitterBoxInfo(LitterBoxInfo litterBoxInfo) {
+		this.litterBoxInfo = litterBoxInfo;
+	}
+
+	public void updateAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
 	}
 
 	public FeedingInformation getFeedingInfo() {
