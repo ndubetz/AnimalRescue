@@ -1,11 +1,13 @@
 package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
 import model.Cat;
+import model.catHistory.*;
 
 public class AnimalDatabaseSQLite implements IAnimalDatabase
 {
@@ -163,6 +165,76 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		return suggestedID;
 	}
 	
+	@Override
+	public CatHistory getCatHistory(String catID) {
+		CatHistory history = null;
+		
+		//get query results for all the components of the CatHistory
+		String behaviourQuery = String.format(SQLiteDatabaseInterface.C_BehaviourInformationByID, catID);
+		ResultSet behaviourResult = _sqlite.executeQuery(behaviourQuery);
+		
+		String feedingQuery = String.format(SQLiteDatabaseInterface.C_FeedingInformationByID, catID);
+		ResultSet feedingResult = _sqlite.executeQuery(feedingQuery);
+		
+		String guardianQuery = String.format(SQLiteDatabaseInterface.C_GuardianInformationByID, catID);
+		ResultSet guardianResult = _sqlite.executeQuery(guardianQuery);
+		
+		String litterQuery = String.format(SQLiteDatabaseInterface.C_LitterBoxInfoByID, catID);
+		ResultSet litterResult = _sqlite.executeQuery(litterQuery);
+		
+		String vetQuery = String.format(SQLiteDatabaseInterface.C_VeterinarianCareHistoryByID, catID);
+		ResultSet vetResult = _sqlite.executeQuery(vetQuery);
+		
+		try 
+		{
+			//create the objects from their SQL results
+			behaviourResult.next();
+			BehaviourInformation behaviour = (behaviourResult == null)? null : createBahaviourInformationFromSQL(behaviourResult);
+			
+			feedingResult.next();
+			FeedingInformation feeding = (feedingResult == null)? null : createFeedingInformationFromSQL(feedingResult);
+			
+			guardianResult.next();
+			GuardianInformation guardian = (guardianResult == null)? null : createGuardianInformationFromSQL(guardianResult);
+			
+			litterResult.next();
+			LitterBoxInfo litter = (litterResult == null)? null : createLitterBoxInfoFromSQL(litterResult);
+			
+			vetResult.next();
+			VeterinarianCareHistory vet = (vetResult == null)? null : createVeterinarianCareHistoryFromSQL(vetResult);
+			
+			//now consolidate into the final object
+			history = new CatHistory
+					(
+							feeding,
+							behaviour,
+							vet,
+							litter,
+							guardian,
+							""
+					);
+			
+			_sqlite.closeEverything();			
+		} 
+		catch (SQLException e) 
+		{
+			return null;
+		}
+		return history;
+	}
+
+	@Override
+	public void insertCatHistory(CatHistory catHistory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCatHistory(CatHistory catHistory) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private Cat createCatFromSQLResult(ResultSet result)
 	{
 		try {
@@ -182,11 +254,107 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 							result.getString("distemper"),
 							flatStringToStringArray(result.getString("medicalHistory"))
 					);
-		} 
-		catch (SQLException e) 
+		} catch (SQLException e) 
 		{
 			//if we get a corrupted cat, just return the empty Cat
 			return Cat.emptyCat();
+		}
+	}
+	
+	private BehaviourInformation createBahaviourInformationFromSQL(ResultSet result)
+	{
+		try {
+			return new BehaviourInformation
+					(
+							intToBoolean(result.getInt("useScratchingPost")),
+							new LinkedList<String>(Arrays.asList(flatStringToStringArray(result.getString("scratchingPreferences")))),
+							result.getString("activityLevel"),
+							result.getString("sensitiveAreas"),
+							new LinkedList<String>(Arrays.asList(flatStringToStringArray(result.getString("whatMakesItNervous")))),
+							new LinkedList<String>(Arrays.asList(flatStringToStringArray(result.getString("preferredCompany")))),
+							new LinkedList<String>(Arrays.asList(flatStringToStringArray(result.getString("overallDescription"))))
+					);
+		} catch (SQLException e)
+		{
+			return null;
+		}
+	}
+	
+	private FeedingInformation createFeedingInformationFromSQL(ResultSet result)
+	{
+		try {
+			return new FeedingInformation
+					(
+							result.getString("foodType"),
+							result.getString("brands"),
+							result.getString("specialDiet"),
+							result.getString("eatingFrequency")
+					);
+		} catch (SQLException e)
+		{
+			return null;
+		}
+	}
+	
+	private GuardianInformation createGuardianInformationFromSQL(ResultSet result)
+	{
+		try {
+			return new GuardianInformation
+					(
+							result.getString("guardianName"),
+							result.getString("guardianPhoneNumber"),
+							result.getString("guardianAddress"),
+							result.getString("guardianEmail"),
+							result.getString("durationOfOwnership"),
+							new LinkedList<String>(Arrays.asList(flatStringToStringArray(result.getString("reasonsForGivingUp")))),
+							result.getString("howWasTheCatRaised"),
+							result.getString("whereWasTheCatKept"),
+							result.getString("howDoesItGetOutside")
+					);
+		} catch (SQLException e)
+		{
+			return null;
+		}
+	}
+	
+	private LitterBoxInfo createLitterBoxInfoFromSQL(ResultSet result)
+	{
+		try {
+			return new LitterBoxInfo
+					(
+							intToBoolean(result.getInt("isLitterBoxTrained")),
+							result.getString("ifNoPleaseExplain"),
+							result.getInt("numberOfCatsInHome"),
+							result.getInt("numberOfLitterBoxesInHome"),
+							result.getString("litterBoxType"),
+							new LinkedList<String>(Arrays.asList(flatStringToStringArray(result.getString("litterTypes")))),
+							intToBoolean(result.getInt("hasTheCatShatOutsideTheBox")),
+							result.getString("ifYesThenWhere"),
+							result.getString("howOftenWereTheAccidents"),
+							result.getString("recentChangesToRoutine"),
+							result.getString("hasSeenTheVetForHavingAccidents"),
+							result.getString("wasAccidentProblemSolved")
+					);
+		} catch (SQLException e)
+		{
+			return null;
+		}
+	}
+	
+	private VeterinarianCareHistory createVeterinarianCareHistoryFromSQL(ResultSet result)
+	{
+		try {
+			return new VeterinarianCareHistory
+					(
+							intToBoolean(result.getInt("hasBeenSterilized")),
+							intToBoolean(result.getInt("hasBeenVaccinatedThisYear")),
+							intToBoolean(result.getInt("hasBeenTestedFiVLeuk")),
+							result.getString("vetName"),
+							result.getString("vetPhoneNumber")
+					);
+		} catch (SQLException e)
+		{
+			return null;
 		}
 	}
 	
@@ -197,12 +365,12 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		
 		return calendar;
 	}
-	/**
+	
 	private boolean intToBoolean(int value)
 	{
 		return (value == 0);
 	}
-	
+	/*
 	private int booleanToInt(boolean value)
 	{
 		return value? 1: 0;

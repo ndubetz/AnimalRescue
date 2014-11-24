@@ -3,20 +3,38 @@ package hostView;
 import javax.swing.JPanel;
 
 import model.catHistory.CatHistory;
+import model.catHistory.FeedingInformation;
 import model.catHistory.GuardianInformation;
 import ui.LabelAndTextfieldPairPanelFactory;
 
 @SuppressWarnings("serial")
 public class CatHistoryView extends JPanel {
-	private JPanel contactInfoPanel;
+	private JPanel guardianInfoPanel;
+	private JPanel feedingInfoPanel;
 	private final CatHistory catHistory;
 
 	public CatHistoryView(CatHistory catHistory) {
 		this.catHistory = catHistory;
-		buildAndAddContactInfoPanel();
+		buildAndAddGuardianInfoPanel();
+		buildAndAddFeedingInfoPanel();
 	}
 
-	private void buildAndAddContactInfoPanel() {
+	private void buildAndAddFeedingInfoPanel() {
+		FeedingInformation feedingInfo = this.catHistory.getFeedingInfo();
+
+		String[] labels = new String[] {
+				"What type of food does this cat eat?", "What brand(s)",
+				"Does the cat have a special diet?", "How often does it eat?:" };
+		String[] content = new String[] { feedingInfo.getFoodType(),
+				feedingInfo.getBrands(), feedingInfo.getSpecialDiet(),
+				feedingInfo.getEatingFrequency() };
+
+		this.feedingInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+				labels, content);
+		this.add(this.feedingInfoPanel);
+	}
+
+	private void buildAndAddGuardianInfoPanel() {
 		GuardianInformation guardianInfo = this.catHistory.getGuardianInfo();
 
 		// add labels and textfields for string data
@@ -33,11 +51,12 @@ public class CatHistoryView extends JPanel {
 				guardianInfo.getHowWasTheCatRaised(),
 				guardianInfo.getWhereWasTheCatKept(),
 				guardianInfo.getHowDoesItGetOutside() };
-		this.contactInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
+		this.guardianInfoPanel = LabelAndTextfieldPairPanelFactory.buildPanel(
 				labels, content);
-		this.add(this.contactInfoPanel);
+		this.add(this.guardianInfoPanel);
 
 		// add other information
 
 	}
+
 }

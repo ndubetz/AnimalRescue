@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.Cat;
+import model.catHistory.CatHistory;
 
 /**
  * Fake for the AnimalDatabase NOTE: We should probably migrate this to the test
@@ -82,6 +83,21 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	@Override
 	public String getSuggestedNextID() {
 		return _realDatabase.getSuggestedNextID();
+	}
+	
+	@Override
+	public CatHistory getCatHistory(String catID) {
+		return _realDatabase.getCatHistory(catID);
+	}
+
+	@Override
+	public void insertCatHistory(CatHistory catHistory) {
+		_realDatabase.insertCatHistory(catHistory);
+	}
+
+	@Override
+	public void updateCatHistory(CatHistory catHistory) {
+		_realDatabase.updateCatHistory(catHistory);
 	}
 	
 	public List<Cat> getFakeCatsList(){

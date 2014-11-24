@@ -30,7 +30,7 @@ import ui.LabelAndTextfieldPairPanelFactory;
 public class AnimalInfoView extends JPanel {
 	private JPanel upperControlPanel;
 	private JButton saveCatButton;
-	private JButton editCatButton;
+	private JButton editAndSaveCatButton;
 	private JButton printCatButton;
 	private JButton exportPDFButton;
 	private JButton backButton;
@@ -66,13 +66,13 @@ public class AnimalInfoView extends JPanel {
 		constraints.anchor = GridBagConstraints.PAGE_START;
 
 		this.saveCatButton = new JButton("Save");
-		this.editCatButton = new JButton("Edit");
+		this.editAndSaveCatButton = new JButton("Edit");
 		this.printCatButton = new JButton("Print");
 		this.exportPDFButton = new JButton("Export PDF");
 		this.backButton = new JButton("Back");
 
 		this.upperControlPanel.add(this.saveCatButton);
-		this.upperControlPanel.add(this.editCatButton);
+		this.upperControlPanel.add(this.editAndSaveCatButton);
 		this.upperControlPanel.add(this.printCatButton);
 		this.upperControlPanel.add(this.exportPDFButton);
 		this.upperControlPanel.add(this.backButton);
@@ -229,7 +229,7 @@ public class AnimalInfoView extends JPanel {
 	}
 
 	protected JButton getEditCatButton() {
-		return this.editCatButton;
+		return this.editAndSaveCatButton;
 	}
 	
 	protected JButton getChangeCatImageButton() {
@@ -256,7 +256,7 @@ public class AnimalInfoView extends JPanel {
 					textField.setEditable(true);
 				}
 			}
-			this.editCatButton.setText("Done");
+			this.editAndSaveCatButton.setText("Done");
 			this.isInEditMode = true;
 		} else {
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
@@ -273,7 +273,7 @@ public class AnimalInfoView extends JPanel {
 					textField.setEditable(false);
 				}
 			}
-			this.editCatButton.setText("Edit");
+			this.editAndSaveCatButton.setText("Edit");
 			this.isInEditMode = false;
 		}
 	}

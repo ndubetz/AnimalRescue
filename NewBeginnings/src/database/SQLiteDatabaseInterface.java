@@ -70,7 +70,8 @@ public class SQLiteDatabaseInterface
 			{"durationOfOwnership", "TEXT"},
 			{"reasonsForGivingUp", "TEXT"},
 			{"howWasTheCatRaised", "TEXT"},
-			{"whereWasTheCatKept", "TEXT"}
+			{"whereWasTheCatKept", "TEXT"},
+			{"howDoesItGetOutside", "TEXT"}
 		};
 	
 	/**
@@ -198,6 +199,33 @@ public class SQLiteDatabaseInterface
 	public static String updateExistingBehaviourInformationSQL() 
 	{
 		return updateExistingSomething("BehaviourInformation", C_BehaviourInformationColumns);
+	}
+	
+//*********FeedingInformation Table SQL Commands****************
+
+	/**
+	 * Formattable query to get a cat's FeedingInformation
+	 */
+	public static final String C_FeedingInformationByID = 
+			"SELECT *\n" + 
+			"FROM FeedingInformation\n" + 
+			"WHERE B.id='%s';\n";
+
+	/**
+	 * @return the SQL command for inserting a new FeedingInformation
+	 */
+	public static String insertNewFeedingInformationSQL() 
+	{
+		return insertNewSomething("FeedingInformation", C_FeedingInformationColumns);
+	}
+	
+	/**
+	 * Generates a formatable query to update an 
+	 * existing FeedingInformation
+	 */
+	public static String updateExistingFeedingInformationSQL() 
+	{
+		return updateExistingSomething("FeedingInformation", C_FeedingInformationColumns);
 	}
 	
 //*********GuardianInformation Table SQL Commands****************
