@@ -13,11 +13,10 @@ public class MainModel extends java.util.Observable{
 	private IAnimalDatabase animalDatabase;
 	
 	public MainModel(){
-		System.out.println("model");
+		
 	}
 	
 	public void newAnimal(){
-		System.out.println("New Animal");
 	}
 
 	public IAnimalDatabase getAnimalDatabase() {

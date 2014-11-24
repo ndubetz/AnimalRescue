@@ -147,7 +147,6 @@ public class MainView {
 	}
 
 	public void addController(MainController controller) {
-		System.out.println("Adding Controller");
 		this.addNewCatButton.addActionListener(controller);
 		this.searchButton.addActionListener(controller);
 		this.dataBaseAction.addActionListener(controller);
