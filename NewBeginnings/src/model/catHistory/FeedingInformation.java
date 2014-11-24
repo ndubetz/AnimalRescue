@@ -35,19 +35,19 @@ public class FeedingInformation {
 		this.eatingFrequency = eatingFrequency;
 	}
 
-	protected String getFoodType() {
+	public String getFoodType() {
 		return this.foodType;
 	}
 
-	protected String getBrands() {
+	public String getBrands() {
 		return this.brands;
 	}
 
-	protected String getSpecialDiet() {
+	public String getSpecialDiet() {
 		return this.specialDiet;
 	}
 
-	protected String getEatingFrequency() {
+	public String getEatingFrequency() {
 		return this.eatingFrequency;
 	}
 }
