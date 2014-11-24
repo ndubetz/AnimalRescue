@@ -91,7 +91,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getRabies(),
 				cat.getFeLeuk(),
 				cat.getDistemper(),
-				medicalHistoryToFlatString(cat.getMedicalHistory())
+				stringArrayToFlatString(cat.getMedicalHistory())
 				);
 		
 		_sqlite.executeUpdate(statement);
@@ -113,7 +113,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getRabies(),
 				cat.getFeLeuk(),
 				cat.getDistemper(),
-				medicalHistoryToFlatString(cat.getMedicalHistory()),
+				stringArrayToFlatString(cat.getMedicalHistory()),
 				cat.getID()
 				);
 		
@@ -180,7 +180,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 							result.getString("rabies"),
 							result.getString("feLeuk"),
 							result.getString("distemper"),
-							flatStringToMedicalHistory(result.getString("medicalHistory"))
+							flatStringToStringArray(result.getString("medicalHistory"))
 					);
 		} 
 		catch (SQLException e) 
@@ -208,8 +208,8 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		return value? 1: 0;
 	}
 	*/
-	private final String C_MedicalItemSeperator = "%~`~%";
-	private String medicalHistoryToFlatString(String[] medicalHistory)
+	private final String C_StringArraySeperator = "%~`~%";
+	private String stringArrayToFlatString(String[] medicalHistory)
 	{
 		String flatString = "";
 		
@@ -222,7 +222,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 			}
 			else
 			{
-				flatString += C_MedicalItemSeperator;
+				flatString += C_StringArraySeperator;
 			}
 			
 			flatString += item;
@@ -231,9 +231,9 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		return flatString;
 	}
 	
-	private String[] flatStringToMedicalHistory(String flatString)
+	private String[] flatStringToStringArray(String flatString)
 	{		
-		String[] history = flatString.split(C_MedicalItemSeperator);
+		String[] history = flatString.split(C_StringArraySeperator);
 		
 		return (history != null)? history : new String[]{};
 	}

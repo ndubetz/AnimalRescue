@@ -31,6 +31,48 @@ public class SQLiteDatabaseInterface
 		};
 	
 	/**
+	 * Schema for the BehaviourInformation table
+	 */
+	public static final String[][] C_BehaviourInformationColumns = 
+		{
+			{"id", "TEXT"},
+			{"useScratchingPost", "INTEGER"},
+			{"scratchingPreferences", "TEXT"},
+			{"activityLevel", "TEXT"},
+			{"sensitiveAreas", "TEXT"},
+			{"whatMakesItNervous", "TEXT"},
+			{"preferredCompany", "TEXT"},
+			{"overallDescription", "TEXT"}
+		};
+	
+	public static final String[][] C_FeedingInformationColumns = 
+		{
+			{"id", "TEXT"},
+			{"foodType", "TEXT"},
+			{"brands", "TEXT"},
+			{"specialDiet", "TEXT"},
+			{"eatingFrequency", "TEXT"}
+		};
+	
+	public static final String[][]C_GuardianInformationColumns = 
+		{
+			{"id", "TEXT"},
+			{"guardianName", "TEXT"},
+			{"guardianPhoneNumber", "TEXT"},
+			{"guardianAddress", "TEXT"},
+			{"guardianEmail", "TEXT"},
+			{"durationOfOwnership", "TEXT"},
+			{"reasonsForGivingUp", "TEXT"},
+			{"howWasTheCatRaised", "TEXT"},
+			{"whereWasTheCatKept", "TEXT"}
+		};
+	
+	public static final String[][] C_LitterBoxInfoColumns = 
+		{
+			{"id", "TEXT"}
+		};
+	
+	/**
 	 * Returns the list of commands to run to initialize
 	 * the database
 	 */
@@ -44,20 +86,16 @@ public class SQLiteDatabaseInterface
 		//we should be incrementing this number as we go to help check for changes
 		script.add("INSERT INTO DBProperties VALUES ('dbVersion', 0);");
 		
-		String catsSchemaLine = "CREATE TABLE IF NOT EXISTS Cats(";
-		
-		catsSchemaLine += C_CatsColumns[0][0];
-		for(int i = 1; i < C_CatsColumns.length; i++)
-		{
-			catsSchemaLine += ", " + C_CatsColumns[i][0];
-		}
-		
-		catsSchemaLine += ");";
-		script.add(catsSchemaLine);
+		script.add(createTableSQL("Cats", C_CatsColumns));
+		script.add(createTableSQL("BehaviourInformation", C_BehaviourInformationColumns));
+		script.add(createTableSQL("FeedingInformation", C_FeedingInformationColumns));
+		script.add(createTableSQL("GuardianInformation", C_GuardianInformationColumns));		
 		
 		return script.toArray(new String[script.size()]);
 	}
 
+//**********Cats Table SQL Commands************
+	
 	/**
 	 * Formatable query to get the list of cats
 	 * that match the search pattern
@@ -82,19 +120,12 @@ public class SQLiteDatabaseInterface
 			"SELECT max(C.id) AS id\n" +
 			"FROM Cats C;";
 	
+	/**
+	 * @return the SQL command for inserting a new cat
+	 */
 	public static String insertNewCatSQL() 
 	{
-		String statement = "INSERT INTO CATS VALUES(";
-		
-		statement += formatType(C_CatsColumns[0]);
-		for(int i = 1; i < C_CatsColumns.length; i++)
-		{
-			statement += ", " + formatType(C_CatsColumns[i]);
-		}
-		
-		statement += ");";
-		
-		return statement;
+		return insertNewSomething("Cats", C_CatsColumns);
 	}
 	
 	/**
@@ -103,15 +134,104 @@ public class SQLiteDatabaseInterface
 	 */
 	public static String updateExistingCatSQL() 
 	{
+		return updateExistingSomething("Cats", C_CatsColumns);
+	}
+	
+//*********BehaviourInformation Table SQL Commands****************
+	
+	/**
+	 * Formattable query to get a cat's bahviour information
+	 */
+	public static final String C_BehaviourInformationByID = 
+			"SELECT *\n" + 
+			"FROM BehaviourInformation B\n" + 
+			"WHERE B.id='%s';\n";
+
+	/**
+	 * @return the SQL command for inserting a new BehaviourInformation
+	 */
+	public static String insertNewBehaviourInformationSQL() 
+	{
+		return insertNewSomething("BehaviourInformation", C_BehaviourInformationColumns);
+	}
+	
+	/**
+	 * Generates a formatable query to update an 
+	 * existing BehaviourInformation
+	 */
+	public static String updateExistingBehaviourInformationSQL() 
+	{
+		return updateExistingSomething("BehaviourInformation", C_BehaviourInformationColumns);
+	}
+	
+//*********GuardianInformation Table SQL Commands****************
+	/**
+	 * Formattable query to get a cat's Guardian information
+	 */
+	public static final String C_GuardianInformationByID = 
+			"SELECT *\n" + 
+			"FROM GuardianInformation B\n" + 
+			"WHERE B.id='%s';\n";
+
+	/**
+	 * @return the SQL command for inserting a new GuardianInformation
+	 */
+	public static String insertNewGuardianInformationSQL() 
+	{
+		return insertNewSomething("GuardianInformation", C_GuardianInformationColumns);
+	}
+		
+	/**
+	 * Generates a formatable query to update an 
+	 * existing GuardianInformation
+	 */
+	public static String updateExistingGuardianInformationSQL() 
+	{
+		return updateExistingSomething("GuardianInformation", C_GuardianInformationColumns);
+	}
+
+//*******Abstracted SQL Commands*******
+	private static String createTableSQL(String tableName, String[][] columns)
+	{
+		String tableSchemaLine = "CREATE TABLE IF NOT EXISTS " + tableName + "(";
+		
+		tableSchemaLine += columns[0][0];
+		for(int i = 1; i < columns.length; i++)
+		{
+			tableSchemaLine += ", " + columns[i][0];
+		}
+		
+		tableSchemaLine += ");";
+		
+		return tableSchemaLine;
+	}
+	
+	private static String insertNewSomething(String tableName, String[][] columns)
+	{
+		String statement = "INSERT INTO " + tableName + " VALUES(";
+		
+		statement += formatType(columns[0]);
+		for(int i = 1; i < columns.length; i++)
+		{
+			statement += ", " + formatType(columns[i]);
+		}
+		
+		statement += ");";
+		
+		return statement;
+	}
+	
+	private static String updateExistingSomething(String tableName, String[][] columns)
+	{
 		String statement = 
-				"UPDATE Cats\n" + 
+				"UPDATE " + tableName + "\n" + 
 				"SET ";
 		
-		String idSet = fullFormat(C_CatsColumns[0]);		
+		String idSet = fullFormat(columns[0]);		
 		statement += idSet;
-		for(int i = 1; i < C_CatsColumns.length; i++)
+		for(int i = 1; i < columns.length; i++)
 		{
-			statement += ", " + fullFormat(C_CatsColumns[i]);
+			statement += ", " + fullFormat(columns[i]);
 		}
 		
 		statement += "\nWHERE " + idSet + ";\n";
@@ -119,6 +239,7 @@ public class SQLiteDatabaseInterface
 		return statement;
 	}
 	
+//*******General Database Stuff************	
 	/**
 	 * Determines the default path to the database file to open
 	 */
