@@ -13,9 +13,11 @@ import model.Cat;
 public class AnimalInfoViewController implements ActionListener, FocusListener {
 	private AnimalInfoView animalInfoView;
 	private final MainController mainController;
+	private final CatHistoryViewController catHistoryViewController;
 
 	public AnimalInfoViewController(MainController mainController) {
 		this.mainController = mainController;
+		this.catHistoryViewController = new CatHistoryViewController(this);
 		this.animalInfoView = new AnimalInfoView(Cat.emptyCat());
 	}
 
@@ -30,12 +32,15 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			this.animalInfoView.toggleEditMode();
 		} else if (e.getSource() == this.animalInfoView
 				.getViewCatHistoryButton()) {
-			// TODO change panel
+			this.mainController.getView().changePanelOnScrollPane(
+					new CatHistoryView(this.animalInfoView.getCat()
+							.getCatHistory()));
 		} else if (e.getSource() == this.animalInfoView.getPrintButton()) {
 			// TODO implement printing
 		} else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
 			// TODO implement PDF export
-		}else if(e.getSource() == this.animalInfoView.getChangeCatImageButton()){
+		} else if (e.getSource() == this.animalInfoView
+				.getChangeCatImageButton()) {
 			this.animalInfoView.openFileMenuChooserForCatImage();
 		}
 	}

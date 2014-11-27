@@ -2,6 +2,8 @@ package model;
 
 import java.util.Calendar;
 
+import model.catHistory.CatHistory;
+
 /**
  * TODO Possible refactors depending on growing complexity: -Create CatAttribute
  * wrapper class so we don't have to worry about type conversion -Use a date
@@ -24,6 +26,7 @@ public class Cat {
 	private final String feLeuk;
 	private final String distemper;
 	private final String[] medicalHistory;
+	private final CatHistory catHistory;
 
 	public Cat(String id, String name, Calendar birthdate, String gender,
 			String breed, String hairColor, String isFixed,
@@ -43,6 +46,9 @@ public class Cat {
 		this.feLeuk = feLeuk;
 		this.distemper = distemper;
 		this.medicalHistory = medicalHistory;
+
+		// needs to be updated to pull CatHistory properly
+		this.catHistory = new CatHistory(null, null, null, null, null, "");
 	}
 
 	public static Cat emptyCat() {
@@ -121,5 +127,9 @@ public class Cat {
 
 		return String.format(age, years, (years == 1l) ? "" : "s", months,
 				(months == 1l) ? "" : "s");
+	}
+
+	public CatHistory getCatHistory() {
+		return this.catHistory;
 	}
 }
