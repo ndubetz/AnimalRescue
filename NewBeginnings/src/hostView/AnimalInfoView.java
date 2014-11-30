@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 
 import model.Cat;
 import ui.PanelFactory;
+import ui.login.LoginHandler;
 
 /**
  * AnimalInfoView displays the top layer of animal data, which is currently the
@@ -107,9 +108,10 @@ public class AnimalInfoView extends JPanel {
 		JLabel imageLabel = new JLabel(new ImageIcon(image));
 
 		this.imageDisplayPanel = new JPanel();
-		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel, BoxLayout.PAGE_AXIS));
+		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel,
+				BoxLayout.PAGE_AXIS));
 		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));
-		
+
 		this.imageDisplayPanel.setMinimumSize(new Dimension(250, 250));
 		this.imageDisplayPanel.setMaximumSize(new Dimension(250, 250));
 		imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -117,15 +119,16 @@ public class AnimalInfoView extends JPanel {
 		changeImageButton(this.imageDisplayPanel);
 		this.add(this.imageDisplayPanel, constraints);
 	}
-	
-	private void changeImageButton(JPanel imageDisplayPanel){
+
+	private void changeImageButton(JPanel imageDisplayPanel) {
 		JPanel changeCatImagePanel = new JPanel();
-		changeCatImagePanel.setBorder(BorderFactory.createEmptyBorder(2,2,0,0));
+		changeCatImagePanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 0,
+				0));
 		changeCatImagePanel.setBackground((new Color(201, 226, 233)));
 		this.changeCatImageButton = new JButton("Picture");
 		this.changeCatImageButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		changeCatImagePanel.add(this.changeCatImageButton);
-		
+
 		imageDisplayPanel.add(changeCatImagePanel);
 	}
 
@@ -208,14 +211,14 @@ public class AnimalInfoView extends JPanel {
 		// this.fkdb.check();
 
 	}
-	
-	protected void openFileMenuChooserForCatImage(){
+
+	protected void openFileMenuChooserForCatImage() {
 		JFileChooser fileChooser = new JFileChooser();
 		int option = fileChooser.showOpenDialog(this);
 		if (option == JFileChooser.APPROVE_OPTION) {
 			System.out.println("in here");
-            	fileChooser.getSelectedFile();          
-        }
+			fileChooser.getSelectedFile();
+		}
 	}
 
 	protected JButton getPrintButton() {
@@ -237,7 +240,7 @@ public class AnimalInfoView extends JPanel {
 	protected JButton getEditAndSaveCatButton() {
 		return this.editAndSaveCatButton;
 	}
-	
+
 	protected JButton getChangeCatImageButton() {
 		return this.changeCatImageButton;
 	}
@@ -249,6 +252,7 @@ public class AnimalInfoView extends JPanel {
 				.asList(this.medicalHistoryPanel.getComponents());
 		// switch on edit mode, requires login
 		if (!this.isInEditMode) {
+			LoginHandler.singleton().openLoginDialog();
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
 					JTextField textField = (JTextField) basicInfoComponents

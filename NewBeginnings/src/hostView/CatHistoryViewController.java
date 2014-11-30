@@ -1,9 +1,9 @@
 package hostView;
 
-
 public class CatHistoryViewController {
 
 	private final AnimalInfoViewController animalInfoViewController;
+	private CatHistoryView catHistoryView = null;
 
 	public CatHistoryViewController(
 			AnimalInfoViewController animalInfoViewController) {
@@ -11,7 +11,8 @@ public class CatHistoryViewController {
 	}
 
 	public CatHistoryView buildView() {
-		return null;
+		this.catHistoryView = new CatHistoryView(null);
+		return this.catHistoryView;
 	}
 
 }

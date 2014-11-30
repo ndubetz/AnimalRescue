@@ -16,6 +16,7 @@ public class LoginHandler {
 	private final HashMap<String, String> passwordMap;
 
 	private static LoginHandler SINGLETON = new LoginHandler();
+	private LoginDialog loginDialog;
 
 	private LoginHandler() {
 		this.loginState = false;
@@ -24,7 +25,7 @@ public class LoginHandler {
 	}
 
 	private void buildLoginDialog() {
-
+		this.loginDialog = new LoginDialog();
 	}
 
 	// returns singleton object
@@ -37,7 +38,7 @@ public class LoginHandler {
 	}
 
 	public void openLoginDialog() {
-
+		this.loginDialog.setVisible(true);
 	}
 
 	public void addAdmin(String username, String password) {

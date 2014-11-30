@@ -32,9 +32,11 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			this.animalInfoView.toggleEditMode();
 		} else if (e.getSource() == this.animalInfoView
 				.getViewCatHistoryButton()) {
-			this.mainController.getView().changePanelOnScrollPane(
-					new CatHistoryView(this.animalInfoView.getCat()
-							.getCatHistory()));
+			// TODO uncomment this code when CatHistoryView and the model
+			// are both completed
+
+			// this.mainController.getView().changePanelOnScrollPane(
+			// this.catHistoryViewController.buildView());
 		} else if (e.getSource() == this.animalInfoView.getPrintButton()) {
 			// TODO implement printing
 		} else if (e.getSource() == this.animalInfoView.getExportPDFButton()) {
