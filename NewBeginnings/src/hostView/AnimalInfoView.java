@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 
 import model.Cat;
 import ui.PanelFactory;
+import ui.login.LoginHandler;
 
 /**
  * AnimalInfoView displays the top layer of animal data, which is currently the
@@ -112,35 +113,41 @@ public class AnimalInfoView extends JPanel {
 
 		this.imageDisplayPanel.setMinimumSize(new Dimension(250, 250));
 		this.imageDisplayPanel.setMaximumSize(new Dimension(250, 250));
-		
-		image = resize(image, (int)imageDisplayPanel.getMaximumSize().getWidth(), (int)imageDisplayPanel.getMaximumSize().getHeight());
+
+		image = resize(image, (int) this.imageDisplayPanel.getMaximumSize()
+				.getWidth(), (int) this.imageDisplayPanel.getMaximumSize()
+				.getHeight());
 		JLabel imageLabel = new JLabel(new ImageIcon(image));
 
-		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel, BoxLayout.PAGE_AXIS));
-		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));		
+		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel,
+				BoxLayout.PAGE_AXIS));
+		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));
 		imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.imageDisplayPanel.add(imageLabel);
 		changeImageButton(this.imageDisplayPanel);
 		this.add(this.imageDisplayPanel, constraints);
-		
+
 	}
-	
+
 	public BufferedImage resize(BufferedImage image, int width, int height) {
-	    BufferedImage bi = new BufferedImage(width, height, BufferedImage.TRANSLUCENT);
-	    Graphics2D g2d = (Graphics2D) bi.createGraphics();
-	    g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-	    g2d.drawImage(image, 0, 0, width, height, null);
-	    g2d.dispose();
-	    return bi;
+		BufferedImage bi = new BufferedImage(width, height,
+				BufferedImage.TRANSLUCENT);
+		Graphics2D g2d = bi.createGraphics();
+		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING,
+				RenderingHints.VALUE_RENDER_QUALITY));
+		g2d.drawImage(image, 0, 0, width, height, null);
+		g2d.dispose();
+		return bi;
 	}
-	
-	private void changeImageButton(JPanel imageDisplayPanel){
+
+	private void changeImageButton(JPanel imageDisplayPanel) {
 		JPanel changeCatImagePanel = new JPanel();
-		changeCatImagePanel.setBorder(BorderFactory.createEmptyBorder(2,2,0,0));
+		changeCatImagePanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 0,
+				0));
 		changeCatImagePanel.setBackground((new Color(201, 226, 233)));
 		this.changeCatImageButton = new JButton("Picture");
 		this.changeCatImageButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		changeCatImagePanel.add(this.changeCatImageButton);		
+		changeCatImagePanel.add(this.changeCatImageButton);
 		imageDisplayPanel.add(changeCatImagePanel);
 	}
 
@@ -223,9 +230,9 @@ public class AnimalInfoView extends JPanel {
 		// this.fkdb.check();
 
 	}
-	
-	protected void openFileMenuChooserForCatImage(){
-		
+
+	protected void openFileMenuChooserForCatImage() {
+
 		JFileChooser fileChooser = new JFileChooser();
 		int option = fileChooser.showOpenDialog(this);
 		if (option == JFileChooser.APPROVE_OPTION) {
@@ -239,11 +246,11 @@ public class AnimalInfoView extends JPanel {
 			}
 			buildOrRebuildImageDisplayPanel(image);
 			validatePanels();
-        }
+		}
 	}
 
 	private void validatePanels() {
-		 this.validate();		
+		this.validate();
 	}
 
 	protected JButton getPrintButton() {
@@ -265,7 +272,7 @@ public class AnimalInfoView extends JPanel {
 	protected JButton getEditAndSaveCatButton() {
 		return this.editAndSaveCatButton;
 	}
-	
+
 	protected JButton getChangeCatImageButton() {
 		return this.changeCatImageButton;
 	}
@@ -275,49 +282,52 @@ public class AnimalInfoView extends JPanel {
 				.getComponents());
 		List<Component> medicalHistoryComponents = Arrays
 				.asList(this.medicalHistoryPanel.getComponents());
+
+		// open login dialog is not logged in
+		if (!LoginHandler.singleton().isLoggedIn()) {
+			LoginHandler.singleton().openLoginDialog();
+		}
 		// switch on edit mode, requires login
-		if (!this.isInEditMode) {
-			for (int i = 0; i < basicInfoComponents.size(); i++) {
-				if (i % 2 == 1) {
-					JTextField textField = (JTextField) basicInfoComponents
-							.get(i);
-					textField.setEditable(true);
+		if (LoginHandler.singleton().isLoggedIn()) {
+			if (!this.isInEditMode) {
+				for (int i = 0; i < basicInfoComponents.size(); i++) {
+					if (i % 2 == 1) {
+						JTextField textField = (JTextField) basicInfoComponents
+								.get(i);
+						textField.setEditable(true);
+					}
 				}
-			}
-			for (int i = 0; i < medicalHistoryComponents.size(); i++) {
-				if (i % 2 == 1) {
-					JTextField textField = (JTextField) medicalHistoryComponents
-							.get(i);
-					textField.setEditable(true);
+				for (int i = 0; i < medicalHistoryComponents.size(); i++) {
+					if (i % 2 == 1) {
+						JTextField textField = (JTextField) medicalHistoryComponents
+								.get(i);
+						textField.setEditable(true);
+					}
 				}
-			}
-			this.editAndSaveCatButton.setText("Save");
-			this.isInEditMode = true;
-			// save, then switch off edit mode
-			// NOTE: This code should only be reached if a user has
-			// admin privilege
-		} else {
-			// save if in login mode
-			// will fill in shortly
-			if (!true) {
+				this.editAndSaveCatButton.setText("Save");
+				this.isInEditMode = true;
+
+			} else {
+				System.out.println("Save new cat");
 				// saveNewCat();
-			}
-			for (int i = 0; i < basicInfoComponents.size(); i++) {
-				if (i % 2 == 1) {
-					JTextField textField = (JTextField) basicInfoComponents
-							.get(i);
-					textField.setEditable(false);
+				for (int i = 0; i < basicInfoComponents.size(); i++) {
+					if (i % 2 == 1) {
+						JTextField textField = (JTextField) basicInfoComponents
+								.get(i);
+						textField.setEditable(false);
+					}
 				}
-			}
-			for (int i = 0; i < medicalHistoryComponents.size(); i++) {
-				if (i % 2 == 1) {
-					JTextField textField = (JTextField) medicalHistoryComponents
-							.get(i);
-					textField.setEditable(false);
+				for (int i = 0; i < medicalHistoryComponents.size(); i++) {
+					if (i % 2 == 1) {
+						JTextField textField = (JTextField) medicalHistoryComponents
+								.get(i);
+						textField.setEditable(false);
+					}
 				}
+				this.editAndSaveCatButton.setText("Edit");
+				this.isInEditMode = false;
+				LoginHandler.singleton().setLoginState(false);
 			}
-			this.editAndSaveCatButton.setText("Edit");
-			this.isInEditMode = false;
 		}
 	}
 
