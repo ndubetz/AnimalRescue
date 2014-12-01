@@ -8,8 +8,10 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class PanelFactory {
@@ -61,10 +63,30 @@ public class PanelFactory {
 	 * @param items
 	 * @param type
 	 *            - must be a child of AbstractButton
-	 * @return
+	 * @return a ButtonGroup with the specified buttons and the specified items
 	 */
 	public static ButtonGroup buildButtonGroup(List<String> items,
 			Class<? extends AbstractButton> type) {
-		return new ButtonGroup();
+		ButtonGroup buttonGroup = new ButtonGroup();
+
+		for (String item : items) {
+			if (type.getClass().equals(JRadioButton.class)) {
+				JRadioButton button = new JRadioButton();
+				if (item != null) {
+					button.setText(item);
+				}
+				button.setSelected(false);
+				buttonGroup.add(button);
+			} else if (type.getClass().equals(JCheckBox.class)) {
+				JCheckBox checkBox = new JCheckBox(item);
+				if (item != null) {
+					checkBox.setText(item);
+				}
+				checkBox.setSelected(false);
+				buttonGroup.add(checkBox);
+			}
+		}
+
+		return buttonGroup;
 	}
 }
