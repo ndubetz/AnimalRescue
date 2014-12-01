@@ -37,6 +37,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			// TODO implement PDF export
 		}else if(e.getSource() == this.animalInfoView.getChangeCatImageButton()){
 			this.animalInfoView.openFileMenuChooserForCatImage();
+			addActionListenersToButtons();
+			this.mainController.getFrame().validate();
 		}
 	}
 

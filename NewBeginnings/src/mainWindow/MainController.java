@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import model.Cat;
 import searchResults.SearchResultsView;
 import searchResults.SearchResultsViewController;
@@ -92,6 +95,10 @@ public class MainController implements ActionListener, FocusListener {
 
 	public MainView getView() {
 		return this.view;
+	}
+	
+	public JFrame getFrame(){
+		return this.view.getFrame();
 	}
 
 	public void reloadPreviousPanel() {

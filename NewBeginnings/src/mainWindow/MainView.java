@@ -176,6 +176,10 @@ public class MainView {
 	protected JPanel getPreviousPanel() {
 		return this.previousPanel;
 	}
+	
+	protected JPanel getHostPanel(){
+		return this.hostPanel;
+	}
 
 	protected JButton getAddNewCatButton() {
 		return this.addNewCatButton;

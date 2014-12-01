@@ -3,9 +3,11 @@ package hostView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,16 +36,16 @@ import ui.PanelFactory;
 
 @SuppressWarnings("serial")
 public class AnimalInfoView extends JPanel {
-	private JPanel upperControlPanel;
 	private JButton viewCatHistoryButton;
 	private JButton editAndSaveCatButton;
 	private JButton printCatButton;
 	private JButton exportPDFButton;
 	private JButton backButton;
-	private JPanel basicInfoPanel;
-	private JPanel medicalHistoryPanel;
 	private final Cat theCat;
 	private boolean isInEditMode;
+	private JPanel upperControlPanel;
+	private JPanel basicInfoPanel;
+	private JPanel medicalHistoryPanel;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
 
@@ -87,6 +89,17 @@ public class AnimalInfoView extends JPanel {
 	}
 
 	private void buildAndAddImageDisplayPanel() {
+		BufferedImage image = null;
+		try {
+			File file = new File("src/resources/Images/TestImage.jpg");
+			image = ImageIO.read(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		buildOrRebuildImageDisplayPanel(image);
+	}
+
+	private void buildOrRebuildImageDisplayPanel(BufferedImage image) {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridy = 1;
@@ -95,27 +108,30 @@ public class AnimalInfoView extends JPanel {
 		constraints.weightx = 0.5;
 		constraints.anchor = GridBagConstraints.LINE_END;
 
-		BufferedImage image = null;
-
-		try {
-			File file = new File("src/resources/Images/TestImage.jpg");
-			image = ImageIO.read(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		JLabel imageLabel = new JLabel(new ImageIcon(image));
-
 		this.imageDisplayPanel = new JPanel();
-		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel, BoxLayout.PAGE_AXIS));
-		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));
-		
+
 		this.imageDisplayPanel.setMinimumSize(new Dimension(250, 250));
 		this.imageDisplayPanel.setMaximumSize(new Dimension(250, 250));
+		
+		image = resize(image, (int)imageDisplayPanel.getMaximumSize().getWidth(), (int)imageDisplayPanel.getMaximumSize().getHeight());
+		JLabel imageLabel = new JLabel(new ImageIcon(image));
+
+		this.imageDisplayPanel.setLayout(new BoxLayout(this.imageDisplayPanel, BoxLayout.PAGE_AXIS));
+		this.imageDisplayPanel.setBackground(new Color(255, 0, 0));		
 		imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.imageDisplayPanel.add(imageLabel);
 		changeImageButton(this.imageDisplayPanel);
 		this.add(this.imageDisplayPanel, constraints);
+		
+	}
+	
+	public BufferedImage resize(BufferedImage image, int width, int height) {
+	    BufferedImage bi = new BufferedImage(width, height, BufferedImage.TRANSLUCENT);
+	    Graphics2D g2d = (Graphics2D) bi.createGraphics();
+	    g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+	    g2d.drawImage(image, 0, 0, width, height, null);
+	    g2d.dispose();
+	    return bi;
 	}
 	
 	private void changeImageButton(JPanel imageDisplayPanel){
@@ -124,8 +140,7 @@ public class AnimalInfoView extends JPanel {
 		changeCatImagePanel.setBackground((new Color(201, 226, 233)));
 		this.changeCatImageButton = new JButton("Picture");
 		this.changeCatImageButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		changeCatImagePanel.add(this.changeCatImageButton);
-		
+		changeCatImagePanel.add(this.changeCatImageButton);		
 		imageDisplayPanel.add(changeCatImagePanel);
 	}
 
@@ -210,12 +225,25 @@ public class AnimalInfoView extends JPanel {
 	}
 	
 	protected void openFileMenuChooserForCatImage(){
+		
 		JFileChooser fileChooser = new JFileChooser();
 		int option = fileChooser.showOpenDialog(this);
 		if (option == JFileChooser.APPROVE_OPTION) {
-			System.out.println("in here");
-            	fileChooser.getSelectedFile();          
+			this.remove(this.imageDisplayPanel);
+			BufferedImage image = null;
+			try {
+				File file = fileChooser.getSelectedFile();
+				image = ImageIO.read(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			buildOrRebuildImageDisplayPanel(image);
+			validatePanels();
         }
+	}
+
+	private void validatePanels() {
+		 this.validate();		
 	}
 
 	protected JButton getPrintButton() {
