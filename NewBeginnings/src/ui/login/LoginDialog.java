@@ -18,7 +18,14 @@ import javax.swing.JTextField;
  * protected and interacts only with the LoginHandler
  * 
  */
+
+@SuppressWarnings("serial")
 class LoginDialog extends JDialog {
+
+	private JButton loginButton;
+	private JButton cancelButton;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
 
 	protected LoginDialog() {
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
@@ -48,27 +55,45 @@ class LoginDialog extends JDialog {
 			usernamePasswordPanel.add(jLabel, constraints);
 		}
 
-		JTextField jTextField = new JTextField(15);
+		this.usernameField = new JTextField(15);
 		constraints.gridy = 0;
 		constraints.gridx = 1;
 		constraints.anchor = GridBagConstraints.LINE_END;
-		usernamePasswordPanel.add(jTextField, constraints);
+		usernamePasswordPanel.add(this.usernameField, constraints);
 
-		JPasswordField jPasswordField = new JPasswordField(15);
+		this.passwordField = new JPasswordField(15);
 		constraints.gridy = 1;
 		constraints.gridx = 1;
 		constraints.anchor = GridBagConstraints.LINE_END;
-		usernamePasswordPanel.add(jPasswordField, constraints);
+		usernamePasswordPanel.add(this.passwordField, constraints);
 
 		this.add(usernamePasswordPanel, BorderLayout.NORTH);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(new Color(201, 226, 233));
-		JButton loginButton = new JButton("Login");
-		JButton cancelButton = new JButton("Cancel");
-		buttonPanel.add(loginButton);
-		buttonPanel.add(cancelButton);
+
+		this.loginButton = new JButton("Login");
+		this.cancelButton = new JButton("Cancel");
+
+		buttonPanel.add(this.loginButton);
+		buttonPanel.add(this.cancelButton);
 		this.add(buttonPanel, BorderLayout.CENTER);
 
+	}
+
+	protected JButton getLoginButton() {
+		return this.loginButton;
+	}
+
+	protected JButton getCancelButton() {
+		return this.cancelButton;
+	}
+
+	protected JTextField getUsernameField() {
+		return this.usernameField;
+	}
+
+	protected JPasswordField getPasswordField() {
+		return this.passwordField;
 	}
 }
