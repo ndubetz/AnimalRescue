@@ -61,10 +61,37 @@ public class Cat {
 	}
 
 	public String getBirthdateAsDateFormattedString() {
-		int dayOfMonth = this.birthdate.get(Calendar.DAY_OF_MONTH);
-		int month = this.birthdate.get(Calendar.MONTH) + 1;
-		int year = this.birthdate.get(Calendar.YEAR);
-		return "";
+		return getCalendarAsDateFormattedString(this.birthdate);
+	}
+
+	public String getArrivalDateAsDateFormattedString() {
+		return getCalendarAsDateFormattedString(this.arrivalDate);
+	}
+
+	public String getDepartureDateAsDateFormattedString() {
+		if (this.departureDate != null) {
+			return getCalendarAsDateFormattedString(this.departureDate);
+		} else {
+			return "";
+		}
+	}
+
+	private String getCalendarAsDateFormattedString(Calendar calendar) {
+		String dayOfMonth = Integer.toString(calendar
+				.get(Calendar.DAY_OF_MONTH));
+		String month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+		String year = Integer.toString(calendar.get(Calendar.YEAR));
+
+		if (dayOfMonth.length() == 1) {
+			dayOfMonth = "0" + dayOfMonth;
+		}
+		if (month.length() == 1) {
+			month = "0" + month;
+		}
+
+		String formattedDate = month + "/" + dayOfMonth + "/" + year;
+
+		return formattedDate;
 	}
 
 	public String getName() {
