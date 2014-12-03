@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import model.Cat;
 import ui.PanelFactory;
 import ui.login.LoginHandler;
+import database.FakeAnimalDatabase;
 
 /**
  * AnimalInfoView displays the top layer of animal data, which is currently the
@@ -49,9 +50,8 @@ public class AnimalInfoView extends JPanel {
 	private JPanel medicalHistoryPanel;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
-	private String catImageFilePath = "src/resources/Images/TestImage.jpg";
 
-	// FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
+	FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
 
 	public AnimalInfoView(Cat cat) {
 		this.theCat = cat;
@@ -93,7 +93,7 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddImageDisplayPanel() {
 		BufferedImage image = null;
 		try {
-			File file = new File("src/resources/Images/TestImage.jpg");
+			File file = new File(this.theCat.getCatPictureFilePath());
 			image = ImageIO.read(file);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -152,7 +152,7 @@ public class AnimalInfoView extends JPanel {
 		changeCatImagePanel.add(this.changeCatImageButton);
 		imageDisplayPanel.add(changeCatImagePanel);
 	}
-	
+
 	protected boolean openFileMenuChooserForCatImage() {
 		boolean theyClickedSave = false;
 		JFileChooser fileChooser = new JFileChooser();
@@ -163,7 +163,8 @@ public class AnimalInfoView extends JPanel {
 			BufferedImage image = null;
 			try {
 				File file = fileChooser.getSelectedFile();
-				catImageFilePath = file.toString();
+				this.theCat.setCatPictureFilePath(file.toString());
+				System.out.println(file.toString());
 				image = ImageIO.read(file);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -190,8 +191,9 @@ public class AnimalInfoView extends JPanel {
 		String[] content = new String[] { this.theCat.getID(),
 				this.theCat.getName(),
 				this.theCat.getBirthdateAsDateFormattedString(),
-				this.theCat.getAge(), this.theCat.getGender(),
-				this.theCat.getBreed(), this.theCat.getHairColor(),
+				this.theCat.getAge(this.theCat.getBirthdate()),
+				this.theCat.getGender(), this.theCat.getBreed(),
+				this.theCat.getHairColor(),
 				this.theCat.getArrivalDateAsDateFormattedString(),
 				this.theCat.getDepartureDateAsDateFormattedString() };
 
@@ -226,32 +228,41 @@ public class AnimalInfoView extends JPanel {
 
 	}
 
-	// needs to be refactored to accommodate changes
 	private void saveNewCat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		JTextField textfield1 = (JTextField) bInfoComponents.get(1);
 		JTextField textfield2 = (JTextField) bInfoComponents.get(3);
 		JTextField textfield3 = (JTextField) bInfoComponents.get(5);
-		JTextField textfield4 = (JTextField) bInfoComponents.get(7);
 		JTextField textfield5 = (JTextField) bInfoComponents.get(9);
 		JTextField textfield6 = (JTextField) bInfoComponents.get(11);
 		JTextField textfield7 = (JTextField) bInfoComponents.get(13);
 		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
-		// JTextField textfield10 = (JTextField) bInfoComponents.get(19);
-		Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
-				Calendar.getInstance(), textfield5.toString(),
-				textfield6.toString(), textfield7.toString(), "",
-				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, catImageFilePath);
-		// Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
-		// Calendar.getInstance(), textfield5.toString(), textfield6.toString(),
-		// textfield7.toString(), "F", Calendar.getInstance(),
-		// Calendar.getInstance());
-		// this.fkdb.addNewCat(nc);
-		// this.fkdb.check();
+		Cat newCat = new Cat(textfield1.getText(), textfield2.getText(),
+				convertDateFormattedStringToCalendar(textfield3.getText()),
+				textfield5.getText(), textfield6.toString(),
+				textfield7.toString(), "",
+				convertDateFormattedStringToCalendar(textfield8.getText()),
+				convertDateFormattedStringToCalendar(textfield9.getText()), "",
+				"", "", new String[] {}, this.theCat.getCatPictureFilePath());
 
+		if (this.fkdb.getSingleCat(newCat.getID()) != null) {
+			this.fkdb.addNewCat(newCat);
+		} else {
+			this.fkdb.updateCat(newCat);
+		}
+	}
+
+	protected Calendar convertDateFormattedStringToCalendar(String date) {
+		Calendar calendar = Calendar.getInstance();
+
+		String[] values = date.split("/");
+		calendar.set(Calendar.MONTH, Integer.parseInt(values[0]));
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(values[1]));
+		calendar.set(Calendar.YEAR, Integer.parseInt(values[2]));
+
+		return calendar;
 	}
 
 	private void validatePanels() {

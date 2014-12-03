@@ -112,7 +112,7 @@ public class CatTest {
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
 				new String[] {}, "src/resources/Images/TestImage.jpg");
 
-		assertEquals("2 Years, 2 Months", cat.getAge());
+		assertEquals("2 Years, 2 Months", cat.getAge(birthdate));
 	}
 
 	@Test
@@ -130,6 +130,6 @@ public class CatTest {
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
 				new String[] {}, "src/resources/Images/TestImage.jpg");
 
-		assertEquals("1 Year, 1 Month", cat.getAge());
+		assertEquals("1 Year, 1 Month", cat.getAge(birthdate));
 	}
 }

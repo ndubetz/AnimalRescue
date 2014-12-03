@@ -103,8 +103,4 @@ public class FakeAnimalDatabase implements IAnimalDatabase
 	public List<Cat> getFakeCatsList(){
 		return _fakeCats;
 	}
-	
-	public void check(){
-		System.out.println(_fakeCats.get(7).getName());
-	}
 }
