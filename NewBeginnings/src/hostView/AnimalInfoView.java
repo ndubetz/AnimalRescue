@@ -98,6 +98,7 @@ public class AnimalInfoView extends JPanel {
 			e.printStackTrace();
 		}
 		buildOrRebuildImageDisplayPanel(image);
+		this.changeCatImageButton.setEnabled(false);
 	}
 
 	private void buildOrRebuildImageDisplayPanel(BufferedImage image) {
@@ -231,11 +232,12 @@ public class AnimalInfoView extends JPanel {
 
 	}
 
-	protected void openFileMenuChooserForCatImage() {
-
+	protected boolean openFileMenuChooserForCatImage() {
+		boolean theyClickedSave = false;
 		JFileChooser fileChooser = new JFileChooser();
 		int option = fileChooser.showOpenDialog(this);
 		if (option == JFileChooser.APPROVE_OPTION) {
+			theyClickedSave = true;
 			this.remove(this.imageDisplayPanel);
 			BufferedImage image = null;
 			try {
@@ -247,6 +249,7 @@ public class AnimalInfoView extends JPanel {
 			buildOrRebuildImageDisplayPanel(image);
 			validatePanels();
 		}
+		return theyClickedSave;
 	}
 
 	private void validatePanels() {
