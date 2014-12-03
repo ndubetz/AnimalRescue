@@ -40,12 +40,13 @@ public class CatTest {
 		String expectedFeLeuk = "ew";
 		String expectedDistemper = "bratty catty";
 		String[] expectedMedicalHistory = new String[] {};
+		String expectedCatImageFilePath = "C:/Cat";
 
 		Cat cat = new Cat(expectedID, expectedName, expectedBirthdate,
 				expectedGender, expectedBreed, expectedHairColor,
 				expectedIsFixed, expectedArrivalDate, expectedDepartureDate,
 				expectedRabies, expectedFeLeuk, expectedDistemper,
-				expectedMedicalHistory);
+				expectedMedicalHistory, expectedCatImageFilePath);
 
 		assertSame(expectedName, cat.getName());
 		assertSame(expectedBirthdate, cat.getBirthdate());
@@ -60,6 +61,7 @@ public class CatTest {
 		assertSame(expectedFeLeuk, cat.getFeLeuk());
 		assertSame(expectedDistemper, cat.getDistemper());
 		assertSame(expectedMedicalHistory, cat.getMedicalHistory());
+		assertSame(expectedCatImageFilePath, cat.getCatPictureFilePath());
 	}
 
 	@Test
@@ -90,7 +92,7 @@ public class CatTest {
 
 		Cat catThatIsEmptyExceptForID = new Cat("skroob", "",
 				Calendar.getInstance(), "", "", "", "", Calendar.getInstance(),
-				Calendar.getInstance(), "", "", "", new String[] {});
+				Calendar.getInstance(), "", "", "", new String[] {}, "src/resources/Images/TestImage.jpg");
 
 		assertFalse(Cat.isTheEmptyCat(catThatIsEmptyExceptForID));
 	}
@@ -108,7 +110,7 @@ public class CatTest {
 
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {});
+				new String[] {}, "src/resources/Images/TestImage.jpg");
 
 		assertEquals("2 Years, 2 Months", cat.getAge());
 	}
@@ -126,7 +128,7 @@ public class CatTest {
 
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {});
+				new String[] {}, "src/resources/Images/TestImage.jpg");
 
 		assertEquals("1 Year, 1 Month", cat.getAge());
 	}

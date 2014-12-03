@@ -252,7 +252,8 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 							result.getString("rabies"),
 							result.getString("feLeuk"),
 							result.getString("distemper"),
-							flatStringToStringArray(result.getString("medicalHistory"))
+							flatStringToStringArray(result.getString("medicalHistory")), 
+							"src/resources/Images/TestImage.jpg"
 					);
 		} catch (SQLException e) 
 		{

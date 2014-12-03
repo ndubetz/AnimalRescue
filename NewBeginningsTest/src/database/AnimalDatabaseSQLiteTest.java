@@ -78,7 +78,7 @@ public class AnimalDatabaseSQLiteTest
 	public void addCatUsesProperQuery()
 	{
 		Cat cat = new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{});
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
 
 		_animalDB.addNewCat(cat);
 		int callCount = _fakeSQLite.getExecuteUpdateCallHistory().size();
@@ -108,7 +108,7 @@ public class AnimalDatabaseSQLiteTest
 	public void updateCatUsesProperQuery()
 	{
 		Cat cat = new Cat("NB-14-003", "Boots", Calendar.getInstance(), "M", "Siberian", "Jet Black", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{});
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
 
 		_animalDB.updateCat(cat);
 		int callCount = _fakeSQLite.getExecuteUpdateCallHistory().size();

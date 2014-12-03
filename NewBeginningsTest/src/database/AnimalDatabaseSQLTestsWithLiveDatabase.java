@@ -45,7 +45,7 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		
 		//currently do not have setters in the cat class
 		Cat updatedCat = new Cat("NB-14-002", newName, Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{});
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
 		_animalDB.updateCat(updatedCat);
 		
 		Cat retrievedNewIdCat = _animalDB.getSingleCat("NB-14-002");
@@ -59,7 +59,7 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		Calendar birthdate = Calendar.getInstance();
 		birthdate.set(2011, Calendar.JUNE, 3);
 		Cat dateCat = new Cat("NB-14-789", "Smeagol", birthdate, "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{});
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
 		_animalDB.addNewCat(dateCat);
 		
 		Cat retrievedDateCat = _animalDB.getSingleCat(dateCat.getID());
@@ -67,6 +67,19 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		assertEquals(dateCat.getBirthdate().get(Calendar.YEAR),retrievedDateCat.getBirthdate().get(Calendar.YEAR));
 		assertEquals(dateCat.getBirthdate().get(Calendar.MONTH),retrievedDateCat.getBirthdate().get(Calendar.MONTH));
 		assertEquals(dateCat.getBirthdate().get(Calendar.DAY_OF_MONTH),retrievedDateCat.getBirthdate().get(Calendar.DAY_OF_MONTH));
+	}
+
+	@Test
+	public void testDefaultCatPictureFilePath() throws Exception {
+		
+		Cat dateCat = new Cat("NB-14-789", "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
+		_animalDB.addNewCat(dateCat);
+		
+		Cat retrievedDateCat = _animalDB.getSingleCat(dateCat.getID());
+		
+		assertEquals(dateCat.getCatPictureFilePath(),retrievedDateCat.getCatPictureFilePath());
+
 	}
 	
 	@Test
@@ -77,11 +90,12 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		String expectedSuggestedID = "NB-" + currentYear + "-999";
 		
 		Cat tempMaxCat = new Cat(tempMaxID, "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{});
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
 		_animalDB.addNewCat(tempMaxCat);
 		
 		assertEquals(expectedSuggestedID, _animalDB.getSuggestedNextID());
 	}
+	
 	
 	@Test
 	public void medicalHistoryStorage()
