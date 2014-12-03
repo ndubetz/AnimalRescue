@@ -42,7 +42,7 @@ public class LoginHandler implements ActionListener, KeyListener {
 		this.loginDialog.getLoginButton().addActionListener(this);
 		this.loginDialog.getCancelButton().addActionListener(this);
 
-		//
+		// key listener for hitting enter to validate password
 		this.loginDialog.getPasswordField().addKeyListener(this);
 
 	}

@@ -32,7 +32,7 @@ public class MainView {
 	private JMenuItem exitAction;
 	private JMenuItem formAction;
 	private JMenuItem dataBaseAction;
-	
+
 	public MainView() {
 		build();
 	}
@@ -43,8 +43,9 @@ public class MainView {
 
 		addComponentsToPane();
 
-		this.frame.setSize(1000, 700);
-		this.frame.setMaximumSize(new Dimension(1000, 700));
+		this.frame.setSize(800, 600);
+		// this.frame.setMaximumSize(new Dimension(800, 600));
+		this.frame.setResizable(false);
 		this.frame.setLocation(200, 25);
 		this.frame.setVisible(true);
 		this.addNewCatButton.requestFocus();
@@ -96,8 +97,8 @@ public class MainView {
 		JPanel topPanel = new JPanel();
 		final JPanel searchPanel = createSearchPanel();
 
-		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 20));
-		topPanel.setPreferredSize(new Dimension(1000, 100));
+		topPanel.setLayout(new FlowLayout());
+		topPanel.setPreferredSize(new Dimension(800, 100));
 		topPanel.setBackground(new Color(47, 140, 171));
 		this.addNewCatButton = new JButton("Add New Cat");
 
@@ -109,15 +110,15 @@ public class MainView {
 
 	private JPanel createSearchPanel() {
 		JPanel searchPanel = new JPanel();
-		searchBar = new JTextField(MainModel.C_DefaultSearchText);
-		
-		searchButton = new JButton("Search");
+		this.searchBar = new JTextField(MainModel.C_DefaultSearchText);
+
+		this.searchButton = new JButton("Search");
 
 		searchPanel.setBackground(new Color(47, 140, 171));
 
-		searchBar.setPreferredSize(new Dimension(150, 20));
-		searchPanel.add(searchBar);
-		searchPanel.add(searchButton);
+		this.searchBar.setPreferredSize(new Dimension(150, 20));
+		searchPanel.add(this.searchBar);
+		searchPanel.add(this.searchButton);
 
 		return searchPanel;
 	}
@@ -176,8 +177,8 @@ public class MainView {
 	protected JPanel getPreviousPanel() {
 		return this.previousPanel;
 	}
-	
-	protected JPanel getHostPanel(){
+
+	protected JPanel getHostPanel() {
 		return this.hostPanel;
 	}
 
@@ -188,11 +189,11 @@ public class MainView {
 	protected JButton getSearchButton() {
 		return this.searchButton;
 	}
-	
+
 	protected JTextField getSearchBar() {
 		return this.searchBar;
 	}
-	
+
 	public JMenuItem getExitActionMenuItem() {
 		return this.exitAction;
 	}

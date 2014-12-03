@@ -204,7 +204,7 @@ public class AnimalInfoView extends JPanel {
 	}
 
 	// needs to be refactored to accommodate changes
-	protected void saveNewCat() {
+	private void saveNewCat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		JTextField textfield1 = (JTextField) bInfoComponents.get(1);
@@ -277,20 +277,23 @@ public class AnimalInfoView extends JPanel {
 		return this.changeCatImageButton;
 	}
 
+	// toggleEditMode is responsible for enabling/disabling text fields and
+	// saving to database
 	protected void toggleEditMode() {
 		List<Component> basicInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		List<Component> medicalHistoryComponents = Arrays
 				.asList(this.medicalHistoryPanel.getComponents());
 
-		// open login dialog is not logged in
+		// open login dialog if not logged in
 		if (!LoginHandler.singleton().isLoggedIn()) {
 			LoginHandler.singleton().openLoginDialog();
 		}
 		// switch on edit mode, requires login
 		if (LoginHandler.singleton().isLoggedIn()) {
 			if (!this.isInEditMode) {
-				for (int i = 0; i < basicInfoComponents.size(); i++) {
+				// skip id field
+				for (int i = 1; i < basicInfoComponents.size(); i++) {
 					if (i % 2 == 1) {
 						JTextField textField = (JTextField) basicInfoComponents
 								.get(i);
@@ -306,11 +309,11 @@ public class AnimalInfoView extends JPanel {
 				}
 				this.editAndSaveCatButton.setText("Save");
 				this.isInEditMode = true;
-
-			} else {
-				System.out.println("Save new cat");
-				// saveNewCat();
-				for (int i = 0; i < basicInfoComponents.size(); i++) {
+				this.changeCatImageButton.setEnabled(true);
+			} else if (this.isInEditMode) {
+				saveNewCat();
+				// skip id field
+				for (int i = 1; i < basicInfoComponents.size(); i++) {
 					if (i % 2 == 1) {
 						JTextField textField = (JTextField) basicInfoComponents
 								.get(i);
@@ -326,6 +329,7 @@ public class AnimalInfoView extends JPanel {
 				}
 				this.editAndSaveCatButton.setText("Edit");
 				this.isInEditMode = false;
+				this.changeCatImageButton.setEnabled(false);
 				LoginHandler.singleton().setLoginState(false);
 			}
 		}

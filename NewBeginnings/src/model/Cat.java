@@ -60,6 +60,13 @@ public class Cat {
 		return this.birthdate;
 	}
 
+	public String getBirthdateAsDateFormattedString() {
+		int dayOfMonth = this.birthdate.get(Calendar.DAY_OF_MONTH);
+		int month = this.birthdate.get(Calendar.MONTH) + 1;
+		int year = this.birthdate.get(Calendar.YEAR);
+		return "";
+	}
+
 	public String getName() {
 		return this.name;
 	}
