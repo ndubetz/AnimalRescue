@@ -24,12 +24,13 @@ public class Cat {
 	private final String feLeuk;
 	private final String distemper;
 	private final String[] medicalHistory;
-	private final String catPictureFilePath;
+	private String catPictureFilePath;
 
 	public Cat(String id, String name, Calendar birthdate, String gender,
 			String breed, String hairColor, String isFixed,
 			Calendar arrivalDate, Calendar departureDate, String rabies,
-			String feLeuk, String distemper, String[] medicalHistory, String catPictureFilePath) {
+			String feLeuk, String distemper, String[] medicalHistory,
+			String catPictureFilePath) {
 
 		this.id = id;
 		this.name = name;
@@ -56,6 +57,9 @@ public class Cat {
 	// pass in the cat that is under scrutiny
 	public static boolean isTheEmptyCat(Cat thisCat) {
 		return thisCat.getID().equals(EMPTY_CAT_ID);
+	}
+
+	public void setBirthdate() {
 	}
 
 	public Calendar getBirthdate() {
@@ -143,23 +147,27 @@ public class Cat {
 	public String[] getMedicalHistory() {
 		return this.medicalHistory;
 	}
-	
-	public String getCatPictureFilePath(){
+
+	public String getCatPictureFilePath() {
 		return this.catPictureFilePath;
 	}
 
-	public String getAge() {
+	public String getAge(Calendar birthdate) {
 		String age = "%d Year%s, %d Month%s";
 
 		long difference = Calendar.getInstance().getTimeInMillis()
-				- this.birthdate.getTimeInMillis();
+				- birthdate.getTimeInMillis();
 
 		long msPerYear = 31557600000l;
 		long msPerMonth = 2557440000l;
 		long years = difference / msPerYear;
-		long months = (difference % msPerYear) / msPerMonth;
+		long months = (difference % msPerYear) / msPerMonth + 1;
 
 		return String.format(age, years, (years == 1l) ? "" : "s", months,
 				(months == 1l) ? "" : "s");
+	}
+
+	public void setCatPictureFilePath(String string) {
+		this.catPictureFilePath = string;
 	}
 }

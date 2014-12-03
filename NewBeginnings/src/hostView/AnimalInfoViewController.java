@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -42,11 +43,12 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			// TODO implement PDF export
 		} else if (e.getSource() == this.animalInfoView
 				.getChangeCatImageButton()) {
-			boolean theySaved  = this.animalInfoView.openFileMenuChooserForCatImage();
-			if(theySaved){
+			boolean theySaved = this.animalInfoView
+					.openFileMenuChooserForCatImage();
+			if (theySaved) {
 				addChangeCatImageButtonActionListioner();
 			}
-			
+
 			this.mainController.getFrame().validate();
 		}
 	}
@@ -57,13 +59,25 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 		if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
 				.getComponent(5)) {// Birthdate Field
 			validateDateFormat((JTextField) e.getSource());
+			updateAge();
 		} else if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
-				.getComponent(15)) {// Birthdate Field
-			validateDateFormat((JTextField) e.getSource());
-		} else if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
-				.getComponent(17)) {// Birthdate Field
+				.getComponent(15)
+				|| e.getSource() == this.animalInfoView.getBasicInfoPanel()
+						.getComponent(17)) {// ArrivalDate and
+											// DepartureDateField
 			validateDateFormat((JTextField) e.getSource());
 		}
+	}
+
+	private void updateAge() {
+		JTextField birthdateField = (JTextField) this.animalInfoView
+				.getBasicInfoPanel().getComponent(5);
+		Calendar calendar = this.animalInfoView
+				.convertDateFormattedStringToCalendar(birthdateField.getText());
+
+		JTextField age = (JTextField) this.animalInfoView.getBasicInfoPanel()
+				.getComponent(7);
+		age.setText(this.animalInfoView.getCat().getAge(calendar));
 	}
 
 	private void validateDateFormat(JTextField textField) {
@@ -93,6 +107,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 				.addFocusListener(this);
 		this.animalInfoView.getBasicInfoPanel().getComponent(17)
 				.addFocusListener(this);
+		focusLost(new FocusEvent(this.animalInfoView.getBasicInfoPanel()
+				.getComponent(5), 0));
 	}
 
 	private void addActionListenersToButtons() {
@@ -103,8 +119,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 		this.animalInfoView.getExportPDFButton().addActionListener(this);
 		this.animalInfoView.getChangeCatImageButton().addActionListener(this);
 	}
-	
-	private void addChangeCatImageButtonActionListioner(){
+
+	private void addChangeCatImageButtonActionListioner() {
 		this.animalInfoView.getChangeCatImageButton().addActionListener(this);
 	}
 }
