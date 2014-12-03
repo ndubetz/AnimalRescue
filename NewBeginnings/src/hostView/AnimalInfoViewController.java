@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import mainWindow.MainController;
@@ -51,14 +52,23 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 	@Override
 	public void focusLost(FocusEvent e) {
 		if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
-				.getComponent(1)) {// ID Field
-			validateID((JTextField) e.getSource());
+				.getComponent(5)) {// Birthdate Field
+			validateDateFormat((JTextField) e.getSource());
+		} else if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
+				.getComponent(15)) {// Birthdate Field
+			validateDateFormat((JTextField) e.getSource());
+		} else if (e.getSource() == this.animalInfoView.getBasicInfoPanel()
+				.getComponent(17)) {// Birthdate Field
+			validateDateFormat((JTextField) e.getSource());
 		}
 	}
 
-	private void validateID(JTextField idField) {
-		if (!idField.getText().matches("NB-[0-9][0-9]-[0-9][0-9][0-9]")) {
-			idField.setText("Please enter a valid ID");
+	private void validateDateFormat(JTextField textField) {
+		if (!textField.getText().matches(
+				"[0-1][0-9]/[0-1][0-9]/[0-9][0-9][0-9][0-9]")) {
+			JOptionPane.showMessageDialog(this.animalInfoView,
+					"Date field must be in MM/DD/YYYY format.");
+			textField.setText("");
 		}
 	}
 
@@ -74,7 +84,11 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 	}
 
 	private void addFocusListenersToTextFields() {
-		this.animalInfoView.getBasicInfoPanel().getComponent(1)
+		this.animalInfoView.getBasicInfoPanel().getComponent(5)
+				.addFocusListener(this);
+		this.animalInfoView.getBasicInfoPanel().getComponent(15)
+				.addFocusListener(this);
+		this.animalInfoView.getBasicInfoPanel().getComponent(17)
 				.addFocusListener(this);
 	}
 

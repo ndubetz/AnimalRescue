@@ -166,11 +166,11 @@ public class AnimalInfoView extends JPanel {
 
 		String[] content = new String[] { this.theCat.getID(),
 				this.theCat.getName(),
-				this.theCat.getBirthdate().getTime().toString(),
+				this.theCat.getBirthdateAsDateFormattedString(),
 				this.theCat.getAge(), this.theCat.getGender(),
 				this.theCat.getBreed(), this.theCat.getHairColor(),
-				this.theCat.getArrivalDate().getTime().toString(),
-				this.theCat.getExpectedDepartureDate().getTime().toString() };
+				this.theCat.getArrivalDateAsDateFormattedString(),
+				this.theCat.getDepartureDateAsDateFormattedString() };
 
 		if (content[8] == null) {// Departure date not known
 			content[8] = "Not yet known";
