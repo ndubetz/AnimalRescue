@@ -13,13 +13,13 @@ public class AnimalInfoViewTest {
 	@Test
 	public void testConstructor() throws Exception {
 		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat());
-		assertEquals(2, animalInfoView.getComponents().length);
+		assertEquals(4, animalInfoView.getComponents().length);
 	}
 
 	@Test
 	public void testUpperPanel() throws Exception {
 		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat());
-		assertEquals(new Dimension(700, 100), animalInfoView
+		assertEquals(new Dimension(500, 60), animalInfoView
 				.getUpperControlPanel().getMaximumSize());
 		assertEquals(5,
 				animalInfoView.getUpperControlPanel().getComponents().length);
@@ -30,6 +30,6 @@ public class AnimalInfoViewTest {
 		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat());
 		Component[] components = animalInfoView.getBasicInfoPanel()
 				.getComponents();
-		assertEquals(20, components.length);
+		assertEquals(18, components.length);
 	}
 }
