@@ -49,6 +49,7 @@ public class AnimalInfoView extends JPanel {
 	private JPanel medicalHistoryPanel;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
+	private String catImageFilePath = "src/resources/Images/TestImage.jpg";
 
 	// FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
 
@@ -151,6 +152,27 @@ public class AnimalInfoView extends JPanel {
 		changeCatImagePanel.add(this.changeCatImageButton);
 		imageDisplayPanel.add(changeCatImagePanel);
 	}
+	
+	protected boolean openFileMenuChooserForCatImage() {
+		boolean theyClickedSave = false;
+		JFileChooser fileChooser = new JFileChooser();
+		int option = fileChooser.showOpenDialog(this);
+		if (option == JFileChooser.APPROVE_OPTION) {
+			theyClickedSave = true;
+			this.remove(this.imageDisplayPanel);
+			BufferedImage image = null;
+			try {
+				File file = fileChooser.getSelectedFile();
+				catImageFilePath = file.toString();
+				image = ImageIO.read(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			buildOrRebuildImageDisplayPanel(image);
+			validatePanels();
+		}
+		return theyClickedSave;
+	}
 
 	private void buildAndAddBasicInfoPanel() {
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -222,7 +244,7 @@ public class AnimalInfoView extends JPanel {
 				Calendar.getInstance(), textfield5.toString(),
 				textfield6.toString(), textfield7.toString(), "",
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {});
+				new String[] {}, catImageFilePath);
 		// Cat nc = new Cat(textfield1.toString(), textfield2.toString(),
 		// Calendar.getInstance(), textfield5.toString(), textfield6.toString(),
 		// textfield7.toString(), "F", Calendar.getInstance(),
@@ -230,26 +252,6 @@ public class AnimalInfoView extends JPanel {
 		// this.fkdb.addNewCat(nc);
 		// this.fkdb.check();
 
-	}
-
-	protected boolean openFileMenuChooserForCatImage() {
-		boolean theyClickedSave = false;
-		JFileChooser fileChooser = new JFileChooser();
-		int option = fileChooser.showOpenDialog(this);
-		if (option == JFileChooser.APPROVE_OPTION) {
-			theyClickedSave = true;
-			this.remove(this.imageDisplayPanel);
-			BufferedImage image = null;
-			try {
-				File file = fileChooser.getSelectedFile();
-				image = ImageIO.read(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			buildOrRebuildImageDisplayPanel(image);
-			validatePanels();
-		}
-		return theyClickedSave;
 	}
 
 	private void validatePanels() {
