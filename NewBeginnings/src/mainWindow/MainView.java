@@ -96,11 +96,13 @@ public class MainView {
 	private JPanel createTopPanel() {
 		JPanel topPanel = new JPanel();
 		final JPanel searchPanel = createSearchPanel();
+		
 
-		topPanel.setLayout(new FlowLayout());
+		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 190, 25));
 		topPanel.setPreferredSize(new Dimension(800, 100));
 		topPanel.setBackground(new Color(47, 140, 171));
 		this.addNewCatButton = new JButton("Add New Cat");
+		
 
 		topPanel.add(searchPanel);
 		topPanel.add(this.addNewCatButton);
