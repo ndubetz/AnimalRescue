@@ -241,8 +241,8 @@ public class AnimalInfoView extends JPanel {
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
 		Cat newCat = new Cat(textfield1.getText(), textfield2.getText(),
 				convertDateFormattedStringToCalendar(textfield3.getText()),
-				textfield5.getText(), textfield6.toString(),
-				textfield7.toString(), "",
+				textfield5.getText(), textfield6.getText(),
+				textfield7.getText(), "",
 				convertDateFormattedStringToCalendar(textfield8.getText()),
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
 				"", "", new String[] {}, this.theCat.getCatPictureFilePath());
@@ -258,7 +258,7 @@ public class AnimalInfoView extends JPanel {
 		Calendar calendar = Calendar.getInstance();
 
 		String[] values = date.split("/");
-		calendar.set(Calendar.MONTH, Integer.parseInt(values[0]));
+		calendar.set(Calendar.MONTH, Integer.parseInt(values[0]) - 1);
 		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(values[1]));
 		calendar.set(Calendar.YEAR, Integer.parseInt(values[2]));
 

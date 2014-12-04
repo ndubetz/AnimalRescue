@@ -161,7 +161,7 @@ public class Cat {
 		long msPerYear = 31557600000l;
 		long msPerMonth = 2557440000l;
 		long years = difference / msPerYear;
-		long months = (difference % msPerYear) / msPerMonth + 1;
+		long months = (difference % msPerYear) / msPerMonth;
 
 		return String.format(age, years, (years == 1l) ? "" : "s", months,
 				(months == 1l) ? "" : "s");
