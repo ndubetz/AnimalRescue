@@ -257,11 +257,11 @@ public class AnimalInfoView extends JPanel {
 				convertDateFormattedStringToCalendar(textfield8.getText()),
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
 				"", "", new String[] {}, this.theCat.getCatPictureFilePath());
-
-		if (this.database.getSingleCat(newCat.getID()) != null) {
-			this.database.addNewCat(newCat);
-		} else {
+		
+		if (!this.database.getSingleCat(newCat.getID()).getID().equals("NB-00-000")) {
 			this.database.updateCat(newCat);
+		} else {
+			this.database.addNewCat(newCat);
 		}
 	}
 
