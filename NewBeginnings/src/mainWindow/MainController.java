@@ -24,10 +24,13 @@ public class MainController implements ActionListener, FocusListener {
 	private final FormViewController formViewController;
 	private final SearchResultsViewController searchResultsViewController;
 
-	public MainController() {
+	public MainController(MainModel model, MainView view) {
+		this.model = model;
+		this.view = view;
 		this.animalInfoViewController = new AnimalInfoViewController(this);
 		this.formViewController = new FormViewController(this);
 		this.searchResultsViewController = new SearchResultsViewController(this);
+		this.view.changePanelOnScrollPane(this.searchResultsViewController.buildView(this.model.getAnimalDatabase().getFilteredCats(SearchFilterType.Name, "")));
 	}
 
 	// all listeners for the MainView class go here
@@ -84,14 +87,6 @@ public class MainController implements ActionListener, FocusListener {
 		// though we aren't using it quite yet
 	}
 
-	public void addModel(MainModel model) {
-		this.model = model;
-	}
-
-	public void addView(MainView view) {
-		this.view = view;
-	}
-
 	public MainView getView() {
 		return this.view;
 	}
@@ -100,7 +95,12 @@ public class MainController implements ActionListener, FocusListener {
 		return this.view.getFrame();
 	}
 
+	public MainModel getModel(){
+		return this.model;
+	}
+	
 	public void reloadPreviousPanel() {
-		this.view.changePanelOnScrollPane(this.view.getPreviousPanel());
+		//did not make this a variable because I want it to update every time not stay the same.
+		this.view.changePanelOnScrollPane(this.searchResultsViewController.buildView(this.model.getAnimalDatabase().getFilteredCats(SearchFilterType.Name, "")));
 	}
 }

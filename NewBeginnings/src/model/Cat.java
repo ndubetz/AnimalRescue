@@ -51,7 +51,7 @@ public class Cat {
 	public static Cat emptyCat() {
 		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "",
 				"", Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, "src/resources/Images/TestImage.jpg");
+				new String[] {}, null);
 	}
 
 	// pass in the cat that is under scrutiny
