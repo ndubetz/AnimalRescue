@@ -26,8 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import resources.ResourceProvider;
 import model.Cat;
+import resources.ResourceProvider;
 import ui.PanelFactory;
 import ui.login.LoginHandler;
 import database.IAnimalDatabase;
@@ -52,7 +52,7 @@ public class AnimalInfoView extends JPanel {
 	private JPanel medicalHistoryPanel;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
-	private IAnimalDatabase database;
+	private final IAnimalDatabase database;
 
 	public AnimalInfoView(Cat cat, IAnimalDatabase database) {
 		this.theCat = cat;
@@ -95,15 +95,14 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddImageDisplayPanel() {
 		BufferedImage image = null;
 		try {
-			if(this.theCat.getCatPictureFilePath() != null && this.theCat.getCatPictureFilePath() != "")
-			{
+			if (this.theCat.getCatPictureFilePath() != null
+					&& this.theCat.getCatPictureFilePath() != "") {
 				File file = new File(this.theCat.getCatPictureFilePath());
 				image = ImageIO.read(file);
-			}
-			else
-			{
+			} else {
 				ResourceProvider r = new ResourceProvider();
-				InputStream defaultPicFile = r.getResourceStream("Images/TestImage.jpg");
+				InputStream defaultPicFile = r
+						.getResourceStream("Images/TestImage.jpg");
 				image = ImageIO.read(defaultPicFile);
 			}
 		} catch (IOException e) {
@@ -321,7 +320,7 @@ public class AnimalInfoView extends JPanel {
 			if (!this.isInEditMode) {
 				// skip id field
 				for (int i = 1; i < basicInfoComponents.size(); i++) {
-					if (i % 2 == 1) {
+					if (i % 2 == 1 && i != 1 && i != 7) {
 						JTextField textField = (JTextField) basicInfoComponents
 								.get(i);
 						textField.setEditable(true);
