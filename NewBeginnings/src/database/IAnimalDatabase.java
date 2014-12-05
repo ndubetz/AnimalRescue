@@ -72,4 +72,6 @@ public interface IAnimalDatabase
 	 * @param catHistory the CatHistory to update
 	 */
 	public void updateCatHistory(CatHistory catHistory);
+	
+	
 }

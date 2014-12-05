@@ -27,7 +27,8 @@ public class SQLiteDatabaseInterface
 			{"rabies", "TEXT"},
 			{"feLeuk", "TEXT"},
 			{"distemper", "TEXT"},
-			{"medicalHistory", "TEXT"}
+			{"medicalHistory", "TEXT"},
+			{"catPictureFilePath", "TEXT"}
 		};
 	
 	/**

@@ -11,6 +11,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -25,10 +26,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import resources.ResourceProvider;
 import model.Cat;
 import ui.PanelFactory;
 import ui.login.LoginHandler;
-import database.FakeAnimalDatabase;
+import database.IAnimalDatabase;
 
 /**
  * AnimalInfoView displays the top layer of animal data, which is currently the
@@ -50,11 +52,11 @@ public class AnimalInfoView extends JPanel {
 	private JPanel medicalHistoryPanel;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
+	private IAnimalDatabase database;
 
-	FakeAnimalDatabase fkdb = new FakeAnimalDatabase();
-
-	public AnimalInfoView(Cat cat) {
+	public AnimalInfoView(Cat cat, IAnimalDatabase database) {
 		this.theCat = cat;
+		this.database = database;
 		this.isInEditMode = false;
 		this.setLayout(new GridBagLayout());
 		buildAndAddUpperControlPanel();
@@ -93,8 +95,17 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddImageDisplayPanel() {
 		BufferedImage image = null;
 		try {
-			File file = new File(this.theCat.getCatPictureFilePath());
-			image = ImageIO.read(file);
+			if(this.theCat.getCatPictureFilePath() != null && this.theCat.getCatPictureFilePath() != "")
+			{
+				File file = new File(this.theCat.getCatPictureFilePath());
+				image = ImageIO.read(file);
+			}
+			else
+			{
+				ResourceProvider r = new ResourceProvider();
+				InputStream defaultPicFile = r.getResourceStream("Images/TestImage.jpg");
+				image = ImageIO.read(defaultPicFile);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -247,10 +258,10 @@ public class AnimalInfoView extends JPanel {
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
 				"", "", new String[] {}, this.theCat.getCatPictureFilePath());
 
-		if (this.fkdb.getSingleCat(newCat.getID()) != null) {
-			this.fkdb.addNewCat(newCat);
+		if (this.database.getSingleCat(newCat.getID()) != null) {
+			this.database.addNewCat(newCat);
 		} else {
-			this.fkdb.updateCat(newCat);
+			this.database.updateCat(newCat);
 		}
 	}
 
