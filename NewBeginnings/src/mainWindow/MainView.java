@@ -16,6 +16,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import database.SearchFilterType;
+import searchResults.SearchResultsView;
 import searchResults.SearchResultsViewController;
 
 public class MainView {
@@ -132,7 +134,7 @@ public class MainView {
 	}
 
 	public void changePanelOnScrollPane(JPanel bottomPanel) {
-		this.previousPanel = this.hostPanel;
+		//this.previousPanel = this.hostPanel;
 		this.hostPanel = bottomPanel;
 
 		this.panelToContainThemAll.remove(this.scrollPane);
@@ -143,9 +145,9 @@ public class MainView {
 
 	private JPanel makeBottomPanel() {
 		JPanel bottomPanel = new JPanel();
+		
 
 		bottomPanel.setBackground(new Color(201, 226, 233));
-
 		return bottomPanel;
 	}
 
