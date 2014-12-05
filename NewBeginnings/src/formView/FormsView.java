@@ -16,8 +16,7 @@ public class FormsView extends JPanel {
 	private JButton printButton;
 	private JButton exportPDFButton;
 	private static final String[] FORMS = new String[] { "Select a form...",
-			"Volunteer Application", "Adoption Questionnaire",
-			"Foster Application", "Other forms" };
+			"Volunteer Application", "Foster Application" };
 	private JComboBox<String> formSelectionComboBox;
 	private JScrollPane scrollPane;
 
