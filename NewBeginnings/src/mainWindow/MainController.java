@@ -95,6 +95,10 @@ public class MainController implements ActionListener, FocusListener {
 		return this.view.getFrame();
 	}
 
+	public MainModel getModel(){
+		return this.model;
+	}
+	
 	public void reloadPreviousPanel() {
 		//did not make this a variable because I want it to update every time not stay the same.
 		this.view.changePanelOnScrollPane(this.searchResultsViewController.buildView(this.model.getAnimalDatabase().getFilteredCats(SearchFilterType.Name, "")));

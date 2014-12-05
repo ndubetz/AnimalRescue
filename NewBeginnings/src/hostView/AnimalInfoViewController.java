@@ -9,16 +9,17 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import database.IAnimalDatabase;
 import mainWindow.MainController;
 import model.Cat;
 
 public class AnimalInfoViewController implements ActionListener, FocusListener {
 	private AnimalInfoView animalInfoView;
 	private final MainController mainController;
-
+	
 	public AnimalInfoViewController(MainController mainController) {
 		this.mainController = mainController;
-		this.animalInfoView = new AnimalInfoView(Cat.emptyCat());
+		this.animalInfoView = new AnimalInfoView(Cat.emptyCat(), this.mainController.getModel().getAnimalDatabase());
 	}
 
 	// all action listeners for the AnimalInfoView go here. Should refactor if
@@ -94,7 +95,7 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 	}
 
 	public AnimalInfoView buildView(Cat cat) {
-		this.animalInfoView = new AnimalInfoView(cat);
+		this.animalInfoView = new AnimalInfoView(cat, this.mainController.getModel().getAnimalDatabase());
 		addActionListenersToButtons();
 		addFocusListenersToTextFields();
 		return this.animalInfoView;
