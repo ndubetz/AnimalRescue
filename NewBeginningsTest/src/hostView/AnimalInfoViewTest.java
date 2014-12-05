@@ -11,16 +11,18 @@ import model.Cat;
 
 import org.junit.Test;
 
+import database.FakeAnimalDatabase;
+
 public class AnimalInfoViewTest {
 	@Test
 	public void testConstructor() throws Exception {
-		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat());
+		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat(), new FakeAnimalDatabase());
 		assertEquals(4, animalInfoView.getComponents().length);
 	}
 
 	@Test
 	public void testUpperPanel() throws Exception {
-		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat());
+		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat(), new FakeAnimalDatabase());
 		assertEquals(new Dimension(500, 60), animalInfoView
 				.getUpperControlPanel().getMaximumSize());
 		assertEquals(5,
@@ -29,7 +31,7 @@ public class AnimalInfoViewTest {
 
 	@Test
 	public void testBasicInfoPanel() throws Exception {
-		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat());
+		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat(), new FakeAnimalDatabase());
 		Component[] components = animalInfoView.getBasicInfoPanel()
 				.getComponents();
 		assertEquals(18, components.length);
