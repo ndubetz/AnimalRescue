@@ -132,4 +132,34 @@ public class CatTest {
 
 		assertEquals("1 Year, 1 Month", cat.getAge(birthdate));
 	}
+	
+	@Test
+	public void testCalendarGetsFormattedAsString() throws Exception {
+		String expectedBirthdate = "10/10/2010";
+		String expectedArrivalDate = "05/16/2012";
+		String expectedDepartureDate = "08/16/2012";
+		
+		Calendar birthdate = Calendar.getInstance();
+		birthdate.set(Calendar.YEAR, 2010);
+		birthdate.set(Calendar.MONTH, 9);
+		birthdate.set(Calendar.DAY_OF_MONTH, 10);
+		
+		Calendar arrivaldate = Calendar.getInstance();
+		arrivaldate.set(Calendar.YEAR, 2012);
+		arrivaldate.set(Calendar.MONTH, 4);
+		arrivaldate.set(Calendar.DAY_OF_MONTH, 16);
+		
+		Calendar departureDate = Calendar.getInstance();
+		departureDate.set(Calendar.YEAR, 2012);
+		departureDate.set(Calendar.MONTH, 7);
+		departureDate.set(Calendar.DAY_OF_MONTH, 16);
+		
+		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
+				arrivaldate, departureDate, "", "", "",
+				new String[] {}, "");
+		
+		assertEquals(expectedBirthdate, cat.getBirthdateAsDateFormattedString());
+		assertEquals(expectedArrivalDate, cat.getArrivalDateAsDateFormattedString());
+		assertEquals(expectedDepartureDate, cat.getDepartureDateAsDateFormattedString());		
+	}
 }
