@@ -108,8 +108,6 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 				.addFocusListener(this);
 		this.animalInfoView.getBasicInfoPanel().getComponent(17)
 				.addFocusListener(this);
-		focusLost(new FocusEvent(this.animalInfoView.getBasicInfoPanel()
-				.getComponent(5), 0));
 	}
 
 	private void addActionListenersToButtons() {

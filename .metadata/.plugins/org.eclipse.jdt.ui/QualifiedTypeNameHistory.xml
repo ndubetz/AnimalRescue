@@ -12,8 +12,6 @@
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="resources.ResourceProvider"/>
 <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 <fullyQualifiedTypeName name="org.apache.pdfbox.pdmodel.PDDocument"/>
 <fullyQualifiedTypeName name="org.apache.pdfbox.pdmodel.edit.PDPageContentStream"/>
@@ -26,8 +24,6 @@
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="database.ISQLiteWrapper"/>
 <fullyQualifiedTypeName name="database.SQLiteWrapper"/>
-<fullyQualifiedTypeName name="database.FakeAnimalDatabase"/>
-<fullyQualifiedTypeName name="database.IAnimalDatabase"/>
 <fullyQualifiedTypeName name="searchResultsView.SearchResultsView"/>
 <fullyQualifiedTypeName name="database.SearchFilterType"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
@@ -36,4 +32,8 @@
 <fullyQualifiedTypeName name="java.awt.event.FocusListener"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="resources.ResourceProvider"/>
+<fullyQualifiedTypeName name="database.FakeAnimalDatabase"/>
+<fullyQualifiedTypeName name="database.IAnimalDatabase"/>
 </qualifiedTypeNameHistroy>
