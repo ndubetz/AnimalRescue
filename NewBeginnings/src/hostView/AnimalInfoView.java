@@ -95,15 +95,8 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddImageDisplayPanel() {
 		BufferedImage image = null;
 		try {
-<<<<<<< HEAD
-			String imagePath = this.theCat.getCatPictureFilePath();
-			
-			if(imagePath != null && imagePath.contains("."))
-			{
-=======
 			if (this.theCat.getCatPictureFilePath() != null
 					&& this.theCat.getCatPictureFilePath() != "") {
->>>>>>> 70ba4bd4e93a32d3a75f882622c8dc321dd07fd2
 				File file = new File(this.theCat.getCatPictureFilePath());
 				image = ImageIO.read(file);
 			} else {
@@ -263,8 +256,9 @@ public class AnimalInfoView extends JPanel {
 				convertDateFormattedStringToCalendar(textfield8.getText()),
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
 				"", "", new String[] {}, this.theCat.getCatPictureFilePath());
-		
-		if (!this.database.getSingleCat(newCat.getID()).getID().equals("NB-00-000")) {
+
+		if (!this.database.getSingleCat(newCat.getID()).getID()
+				.equals("NB-00-000")) {
 			this.database.updateCat(newCat);
 		} else {
 			this.database.addNewCat(newCat);
