@@ -152,8 +152,17 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				}
 				else
 				{
-					int latestNumber = Integer.parseInt(idParts[2]);
-					suggestedID = "NB-" + currentYear + "-" + (latestNumber + 1);
+					int latestNumber = Integer.parseInt(idParts[2]) + 1;
+					String numberString = String.format("%d", latestNumber);
+					if(latestNumber < 100)
+					{
+						numberString = "0" + numberString;
+						if(latestNumber < 10)
+						{
+							numberString = "0" + numberString;
+						}
+					}
+					suggestedID = "NB-" + currentYear + "-" + numberString;
 				}
 			} 
 			catch (SQLException e) 
