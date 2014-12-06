@@ -16,9 +16,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import database.SearchFilterType;
-import searchResults.SearchResultsView;
 import searchResults.SearchResultsViewController;
+import ui.login.LoginHandler;
 
 public class MainView {
 
@@ -30,10 +29,14 @@ public class MainView {
 	private JScrollPane scrollPane;
 	private JPanel panelToContainThemAll;
 	private JPanel hostPanel;
-	private JPanel previousPanel = new JPanel();
+	private final JPanel previousPanel = new JPanel();
 	private JMenuItem exitAction;
 	private JMenuItem formAction;
 	private JMenuItem dataBaseAction;
+	private JButton loginButton;
+	private final Color BLUE = new Color(47, 140, 171);
+	private final Color GRAY = new Color(252, 245, 235);
+	private final Color LIGHT_BLUE = new Color(201, 226, 233);
 
 	public MainView() {
 		build();
@@ -78,7 +81,7 @@ public class MainView {
 		final JMenu viewModeMenu = new JMenu("View Mode");
 		menuBar.add(fileMenu);
 		menuBar.add(viewModeMenu);
-		menuBar.setBackground(new Color(252, 245, 235));
+		menuBar.setBackground(this.GRAY);
 		this.exitAction = new JMenuItem("Exit");
 
 		ButtonGroup group = new ButtonGroup();
@@ -98,18 +101,28 @@ public class MainView {
 	private JPanel createTopPanel() {
 		JPanel topPanel = new JPanel();
 		final JPanel searchPanel = createSearchPanel();
-		
+		final JPanel buttonPanel = createButtonPanel();
 
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 190, 25));
 		topPanel.setPreferredSize(new Dimension(800, 100));
-		topPanel.setBackground(new Color(47, 140, 171));
-		this.addNewCatButton = new JButton("Add New Cat");
-		
+		topPanel.setBackground(this.BLUE);
 
 		topPanel.add(searchPanel);
-		topPanel.add(this.addNewCatButton);
+		topPanel.add(buttonPanel);
 
 		return topPanel;
+	}
+
+	private JPanel createButtonPanel() {
+		JPanel buttonPanel = new JPanel();
+		this.addNewCatButton = new JButton("Add New Cat");
+		this.loginButton = LoginHandler.singleton().getLoginButton();
+		buttonPanel.setBackground(this.BLUE);
+
+		buttonPanel.add(this.addNewCatButton);
+		buttonPanel.add(this.loginButton);
+
+		return buttonPanel;
 	}
 
 	private JPanel createSearchPanel() {
@@ -118,9 +131,9 @@ public class MainView {
 
 		this.searchButton = new JButton("Search");
 
-		searchPanel.setBackground(new Color(47, 140, 171));
+		searchPanel.setBackground(this.BLUE);
 
-		this.searchBar.setPreferredSize(new Dimension(150, 20));
+		this.searchBar.setPreferredSize(new Dimension(120, 20));
 		searchPanel.add(this.searchBar);
 		searchPanel.add(this.searchButton);
 
@@ -128,13 +141,13 @@ public class MainView {
 	}
 
 	private void setPanelToScrollPane(JPanel bottomPanel) {
-		bottomPanel.setBackground(new Color(201, 226, 233));
+		bottomPanel.setBackground(this.LIGHT_BLUE);
 		this.scrollPane = new JScrollPane(bottomPanel);
 		this.panelToContainThemAll.add(this.scrollPane, BorderLayout.CENTER);
 	}
 
 	public void changePanelOnScrollPane(JPanel bottomPanel) {
-		//this.previousPanel = this.hostPanel;
+		// this.previousPanel = this.hostPanel;
 		this.hostPanel = bottomPanel;
 
 		this.panelToContainThemAll.remove(this.scrollPane);
@@ -145,9 +158,7 @@ public class MainView {
 
 	private JPanel makeBottomPanel() {
 		JPanel bottomPanel = new JPanel();
-		
 
-		bottomPanel.setBackground(new Color(201, 226, 233));
 		return bottomPanel;
 	}
 
@@ -159,6 +170,7 @@ public class MainView {
 		this.formAction.addActionListener(controller);
 		this.searchBar.addActionListener(controller);
 		this.searchBar.addFocusListener(controller);
+		this.loginButton.addActionListener(controller);
 	}
 
 	public void buildDataBaseView() {
@@ -216,6 +228,10 @@ public class MainView {
 
 	public void setSearchResults(SearchResultsViewController searchResults) {
 		this.searchResults = searchResults;
+	}
+
+	protected JButton getLoginButton() {
+		return this.loginButton;
 	}
 
 }

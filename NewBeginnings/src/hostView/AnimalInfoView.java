@@ -29,7 +29,6 @@ import javax.swing.JTextField;
 import model.Cat;
 import resources.ResourceProvider;
 import ui.PanelFactory;
-import ui.login.LoginHandler;
 import database.IAnimalDatabase;
 
 /**
@@ -312,53 +311,45 @@ public class AnimalInfoView extends JPanel {
 		List<Component> medicalHistoryComponents = Arrays
 				.asList(this.medicalHistoryPanel.getComponents());
 
-		// open login dialog if not logged in
-		if (!LoginHandler.singleton().isLoggedIn()) {
-			LoginHandler.singleton().openLoginDialog();
-		}
-		// switch on edit mode, requires login
-		if (LoginHandler.singleton().isLoggedIn()) {
-			if (!this.isInEditMode) {
-				// skip id field
-				for (int i = 1; i < basicInfoComponents.size(); i++) {
-					if (i % 2 == 1 && i != 1 && i != 7) {
-						JTextField textField = (JTextField) basicInfoComponents
-								.get(i);
-						textField.setEditable(true);
-					}
+		if (!this.isInEditMode) {
+			// skip id field
+			for (int i = 1; i < basicInfoComponents.size(); i++) {
+				if (i % 2 == 1 && i != 1 && i != 7) {
+					JTextField textField = (JTextField) basicInfoComponents
+							.get(i);
+					textField.setEditable(true);
 				}
-				for (int i = 0; i < medicalHistoryComponents.size(); i++) {
-					if (i % 2 == 1) {
-						JTextField textField = (JTextField) medicalHistoryComponents
-								.get(i);
-						textField.setEditable(true);
-					}
-				}
-				this.editAndSaveCatButton.setText("Save");
-				this.isInEditMode = true;
-				this.changeCatImageButton.setEnabled(true);
-			} else if (this.isInEditMode) {
-				saveNewCat();
-				// skip id field
-				for (int i = 1; i < basicInfoComponents.size(); i++) {
-					if (i % 2 == 1) {
-						JTextField textField = (JTextField) basicInfoComponents
-								.get(i);
-						textField.setEditable(false);
-					}
-				}
-				for (int i = 0; i < medicalHistoryComponents.size(); i++) {
-					if (i % 2 == 1) {
-						JTextField textField = (JTextField) medicalHistoryComponents
-								.get(i);
-						textField.setEditable(false);
-					}
-				}
-				this.editAndSaveCatButton.setText("Edit");
-				this.isInEditMode = false;
-				this.changeCatImageButton.setEnabled(false);
-				LoginHandler.singleton().setLoginState(false);
 			}
+			for (int i = 0; i < medicalHistoryComponents.size(); i++) {
+				if (i % 2 == 1) {
+					JTextField textField = (JTextField) medicalHistoryComponents
+							.get(i);
+					textField.setEditable(true);
+				}
+			}
+			this.editAndSaveCatButton.setText("Save");
+			this.isInEditMode = true;
+			this.changeCatImageButton.setEnabled(true);
+		} else if (this.isInEditMode) {
+			saveNewCat();
+			// skip id field
+			for (int i = 1; i < basicInfoComponents.size(); i++) {
+				if (i % 2 == 1) {
+					JTextField textField = (JTextField) basicInfoComponents
+							.get(i);
+					textField.setEditable(false);
+				}
+			}
+			for (int i = 0; i < medicalHistoryComponents.size(); i++) {
+				if (i % 2 == 1) {
+					JTextField textField = (JTextField) medicalHistoryComponents
+							.get(i);
+					textField.setEditable(false);
+				}
+			}
+			this.editAndSaveCatButton.setText("Edit");
+			this.isInEditMode = false;
+			this.changeCatImageButton.setEnabled(false);
 		}
 	}
 

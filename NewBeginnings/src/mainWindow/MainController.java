@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import model.Cat;
 import searchResults.SearchResultsView;
 import searchResults.SearchResultsViewController;
+import ui.login.LoginHandler;
 import database.SearchFilterType;
 
 public class MainController implements ActionListener, FocusListener {
@@ -30,7 +31,9 @@ public class MainController implements ActionListener, FocusListener {
 		this.animalInfoViewController = new AnimalInfoViewController(this);
 		this.formViewController = new FormViewController(this);
 		this.searchResultsViewController = new SearchResultsViewController(this);
-		this.view.changePanelOnScrollPane(this.searchResultsViewController.buildView(this.model.getAnimalDatabase().getFilteredCats(SearchFilterType.Name, "")));
+		this.view.changePanelOnScrollPane(this.searchResultsViewController
+				.buildView(this.model.getAnimalDatabase().getFilteredCats(
+						SearchFilterType.Name, "")));
 	}
 
 	// all listeners for the MainView class go here
@@ -68,6 +71,12 @@ public class MainController implements ActionListener, FocusListener {
 							.getSelectedCat());
 
 			this.view.changePanelOnScrollPane(animalView);
+		} else if (e.getSource() == this.view.getLoginButton()) {
+			if (!LoginHandler.singleton().isLoggedIn()) {
+				LoginHandler.singleton().openLoginDialog();
+			} else {
+				LoginHandler.singleton().setLoginState(false);
+			}
 		}
 	}
 
@@ -92,17 +101,20 @@ public class MainController implements ActionListener, FocusListener {
 	public MainView getView() {
 		return this.view;
 	}
-	
-	public JFrame getFrame(){
+
+	public JFrame getFrame() {
 		return this.view.getFrame();
 	}
 
-	public MainModel getModel(){
+	public MainModel getModel() {
 		return this.model;
 	}
-	
+
 	public void reloadPreviousPanel() {
-		//did not make this a variable because I want it to update every time not stay the same.
-		this.view.changePanelOnScrollPane(this.searchResultsViewController.buildView(this.model.getAnimalDatabase().getFilteredCats(SearchFilterType.Name, "")));
+		// did not make this a variable because I want it to update every time
+		// not stay the same.
+		this.view.changePanelOnScrollPane(this.searchResultsViewController
+				.buildView(this.model.getAnimalDatabase().getFilteredCats(
+						SearchFilterType.Name, "")));
 	}
 }

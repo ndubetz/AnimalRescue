@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,10 +24,12 @@ public class LoginHandler implements ActionListener, KeyListener {
 
 	private static LoginHandler SINGLETON = new LoginHandler();
 	private LoginDialog loginDialog;
+	private final JButton loginButton;
 
 	private LoginHandler() {
 		this.loginState = false;
 		this.passwordMap = new LinkedHashMap<String, String>();
+		this.loginButton = new JButton("Login");
 
 		// add default password for prototyping purposes
 		this.passwordMap.put("admin", "Admin");
@@ -112,9 +115,14 @@ public class LoginHandler implements ActionListener, KeyListener {
 		SINGLETON.loginState = loginState;
 		if (SINGLETON.loginState) {
 			JOptionPane.showMessageDialog(null, "You are now logged in.");
+			this.loginButton.setText("Logout");
 		} else {
 			JOptionPane.showMessageDialog(null, "You are now logged out.");
+			this.loginButton.setText("Login");
 		}
 	}
 
+	public JButton getLoginButton() {
+		return this.loginButton;
+	}
 }

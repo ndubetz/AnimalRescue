@@ -9,17 +9,18 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import database.IAnimalDatabase;
 import mainWindow.MainController;
 import model.Cat;
+import ui.login.LoginHandler;
 
 public class AnimalInfoViewController implements ActionListener, FocusListener {
 	private AnimalInfoView animalInfoView;
 	private final MainController mainController;
-	
+
 	public AnimalInfoViewController(MainController mainController) {
 		this.mainController = mainController;
-		this.animalInfoView = new AnimalInfoView(Cat.emptyCat(), this.mainController.getModel().getAnimalDatabase());
+		this.animalInfoView = new AnimalInfoView(Cat.emptyCat(),
+				this.mainController.getModel().getAnimalDatabase());
 	}
 
 	// all action listeners for the AnimalInfoView go here. Should refactor if
@@ -30,7 +31,14 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			this.mainController.reloadPreviousPanel();
 		} else if (e.getSource() == this.animalInfoView
 				.getEditAndSaveCatButton()) {
-			this.animalInfoView.toggleEditMode();
+			// open login dialog if not logged in
+			if (!LoginHandler.singleton().isLoggedIn()) {
+				LoginHandler.singleton().openLoginDialog();
+			}
+			// switch on edit mode, requires login
+			if (LoginHandler.singleton().isLoggedIn()) {
+				this.animalInfoView.toggleEditMode();
+			}
 		} else if (e.getSource() == this.animalInfoView
 				.getViewCatHistoryButton()) {
 			// TODO uncomment this code when CatHistoryView and the model
@@ -95,7 +103,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 	}
 
 	public AnimalInfoView buildView(Cat cat) {
-		this.animalInfoView = new AnimalInfoView(cat, this.mainController.getModel().getAnimalDatabase());
+		this.animalInfoView = new AnimalInfoView(cat, this.mainController
+				.getModel().getAnimalDatabase());
 		addActionListenersToButtons();
 		addFocusListenersToTextFields();
 		return this.animalInfoView;
