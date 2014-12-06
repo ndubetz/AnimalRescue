@@ -18,7 +18,7 @@ public class Cat {
 	private final String hairColor;
 	private final Calendar arrivalDate;
 	private final Calendar departureDate;
-	private final String id;
+	private String id;
 	private final String isFixed;
 	private final String rabies;
 	private final String feLeuk;
@@ -51,7 +51,7 @@ public class Cat {
 	public static Cat emptyCat() {
 		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "",
 				"", Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, null);
+				new String[] {}, "");
 	}
 
 	// pass in the cat that is under scrutiny
@@ -126,6 +126,10 @@ public class Cat {
 
 	public String getID() {
 		return this.id;
+	}
+	
+	public void setID(String newID) {
+		this.id = newID;
 	}
 
 	public String getFixed() {

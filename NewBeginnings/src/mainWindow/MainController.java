@@ -37,8 +37,10 @@ public class MainController implements ActionListener, FocusListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.view.getAddNewCatButton()) {
+			Cat newCat = Cat.emptyCat();
+			newCat.setID(this.model.getAnimalDatabase().getSuggestedNextID());
 			AnimalInfoView animalView = this.animalInfoViewController
-					.buildView(Cat.emptyCat());
+					.buildView(newCat);
 
 			this.model.newAnimal();
 

@@ -96,7 +96,7 @@ public class AnimalInfoView extends JPanel {
 		BufferedImage image = null;
 		try {
 			if (this.theCat.getCatPictureFilePath() != null
-					&& this.theCat.getCatPictureFilePath() != "") {
+					&& !this.theCat.getCatPictureFilePath().equals("")) {
 				File file = new File(this.theCat.getCatPictureFilePath());
 				image = ImageIO.read(file);
 			} else {
