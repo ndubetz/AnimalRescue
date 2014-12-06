@@ -61,7 +61,7 @@ public class AnimalInfoView extends JPanel {
 		buildAndAddUpperControlPanel();
 		buildAndAddImageDisplayPanel();
 		buildAndAddBasicInfoPanel();
-		buildAndAddMedicalHistoryPanel();
+		buildAndAddMedicalHistoryPanel1();
 	}
 
 	private void buildAndAddUpperControlPanel() {
@@ -82,10 +82,10 @@ public class AnimalInfoView extends JPanel {
 		this.exportPDFButton = new JButton("Export PDF");
 		this.backButton = new JButton("Back");
 
-		this.upperControlPanel.add(this.viewCatHistoryButton);
+		// this.upperControlPanel.add(this.viewCatHistoryButton);
 		this.upperControlPanel.add(this.editAndSaveCatButton);
-		this.upperControlPanel.add(this.printCatButton);
-		this.upperControlPanel.add(this.exportPDFButton);
+		// this.upperControlPanel.add(this.printCatButton);
+		// this.upperControlPanel.add(this.exportPDFButton);
 		this.upperControlPanel.add(this.backButton);
 
 		this.add(this.upperControlPanel, constraints);
@@ -215,7 +215,7 @@ public class AnimalInfoView extends JPanel {
 		this.add(this.basicInfoPanel, constraints);
 	}
 
-	private void buildAndAddMedicalHistoryPanel() {
+	private void buildAndAddMedicalHistoryPanel1() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridy = 2;
