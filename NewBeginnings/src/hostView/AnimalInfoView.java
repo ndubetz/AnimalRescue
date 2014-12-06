@@ -102,7 +102,7 @@ public class AnimalInfoView extends JPanel {
 			} else {
 				ResourceProvider r = new ResourceProvider();
 				InputStream defaultPicFile = r
-						.getResourceStream("Images/TestImage.jpg");
+						.getResourceStream("Images/defaultImage.jpg");
 				image = ImageIO.read(defaultPicFile);
 			}
 		} catch (IOException e) {
