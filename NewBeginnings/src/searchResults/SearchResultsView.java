@@ -1,6 +1,8 @@
 package searchResults;
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
 import javax.swing.JPanel;
 
 /**
@@ -9,9 +11,14 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class SearchResultsView extends JPanel
 {	
+	private int _currentGBCol;
+	private int _currentGBRow;
+	
 	public SearchResultsView()
 	{
 		super(new GridBagLayout());
+		_currentGBRow = 0;
+		_currentGBCol = 0;
 	}
 	
 	/**
@@ -26,6 +33,16 @@ public class SearchResultsView extends JPanel
 		//is that we can handle the more advanced gridBag stuff
 		//in the view and make sure the controller only has to 
 		//do the actual adding
-		this.add(newView);
+		GridBagConstraints c = new GridBagConstraints();
+		if(_currentGBCol == 5)
+		{
+			_currentGBCol = 0;
+			_currentGBRow++;
+		}
+		
+		c.gridx = ++_currentGBCol;
+		c.gridy = _currentGBRow;
+		
+		this.add(newView, c);
 	}
 }

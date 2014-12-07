@@ -36,4 +36,8 @@
 <fullyQualifiedTypeName name="resources.ResourceProvider"/>
 <fullyQualifiedTypeName name="database.FakeAnimalDatabase"/>
 <fullyQualifiedTypeName name="database.IAnimalDatabase"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="java.awt.Graphics2D"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="mainWindow.MainView"/>
 </qualifiedTypeNameHistroy>
