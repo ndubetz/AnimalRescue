@@ -81,7 +81,7 @@ public class MainView {
 		final JMenu viewModeMenu = new JMenu("View Mode");
 		menuBar.add(fileMenu);
 		menuBar.add(viewModeMenu);
-		menuBar.setBackground(this.GRAY);
+		menuBar.setBackground(MainView.GRAY);
 		this.exitAction = new JMenuItem("Exit");
 
 		ButtonGroup group = new ButtonGroup();
@@ -105,7 +105,7 @@ public class MainView {
 
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 190, 25));
 		topPanel.setPreferredSize(new Dimension(800, 100));
-		topPanel.setBackground(this.BLUE);
+		topPanel.setBackground(MainView.BLUE);
 
 		topPanel.add(searchPanel);
 		topPanel.add(buttonPanel);
@@ -117,7 +117,7 @@ public class MainView {
 		JPanel buttonPanel = new JPanel();
 		this.addNewCatButton = new JButton("Add New Cat");
 		this.loginButton = LoginHandler.singleton().getLoginButton();
-		buttonPanel.setBackground(this.BLUE);
+		buttonPanel.setBackground(MainView.BLUE);
 
 		buttonPanel.add(this.addNewCatButton);
 		buttonPanel.add(this.loginButton);
@@ -131,7 +131,7 @@ public class MainView {
 
 		this.searchButton = new JButton("Search");
 
-		searchPanel.setBackground(this.BLUE);
+		searchPanel.setBackground(MainView.BLUE);
 
 		this.searchBar.setPreferredSize(new Dimension(120, 20));
 		searchPanel.add(this.searchBar);
@@ -141,7 +141,7 @@ public class MainView {
 	}
 
 	private void setPanelToScrollPane(JPanel bottomPanel) {
-		bottomPanel.setBackground(this.LIGHT_BLUE);
+		bottomPanel.setBackground(MainView.LIGHT_BLUE);
 		this.scrollPane = new JScrollPane(bottomPanel);
 		this.panelToContainThemAll.add(this.scrollPane, BorderLayout.CENTER);
 	}
