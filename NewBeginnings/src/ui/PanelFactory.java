@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import mainWindow.MainView;
 
 public class PanelFactory {
 
@@ -31,7 +32,7 @@ public class PanelFactory {
 			String[] content) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		panel.setBackground(new Color(201, 226, 233));
+		panel.setBackground(MainView.LIGHT_BLUE);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(5, 5, 5, 5);
 
@@ -88,5 +89,38 @@ public class PanelFactory {
 		}
 
 		return buttonGroup;
+	}
+
+	public static JPanel buildTextFieldAndTextFieldPairPanel(String[] dates,
+			String[] medicalInfo) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		panel.setBackground(MainView.LIGHT_BLUE);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(5, 5, 5, 5);
+
+		for (int i = 0; i < dates.length; i++) {
+			JTextField dateField = new JTextField(10);
+			if (dates[i] != null) {
+				dateField.setText(dates[i]);
+			}
+			dateField.setEditable(false);
+
+			constraints.gridy = i;
+			constraints.gridx = 0;
+			constraints.anchor = GridBagConstraints.LINE_START;
+			panel.add(dateField, constraints);
+			JTextField infoField = new JTextField(40);
+
+			if (medicalInfo[i] != null) {
+				infoField.setText(medicalInfo[i]);
+			}
+			infoField.setEditable(false);
+			constraints.gridx = 1;
+			constraints.anchor = GridBagConstraints.LINE_END;
+			panel.add(infoField, constraints);
+		}
+
+		return panel;
 	}
 }

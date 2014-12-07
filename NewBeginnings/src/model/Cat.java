@@ -3,11 +3,8 @@ package model;
 import java.util.Calendar;
 
 /**
- * TODO Possible refactors depending on growing complexity: -Create CatAttribute
- * wrapper class so we don't have to worry about type conversion -Use a date
- * formatted string (custom wrapper?) instead of/in addition to Calendar -Create
- * a map or some custom structures to hold basic information as a standard for
- * holding model data. I can foresee this class getting very large.
+ * Cat is a model object responsible for holding all the data belonging to a
+ * cat.
  */
 public class Cat {
 	private static final String EMPTY_CAT_ID = "NB-00-000";
@@ -51,7 +48,7 @@ public class Cat {
 	public static Cat emptyCat() {
 		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "",
 				"", Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, "");
+				new String[] { " | " }, "");
 	}
 
 	// pass in the cat that is under scrutiny
@@ -127,7 +124,7 @@ public class Cat {
 	public String getID() {
 		return this.id;
 	}
-	
+
 	public void setID(String newID) {
 		this.id = newID;
 	}

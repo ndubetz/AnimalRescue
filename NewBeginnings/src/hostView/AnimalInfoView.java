@@ -48,10 +48,11 @@ public class AnimalInfoView extends JPanel {
 	private boolean isInEditMode;
 	private JPanel upperControlPanel;
 	private JPanel basicInfoPanel;
-	private JPanel medicalHistoryPanel;
+	private JPanel medicalHistoryPanel1;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
 	private final IAnimalDatabase database;
+	private JPanel medicalHistoryPanel2;
 
 	public AnimalInfoView(Cat cat, IAnimalDatabase database) {
 		this.theCat = cat;
@@ -62,6 +63,7 @@ public class AnimalInfoView extends JPanel {
 		buildAndAddImageDisplayPanel();
 		buildAndAddBasicInfoPanel();
 		buildAndAddMedicalHistoryPanel1();
+		buildAndAddMedicalHistoryPanel2();
 	}
 
 	private void buildAndAddUpperControlPanel() {
@@ -73,7 +75,7 @@ public class AnimalInfoView extends JPanel {
 		constraints.gridy = 0;
 		constraints.gridx = 0;
 		constraints.weighty = 0.2;
-		constraints.weightx = 1;
+		constraints.weightx = 0;
 		constraints.anchor = GridBagConstraints.PAGE_START;
 
 		this.viewCatHistoryButton = new JButton("View History");
@@ -116,9 +118,9 @@ public class AnimalInfoView extends JPanel {
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridy = 1;
 		constraints.gridx = 1;
-		constraints.weighty = 0.3;
-		constraints.weightx = 0.5;
-		constraints.anchor = GridBagConstraints.LINE_END;
+		constraints.weighty = 0.2;
+		constraints.weightx = 0.2;
+		constraints.anchor = GridBagConstraints.PAGE_START;
 
 		this.imageDisplayPanel = new JPanel();
 
@@ -231,9 +233,35 @@ public class AnimalInfoView extends JPanel {
 				this.theCat.getRabies(), this.theCat.getDistemper(),
 				this.theCat.getFeLeuk() };
 
-		this.medicalHistoryPanel = PanelFactory
+		this.medicalHistoryPanel1 = PanelFactory
 				.buildLabelAndTextFieldPairPanel(labels, content);
-		this.add(this.medicalHistoryPanel, constraints);
+		this.add(this.medicalHistoryPanel1, constraints);
+
+	}
+
+	private void buildAndAddMedicalHistoryPanel2() {
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2, 2, 2, 2);
+		constraints.gridy = 3;
+		constraints.gridx = 0;
+		constraints.weighty = 0;
+		constraints.weightx = 0;
+		constraints.gridwidth = GridBagConstraints.REMAINDER;
+		constraints.anchor = GridBagConstraints.LINE_START;
+
+		// turns single dimension array of strings into two arrays
+		final String[] medicalHistory = this.theCat.getMedicalHistory();
+		String[] dates = new String[medicalHistory.length];
+		String[] medicalInfo = new String[medicalHistory.length];
+		for (int i = 0; i < medicalHistory.length; i++) {
+			String[] pair = medicalHistory[i].split("|");
+			dates[i] = pair[0];
+			medicalInfo[i] = pair[1];
+		}
+
+		this.medicalHistoryPanel2 = PanelFactory
+				.buildTextFieldAndTextFieldPairPanel(dates, medicalInfo);
+		this.add(this.medicalHistoryPanel2, constraints);
 
 	}
 
@@ -309,7 +337,7 @@ public class AnimalInfoView extends JPanel {
 		List<Component> basicInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		List<Component> medicalHistoryComponents = Arrays
-				.asList(this.medicalHistoryPanel.getComponents());
+				.asList(this.medicalHistoryPanel1.getComponents());
 
 		if (!this.isInEditMode) {
 			// skip id field
