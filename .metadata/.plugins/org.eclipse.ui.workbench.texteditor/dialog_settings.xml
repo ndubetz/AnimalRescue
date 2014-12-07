@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Image" key="selection"/>
+		<item value="resize" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="resize"/>
+			<item value="picture"/>
 			<item value="image"/>
 			<item value="save"/>
 			<item value="FakeAnimalDatabase"/>
 			<item value="Save"/>
-			<item value="picture"/>
 			<item value="add new cat"/>
 			<item value="focus"/>
-			<item value="getResultControllers"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

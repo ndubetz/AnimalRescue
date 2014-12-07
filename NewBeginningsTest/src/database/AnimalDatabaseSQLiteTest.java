@@ -97,7 +97,8 @@ public class AnimalDatabaseSQLiteTest
 				cat.getRabies(),
 				cat.getFeLeuk(),
 				cat.getDistemper(),
-				""
+				"",
+				cat.getCatPictureFilePath()
 				);
 		
 		String actualSQL = _fakeSQLite.getExecuteUpdateCallHistory().get(callCount - 1);
@@ -128,6 +129,7 @@ public class AnimalDatabaseSQLiteTest
 				cat.getFeLeuk(),
 				cat.getDistemper(),
 				"",
+				cat.getCatPictureFilePath(),
 				cat.getID()
 				);
 		

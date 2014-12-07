@@ -35,8 +35,8 @@ public class MainView {
 	private JMenuItem dataBaseAction;
 	private JButton loginButton;
 	private final Color BLUE = new Color(47, 140, 171);
-	private final Color GRAY = new Color(252, 245, 235);
-	private final Color LIGHT_BLUE = new Color(201, 226, 233);
+	public final static Color GRAY = new Color(252, 245, 235);
+	public final static Color LIGHT_BLUE = new Color(201, 226, 233);
 
 	public MainView() {
 		build();
