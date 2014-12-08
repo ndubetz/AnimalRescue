@@ -24,7 +24,10 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import model.Cat;
 import resources.ResourceProvider;
@@ -53,6 +56,7 @@ public class AnimalInfoView extends JPanel {
 	private JButton changeCatImageButton;
 	private final IAnimalDatabase database;
 	private JPanel medicalHistoryPanel2;
+	private JTextArea commentTextArea;
 
 	public AnimalInfoView(Cat cat, IAnimalDatabase database) {
 		this.theCat = cat;
@@ -64,6 +68,7 @@ public class AnimalInfoView extends JPanel {
 		buildAndAddBasicInfoPanel();
 		buildAndAddMedicalHistoryPanel1();
 		buildAndAddMedicalHistoryPanel2();
+		buildCommentPanel();
 	}
 
 	private void buildAndAddUpperControlPanel() {
@@ -264,6 +269,27 @@ public class AnimalInfoView extends JPanel {
 		this.add(this.medicalHistoryPanel2, constraints);
 
 	}
+	
+	private void buildCommentPanel(){
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2, 2, 2, 2);
+		constraints.gridy = 4;
+		constraints.gridx = 0;
+		constraints.weighty = 0;
+		constraints.weightx = 0;
+		constraints.gridwidth = GridBagConstraints.REMAINDER;
+		constraints.anchor = GridBagConstraints.LINE_START;
+		
+		
+		
+		commentTextArea = new JTextArea("Comments",10,30);
+		JScrollPane commentSectionScrollablePanel = new JScrollPane(commentTextArea);
+		
+		commentSectionScrollablePanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		commentTextArea.setVisible(true);
+		
+		this.add(commentSectionScrollablePanel, constraints);
+	}
 
 	private void saveNewCat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
@@ -282,7 +308,8 @@ public class AnimalInfoView extends JPanel {
 				textfield7.getText(), "",
 				convertDateFormattedStringToCalendar(textfield8.getText()),
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
-				"", "", new String[] {}, this.theCat.getCatPictureFilePath());
+				"", "", new String[] {}, this.theCat.getCatPictureFilePath(), commentTextArea.getText());
+		System.out.println(commentTextArea.getText());
 
 		if (!this.database.getSingleCat(newCat.getID()).getID()
 				.equals("NB-00-000")) {
