@@ -59,6 +59,9 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 			}
 
 			this.mainController.getFrame().validate();
+		} else if (e.getSource() == this.animalInfoView
+				.getAddMedicalHistoryButton()) {
+			this.animalInfoView.addRowOfMedicalHistory();
 		}
 	}
 
@@ -91,10 +94,9 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 
 	private void validateDateFormat(JTextField textField) {
 		if (!textField.getText().matches(
-				"[0-1][0-9]/[0-1][0-9]/[0-9][0-9][0-9][0-9]")) {
+				"[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]")) {
 			JOptionPane.showMessageDialog(this.animalInfoView,
 					"Date field must be in MM/DD/YYYY format.");
-			textField.setText("");
 		}
 	}
 
@@ -126,6 +128,8 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 		this.animalInfoView.getPrintButton().addActionListener(this);
 		this.animalInfoView.getExportPDFButton().addActionListener(this);
 		this.animalInfoView.getChangeCatImageButton().addActionListener(this);
+		this.animalInfoView.getAddMedicalHistoryButton()
+				.addActionListener(this);
 	}
 
 	private void addChangeCatImageButtonActionListioner() {

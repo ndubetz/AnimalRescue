@@ -40,16 +40,16 @@ public class LoginHandler implements ActionListener, KeyListener {
 	}
 
 	private void buildLoginDialog() {
-		this.loginDialog = new LoginDialog();
-		addListenersToDialogButtons();
+		SINGLETON.loginDialog = new LoginDialog();
+		addListenersToDialog();
 	}
 
-	private void addListenersToDialogButtons() {
-		this.loginDialog.getLoginButton().addActionListener(this);
-		this.loginDialog.getCancelButton().addActionListener(this);
+	private void addListenersToDialog() {
+		SINGLETON.loginDialog.getLoginButton().addActionListener(this);
+		SINGLETON.loginDialog.getCancelButton().addActionListener(this);
 
 		// key listener for hitting enter to validate password
-		this.loginDialog.getPasswordField().addKeyListener(this);
+		SINGLETON.loginDialog.getPasswordField().addKeyListener(this);
 
 	}
 
@@ -64,7 +64,7 @@ public class LoginHandler implements ActionListener, KeyListener {
 
 	public void openLoginDialog() {
 		buildLoginDialog();
-		this.loginDialog.setVisible(true);
+		SINGLETON.loginDialog.setVisible(true);
 	}
 
 	public void addAdmin(String username, String password) {
@@ -76,32 +76,32 @@ public class LoginHandler implements ActionListener, KeyListener {
 		if (e.getSource() == this.loginDialog.getLoginButton()) {
 			validatePassword();
 		} else if (e.getSource() == this.loginDialog.getCancelButton()) {
-			this.loginDialog.dispose();
+			SINGLETON.loginDialog.dispose();
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getSource() == this.loginDialog.getPasswordField()
+		if (e.getSource() == SINGLETON.loginDialog.getPasswordField()
 				&& e.getKeyCode() == KeyEvent.VK_ENTER) {
 			validatePassword();
 		}
 	}
 
 	private void validatePassword() {
-		String username = this.loginDialog.getUsernameField().getText();
-		if (this.passwordMap.containsKey(username)) {
-			String passwordFromMap = this.passwordMap.get(username
+		String username = SINGLETON.loginDialog.getUsernameField().getText();
+		if (SINGLETON.passwordMap.containsKey(username)) {
+			String passwordFromMap = SINGLETON.passwordMap.get(username
 					.toLowerCase());
-			String passwordField = new String(this.loginDialog
+			String passwordField = new String(SINGLETON.loginDialog
 					.getPasswordField().getPassword());
 			if ((passwordFromMap.hashCode()) == (passwordField.hashCode())) {
-				this.setLoginState(true);
-				this.loginDialog.dispose();
+				SINGLETON.setLoginState(true);
+				SINGLETON.loginDialog.dispose();
 			}
 		} else {
-			this.loginDialog.getUsernameField().setText("");
-			this.loginDialog.getPasswordField().setText("");
+			SINGLETON.loginDialog.getUsernameField().setText("");
+			SINGLETON.loginDialog.getPasswordField().setText("");
 		}
 	}
 

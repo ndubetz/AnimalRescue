@@ -59,6 +59,7 @@ public class AnimalInfoView extends JPanel {
 	private final IAnimalDatabase database;
 	private JPanel medicalHistoryPanel2;
 	private JTextArea commentTextArea;
+	private JButton addMedicalHistoryButton;
 
 	public AnimalInfoView(Cat cat, IAnimalDatabase database) {
 		this.theCat = cat;
@@ -261,14 +262,25 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddMedicalHistoryPanel2() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
-		constraints.gridy = 5;
 		constraints.gridx = 0;
-		constraints.weighty = 0;
-		constraints.weightx = 0;
-		constraints.gridwidth = GridBagConstraints.REMAINDER;
 		constraints.anchor = GridBagConstraints.LINE_START;
 
-		this.add(buildHeader("Medical History:"), constraints);
+		final JPanel medicalHistoryHeaderPanel = new JPanel();
+		medicalHistoryHeaderPanel.setLayout(new GridBagLayout());
+		medicalHistoryHeaderPanel.setBackground(MainView.LIGHT_BLUE);
+		constraints.gridy = 0;
+		medicalHistoryHeaderPanel.add(buildHeader("Medical History:"),
+				constraints);
+		this.addMedicalHistoryButton = new JButton("Add Medical History");
+		this.addMedicalHistoryButton.setEnabled(false);
+		constraints.gridx = 1;
+		medicalHistoryHeaderPanel
+				.add(this.addMedicalHistoryButton, constraints);
+
+		constraints.gridwidth = GridBagConstraints.REMAINDER;
+		constraints.gridy = 5;
+		constraints.gridx = 0;
+		this.add(medicalHistoryHeaderPanel, constraints);
 
 		constraints.gridy = 6;
 		// turns single dimension array of strings into two arrays
@@ -277,9 +289,7 @@ public class AnimalInfoView extends JPanel {
 		String[] medicalInfo = new String[medicalHistory.length];
 		for (int i = 0; i < medicalHistory.length; i++) {
 			String[] pair = medicalHistory[i].split(":");
-			System.out.println(pair.length);
-			for (int j = 0; j < pair.length; j++)
-				System.out.println(pair[j]);
+
 			if (pair.length == 2) {
 				dates[i] = pair[0].trim();
 				medicalInfo[i] = pair[1].trim();
@@ -396,6 +406,10 @@ public class AnimalInfoView extends JPanel {
 		return this.changeCatImageButton;
 	}
 
+	protected void addRowOfMedicalHistory() {
+
+	}
+
 	// toggleEditMode is responsible for enabling/disabling text fields and
 	// saving to database
 	protected void toggleEditMode() {
@@ -422,12 +436,12 @@ public class AnimalInfoView extends JPanel {
 			}
 			this.editAndSaveCatButton.setText("Save");
 			this.isInEditMode = true;
+			this.addMedicalHistoryButton.setEnabled(true);
 			this.changeCatImageButton.setEnabled(true);
 			this.commentTextArea.setEnabled(true);
 		} else if (this.isInEditMode) {
 			saveNewCat();
-			// skip id field
-			for (int i = 1; i < basicInfoComponents.size(); i++) {
+			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
 					JTextField textField = (JTextField) basicInfoComponents
 							.get(i);
@@ -444,6 +458,7 @@ public class AnimalInfoView extends JPanel {
 			this.editAndSaveCatButton.setText("Edit");
 			this.isInEditMode = false;
 			this.changeCatImageButton.setEnabled(false);
+			this.addMedicalHistoryButton.setEnabled(false);
 			this.commentTextArea.setEnabled(false);
 		}
 	}
@@ -458,6 +473,10 @@ public class AnimalInfoView extends JPanel {
 
 	protected Cat getCat() {
 		return this.theCat;
+	}
+
+	protected JButton getAddMedicalHistoryButton() {
+		return this.addMedicalHistoryButton;
 	}
 
 }
