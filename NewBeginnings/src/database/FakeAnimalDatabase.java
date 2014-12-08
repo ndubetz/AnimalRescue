@@ -18,10 +18,10 @@ public class FakeAnimalDatabase implements IAnimalDatabase {
 	private IAnimalDatabase _realDatabase;
 
 	public FakeAnimalDatabase() {
-		this(true);
+		this(true, true);
 	}
 
-	public FakeAnimalDatabase(boolean deleteFile) {
+	public FakeAnimalDatabase(boolean deleteFile, boolean addCats) {
 		this._fakeCats = new LinkedList<Cat>();
 		this._fakeCats.add(new Cat("NB-14-003", "Boots",
 				Calendar.getInstance(), "M", "Siberian", "Jet Black", "yes",
@@ -83,8 +83,11 @@ public class FakeAnimalDatabase implements IAnimalDatabase {
 			e.printStackTrace();
 		}
 
-		for (Cat cat : this._fakeCats) {
+		if(addCats)
+		{
+			for (Cat cat : this._fakeCats) {
 			this._realDatabase.addNewCat(cat);
+			}
 		}
 	}
 

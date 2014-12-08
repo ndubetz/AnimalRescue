@@ -18,7 +18,7 @@ public class AnimalInfoViewTest {
 	public void testConstructor() throws Exception {
 		AnimalInfoView animalInfoView = new AnimalInfoView(Cat.emptyCat(),
 				new FakeAnimalDatabase());
-		assertEquals(5, animalInfoView.getComponents().length);
+		assertEquals(6, animalInfoView.getComponents().length);
 	}
 
 	@Test

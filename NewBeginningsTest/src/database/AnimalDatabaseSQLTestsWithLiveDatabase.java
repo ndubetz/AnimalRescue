@@ -91,11 +91,11 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		assertEquals(kittyNoCommentsAdded.getCommentsAboutCat(), retrievedKittyCat.getCommentsAboutCat());
 		
 		
-		Cat kittyWithCommentsAdded = new Cat("NB-14-999", "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
+		Cat kittyWithCommentsAdded = new Cat("NB-14-789", "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
 				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "This cat bites");		
-		_animalDB.addNewCat(kittyWithCommentsAdded);		
+		_animalDB.updateCat(kittyWithCommentsAdded);		
 		Cat retrievedCatCommentsEdited = _animalDB.getSingleCat(kittyWithCommentsAdded.getID());		
-		assertEquals(kittyNoCommentsAdded.getCommentsAboutCat(), retrievedCatCommentsEdited.getCommentsAboutCat());
+		assertEquals(kittyWithCommentsAdded.getCommentsAboutCat(), retrievedCatCommentsEdited.getCommentsAboutCat());
 	}
 	
 	@Test
