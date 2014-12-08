@@ -3,6 +3,7 @@ package hostView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -29,6 +30,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import mainWindow.MainView;
 import model.Cat;
 import resources.ResourceProvider;
 import ui.PanelFactory;
@@ -67,7 +69,9 @@ public class AnimalInfoView extends JPanel {
 		buildAndAddImageDisplayPanel();
 		buildAndAddBasicInfoPanel();
 		buildAndAddMedicalHistoryPanel1();
+		buildHeader("Medical History:");
 		buildAndAddMedicalHistoryPanel2();
+		buildHeader("Comments:");
 		buildCommentPanel();
 	}
 
@@ -125,6 +129,7 @@ public class AnimalInfoView extends JPanel {
 		constraints.gridx = 1;
 		constraints.weighty = 0.2;
 		constraints.weightx = 0.2;
+		constraints.gridheight = GridBagConstraints.REMAINDER;
 		constraints.anchor = GridBagConstraints.PAGE_START;
 
 		this.imageDisplayPanel = new JPanel();
@@ -196,9 +201,14 @@ public class AnimalInfoView extends JPanel {
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridy = 1;
 		constraints.gridx = 0;
-		constraints.weighty = 0.3;
+		constraints.weighty = 0;
 		constraints.weightx = 0.3;
 		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+
+		this.add(buildHeader("Basic Information:"), constraints);
+
+		constraints.gridy = 2;
+		constraints.weighty = 0.3;
 
 		String[] labels = new String[] { "ID", "Name", "Birth Date", "Age",
 				"Gender", "Breed", "Hair Color", "Arrival Date",
@@ -225,11 +235,15 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddMedicalHistoryPanel1() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
-		constraints.gridy = 2;
+		constraints.gridy = 3;
 		constraints.gridx = 0;
-		constraints.weighty = 0.3;
+		constraints.weighty = 0.0;
 		constraints.weightx = 0.3;
 		constraints.anchor = GridBagConstraints.LINE_START;
+
+		this.add(buildHeader("Medical Information:"), constraints);
+
+		constraints.gridy = 4;
 
 		String[] labels = new String[] { "Spayed/Neutered", "Rabies",
 				"Distemper", "FiV/FeLeuk" };
@@ -247,13 +261,16 @@ public class AnimalInfoView extends JPanel {
 	private void buildAndAddMedicalHistoryPanel2() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
-		constraints.gridy = 3;
+		constraints.gridy = 5;
 		constraints.gridx = 0;
 		constraints.weighty = 0;
 		constraints.weightx = 0;
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
 		constraints.anchor = GridBagConstraints.LINE_START;
 
+		this.add(buildHeader("Medical History:"), constraints);
+
+		constraints.gridy = 6;
 		// turns single dimension array of strings into two arrays
 		final String[] medicalHistory = this.theCat.getMedicalHistory();
 		String[] dates = new String[medicalHistory.length];
@@ -274,24 +291,29 @@ public class AnimalInfoView extends JPanel {
 		this.add(this.medicalHistoryPanel2, constraints);
 
 	}
-	
-	private void buildCommentPanel(){
+
+	private void buildCommentPanel() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
-		constraints.gridy = 4;
+		constraints.gridy = 7;
 		constraints.gridx = 0;
 		constraints.weighty = 0;
 		constraints.weightx = 0;
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
 		constraints.anchor = GridBagConstraints.LINE_START;
 
-		commentTextArea = new JTextArea("Comments",10,30);
-		JScrollPane commentSectionScrollablePanel = new JScrollPane(commentTextArea);
-		
-		commentSectionScrollablePanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		commentTextArea.setVisible(true);
-		commentTextArea.setEnabled(false);
-		
+		this.add(buildHeader("Comments:"), constraints);
+
+		constraints.gridy = 8;
+		this.commentTextArea = new JTextArea("Comments", 10, 30);
+		JScrollPane commentSectionScrollablePanel = new JScrollPane(
+				this.commentTextArea);
+
+		commentSectionScrollablePanel
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		this.commentTextArea.setVisible(true);
+		this.commentTextArea.setEnabled(false);
+
 		this.add(commentSectionScrollablePanel, constraints);
 	}
 
@@ -312,8 +334,9 @@ public class AnimalInfoView extends JPanel {
 				textfield7.getText(), "",
 				convertDateFormattedStringToCalendar(textfield8.getText()),
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
-				"", "", new String[] {}, this.theCat.getCatPictureFilePath(), commentTextArea.getText());
-		System.out.println(commentTextArea.getText());
+				"", "", new String[] {}, this.theCat.getCatPictureFilePath(),
+				this.commentTextArea.getText());
+		System.out.println(this.commentTextArea.getText());
 
 		if (!this.database.getSingleCat(newCat.getID()).getID()
 				.equals("NB-00-000")) {
@@ -332,6 +355,17 @@ public class AnimalInfoView extends JPanel {
 		calendar.set(Calendar.YEAR, Integer.parseInt(values[2]));
 
 		return calendar;
+	}
+
+	private JPanel buildHeader(String headerText) {
+		final JPanel panel = new JPanel();
+
+		JLabel label = new JLabel(headerText);
+		label.setFont(new Font("Arial", Font.BOLD, 16));
+		panel.add(label);
+		panel.setBackground(MainView.LIGHT_BLUE);
+
+		return panel;
 	}
 
 	private void validatePanels() {
