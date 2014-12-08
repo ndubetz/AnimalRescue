@@ -28,12 +28,13 @@ public class FakeAnimalDatabase implements IAnimalDatabase {
 				Calendar.getInstance(), Calendar.getInstance(),
 				"10/11/12, 3 year", "FiV+ FlV-", "1 year", new String[] {
 						"10-4-2014 : Got rabies shot",
-						"11-2-2014 : Open heart surgery" }, ""));
+						"11-2-2014 : Open heart surgery" }, "", "Comment1"));
 		this._fakeCats.add(new Cat("NB-14-001", "Storm",
 				Calendar.getInstance(), "F", "Aegean", "Brown and White",
 				"10/14/14", Calendar.getInstance(), Calendar.getInstance(),
 				"September 3rd 2014, 1 year", "FiV- FlV-", "3 year",
-				new String[] { "9-10-2014 : Gave birth to kittens" }, ""));
+				new String[] { "9-10-2014 : Gave bith to kittens" }, "",
+				"Comment2"));
 		this._fakeCats.add(new Cat("NB-14-009", "Garfield", Calendar
 				.getInstance(), "M", "Calico", "Dark Orange", "no", Calendar
 				.getInstance(), Calendar.getInstance(), "July 11 2013, 1 year",
@@ -41,27 +42,28 @@ public class FakeAnimalDatabase implements IAnimalDatabase {
 						"12-13-2013 : Prescribed medication",
 						"1-4-2014 : Stopped taking medication",
 						"3-6-2014 : Broken leg", "5-4-2014 : Cast removed" },
-				""));
-		this._fakeCats
-				.add(new Cat("NB-14-002", "Han Solo", Calendar.getInstance(),
-						"M", "American Curl", "Black with White Stripes",
-						"YES 3/10/1013", Calendar.getInstance(), Calendar
-								.getInstance(), "11/10/13, 3 year",
-						"FiV+ FlV-", "1 year", new String[] {}, ""));
+				"", "Comment3"));
+		this._fakeCats.add(new Cat("NB-14-002", "Han Solo", Calendar
+				.getInstance(), "M", "American Curl",
+				"Black with White Stripes", "YES 3/10/1013", Calendar
+						.getInstance(), Calendar.getInstance(),
+				"11/10/13, 3 year", "FiV+ FlV-", "1 year", new String[] {}, "",
+				"Comment4"));
 		this._fakeCats.add(new Cat("NB-14-005", "Fluffy", Calendar
 				.getInstance(), "F", "Australian Mist", "White",
 				"january 1st 2011", Calendar.getInstance(), Calendar
 						.getInstance(), "Feb fourth 2011 3-year", "FiV- FlV-",
-				"1 year", new String[] {}, ""));
+				"1 year", new String[] {}, "", "Comment5"));
 		this._fakeCats.add(new Cat("NB-14-004", "Zephram", Calendar
 				.getInstance(), "M", "Hungarian Tabby", "Light Black", "no",
 				Calendar.getInstance(), Calendar.getInstance(),
-				"9/6/14, 1year", "FiV+ FlV-", "3 year", new String[] {}, ""));
+				"9/6/14, 1year", "FiV+ FlV-", "3 year", new String[] {}, "",
+				"Comment6"));
 		this._fakeCats.add(new Cat("NB-14-007", "Geoff",
 				Calendar.getInstance(), "M", "California Spangled",
 				"Spotted Orange", "yes", Calendar.getInstance(), Calendar
 						.getInstance(), "December 7th 2013 1-yr", "FiV+ FlV-",
-				"3 year", new String[] {}, ""));
+				"3 year", new String[] {}, "", "Comment7"));
 
 		String fakeFilename = "test.db";
 		String fakeDatabasePath = "jdbc:sqlite:" + fakeFilename;

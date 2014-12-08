@@ -22,12 +22,13 @@ public class Cat {
 	private final String distemper;
 	private final String[] medicalHistory;
 	private String catPictureFilePath;
+	private String commentsAboutCat;
 
 	public Cat(String id, String name, Calendar birthdate, String gender,
 			String breed, String hairColor, String isFixed,
 			Calendar arrivalDate, Calendar departureDate, String rabies,
 			String feLeuk, String distemper, String[] medicalHistory,
-			String catPictureFilePath) {
+			String catPictureFilePath, String commentsAboutCat) {
 
 		this.id = id;
 		this.name = name;
@@ -43,12 +44,15 @@ public class Cat {
 		this.distemper = distemper;
 		this.medicalHistory = medicalHistory;
 		this.catPictureFilePath = catPictureFilePath;
+		this.commentsAboutCat = commentsAboutCat;
 	}
 
 	public static Cat emptyCat() {
 		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "",
 				"", Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, "");
+
+				new String[] { "" }, "", "Comments");
+
 	}
 
 	// pass in the cat that is under scrutiny
@@ -151,6 +155,14 @@ public class Cat {
 
 	public String getCatPictureFilePath() {
 		return this.catPictureFilePath;
+	}
+
+	public String getCommentsAboutCat() {
+		return this.commentsAboutCat;
+	}
+
+	public String setCommentsAboutCat(String comments) {
+		return this.commentsAboutCat = comments;
 	}
 
 	public String getAge(Calendar birthdate) {
