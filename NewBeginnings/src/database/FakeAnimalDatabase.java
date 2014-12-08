@@ -86,7 +86,7 @@ public class FakeAnimalDatabase implements IAnimalDatabase {
 		if(addCats)
 		{
 			for (Cat cat : this._fakeCats) {
-			this._realDatabase.addNewCat(cat);
+				this._realDatabase.addNewCat(cat);
 			}
 		}
 	}

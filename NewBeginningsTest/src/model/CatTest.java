@@ -116,6 +116,25 @@ public class CatTest {
 
 		assertEquals("2 Years, 2 Months", cat.getAge(birthdate));
 	}
+	
+	@Test
+	public void getAgeReturnsOneMonth() throws Exception {
+		// make sure the cat is a known age
+		long OneMonthsMs = 3414960000l;
+
+		Calendar now = Calendar.getInstance();
+
+		long birthdateMs = now.getTimeInMillis() - OneMonthsMs;
+		Calendar birthdate = Calendar.getInstance();
+		birthdate.setTimeInMillis(birthdateMs);
+
+		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
+				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
+				new String[] {}, "src/resources/Images/TestImage.jpg", "");
+
+		assertEquals("0 Years, 1 Month", cat.getAge(birthdate));
+	}
+
 
 	@Test
 	public void getAgeReturnsProperlySingular() throws Exception {

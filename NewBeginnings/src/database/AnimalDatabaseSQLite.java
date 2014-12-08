@@ -167,7 +167,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 					suggestedID = "NB-" + currentYear + "-" + numberString;
 				}
 			} 
-			catch (SQLException e) 
+			catch (Exception e) 
 			{
 				suggestedID = defaultID;
 			}
