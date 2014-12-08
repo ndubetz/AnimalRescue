@@ -41,12 +41,13 @@ public class CatTest {
 		String expectedDistemper = "bratty catty";
 		String[] expectedMedicalHistory = new String[] {};
 		String expectedCatImageFilePath = "C:/Cat";
+		String expectedCatComments = "Comment";
 
 		Cat cat = new Cat(expectedID, expectedName, expectedBirthdate,
 				expectedGender, expectedBreed, expectedHairColor,
 				expectedIsFixed, expectedArrivalDate, expectedDepartureDate,
 				expectedRabies, expectedFeLeuk, expectedDistemper,
-				expectedMedicalHistory, expectedCatImageFilePath);
+				expectedMedicalHistory, expectedCatImageFilePath, expectedCatComments);
 
 		assertSame(expectedName, cat.getName());
 		assertSame(expectedBirthdate, cat.getBirthdate());
@@ -62,6 +63,7 @@ public class CatTest {
 		assertSame(expectedDistemper, cat.getDistemper());
 		assertSame(expectedMedicalHistory, cat.getMedicalHistory());
 		assertSame(expectedCatImageFilePath, cat.getCatPictureFilePath());
+		assertSame(expectedCatComments, cat.getCommentsAboutCat());
 	}
 
 	@Test
@@ -92,7 +94,7 @@ public class CatTest {
 
 		Cat catThatIsEmptyExceptForID = new Cat("skroob", "",
 				Calendar.getInstance(), "", "", "", "", Calendar.getInstance(),
-				Calendar.getInstance(), "", "", "", new String[] {}, "src/resources/Images/TestImage.jpg");
+				Calendar.getInstance(), "", "", "", new String[] {}, "src/resources/Images/TestImage.jpg", "Comments");
 
 		assertFalse(Cat.isTheEmptyCat(catThatIsEmptyExceptForID));
 	}
@@ -110,7 +112,7 @@ public class CatTest {
 
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, "src/resources/Images/TestImage.jpg");
+				new String[] {}, "src/resources/Images/TestImage.jpg", "");
 
 		assertEquals("2 Years, 2 Months", cat.getAge(birthdate));
 	}
@@ -128,7 +130,7 @@ public class CatTest {
 
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
 				Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] {}, "src/resources/Images/TestImage.jpg");
+				new String[] {}, "src/resources/Images/TestImage.jpg", "");
 
 		assertEquals("1 Year, 1 Month", cat.getAge(birthdate));
 	}
@@ -156,7 +158,7 @@ public class CatTest {
 		
 		Cat cat = new Cat("skroob", "", birthdate, "", "", "", "",
 				arrivaldate, departureDate, "", "", "",
-				new String[] {}, "");
+				new String[] {}, "", "");
 		
 		assertEquals(expectedBirthdate, cat.getBirthdateAsDateFormattedString());
 		assertEquals(expectedArrivalDate, cat.getArrivalDateAsDateFormattedString());
