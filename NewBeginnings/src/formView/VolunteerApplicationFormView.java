@@ -10,6 +10,7 @@ import ui.PanelFactory;
 public class VolunteerApplicationFormView extends JPanel {
 	private JPanel personalInfoPanel;
 	private final JPanel animalExperience;
+	@SuppressWarnings("unused")
 	private final JPanel volunteerQuestionnaire;
 
 	public VolunteerApplicationFormView() {

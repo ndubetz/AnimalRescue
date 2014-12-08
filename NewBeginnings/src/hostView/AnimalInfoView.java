@@ -254,9 +254,14 @@ public class AnimalInfoView extends JPanel {
 		String[] dates = new String[medicalHistory.length];
 		String[] medicalInfo = new String[medicalHistory.length];
 		for (int i = 0; i < medicalHistory.length; i++) {
-			String[] pair = medicalHistory[i].split("|");
-			dates[i] = pair[0];
-			medicalInfo[i] = pair[1];
+			String[] pair = medicalHistory[i].split(":");
+			System.out.println(pair.length);
+			for (int j = 0; j < pair.length; j++)
+				System.out.println(pair[j]);
+			if (pair.length == 2) {
+				dates[i] = pair[0].trim();
+				medicalInfo[i] = pair[1].trim();
+			}
 		}
 
 		this.medicalHistoryPanel2 = PanelFactory
@@ -342,7 +347,7 @@ public class AnimalInfoView extends JPanel {
 		if (!this.isInEditMode) {
 			// skip id field
 			for (int i = 1; i < basicInfoComponents.size(); i++) {
-				if (i % 2 == 1 && i != 1 && i != 7) {
+				if (i % 2 == 1 && i != 7) {
 					JTextField textField = (JTextField) basicInfoComponents
 							.get(i);
 					textField.setEditable(true);

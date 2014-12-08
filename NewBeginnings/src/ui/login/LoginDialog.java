@@ -29,6 +29,7 @@ class LoginDialog extends JDialog {
 
 	protected LoginDialog() {
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
+		this.setTitle("Login");
 		this.setLayout(new BorderLayout());
 		this.setSize(300, 130);
 		this.setLocation(550, 350);

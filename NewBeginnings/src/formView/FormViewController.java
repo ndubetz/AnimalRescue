@@ -7,6 +7,7 @@ import mainWindow.MainController;
 
 public class FormViewController implements ActionListener {
 
+	@SuppressWarnings("unused")
 	private final MainController mainController;
 	private FormsView formView;
 

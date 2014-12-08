@@ -2,6 +2,7 @@ package hostView;
 
 public class CatHistoryViewController {
 
+	@SuppressWarnings("unused")
 	private final AnimalInfoViewController animalInfoViewController;
 	private CatHistoryView catHistoryView = null;
 

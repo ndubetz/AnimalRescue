@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,6 +36,7 @@ public class MainView {
 	private JMenuItem formAction;
 	private JMenuItem dataBaseAction;
 	private JButton loginButton;
+	private JLabel loginStatusLabel;
 	public static final Color BLUE = new Color(47, 140, 171);
 	public static final Color GRAY = new Color(252, 245, 235);
 	public static final Color LIGHT_BLUE = new Color(201, 226, 233);
@@ -49,7 +52,6 @@ public class MainView {
 		addComponentsToPane();
 
 		this.frame.setSize(800, 600);
-		// this.frame.setMaximumSize(new Dimension(800, 600));
 		this.frame.setResizable(false);
 		this.frame.setLocation(200, 25);
 		this.frame.setVisible(true);
@@ -103,7 +105,7 @@ public class MainView {
 		final JPanel searchPanel = createSearchPanel();
 		final JPanel buttonPanel = createButtonPanel();
 
-		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 190, 25));
+		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 25));
 		topPanel.setPreferredSize(new Dimension(800, 100));
 		topPanel.setBackground(MainView.BLUE);
 
@@ -114,15 +116,36 @@ public class MainView {
 	}
 
 	private JPanel createButtonPanel() {
+
 		JPanel buttonPanel = new JPanel();
 		this.addNewCatButton = new JButton("Add New Cat");
 		this.loginButton = LoginHandler.singleton().getLoginButton();
+
+		JPanel loginLabelPanel = buildLoginPanel();
+
 		buttonPanel.setBackground(MainView.BLUE);
 
 		buttonPanel.add(this.addNewCatButton);
 		buttonPanel.add(this.loginButton);
+		buttonPanel.add(loginLabelPanel);
 
 		return buttonPanel;
+	}
+
+	private JPanel buildLoginPanel() {
+		JPanel panel = new JPanel();
+
+		JLabel theWordStatus = new JLabel("Status: ");
+		final Font loginLabelFont = new Font("Arial", Font.PLAIN, 18);
+		theWordStatus.setFont(loginLabelFont);
+		this.loginStatusLabel = LoginHandler.singleton().getLoginStatusLabel();
+		this.loginStatusLabel.setFont(loginLabelFont);
+
+		panel.setBackground(LIGHT_BLUE);
+		panel.add(theWordStatus);
+		panel.add(this.loginStatusLabel);
+
+		return panel;
 	}
 
 	private JPanel createSearchPanel() {

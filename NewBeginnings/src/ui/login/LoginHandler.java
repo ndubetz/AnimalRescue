@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,11 +26,13 @@ public class LoginHandler implements ActionListener, KeyListener {
 	private static LoginHandler SINGLETON = new LoginHandler();
 	private LoginDialog loginDialog;
 	private final JButton loginButton;
+	private final JLabel loginStatusLabel;
 
 	private LoginHandler() {
 		this.loginState = false;
 		this.passwordMap = new LinkedHashMap<String, String>();
 		this.loginButton = new JButton("Login");
+		this.loginStatusLabel = new JLabel("Logged out");
 
 		// add default password for prototyping purposes
 		this.passwordMap.put("admin", "Admin");
@@ -116,13 +119,19 @@ public class LoginHandler implements ActionListener, KeyListener {
 		if (SINGLETON.loginState) {
 			JOptionPane.showMessageDialog(null, "You are now logged in.");
 			this.loginButton.setText("Logout");
+			this.loginStatusLabel.setText("Logged in");
 		} else {
 			JOptionPane.showMessageDialog(null, "You are now logged out.");
 			this.loginButton.setText("Login");
+			this.loginStatusLabel.setText("Logged out");
 		}
 	}
 
 	public JButton getLoginButton() {
 		return this.loginButton;
+	}
+
+	public JLabel getLoginStatusLabel() {
+		return this.loginStatusLabel;
 	}
 }

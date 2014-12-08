@@ -48,7 +48,7 @@ public class Cat {
 	public static Cat emptyCat() {
 		return new Cat(EMPTY_CAT_ID, "", Calendar.getInstance(), "", "", "",
 				"", Calendar.getInstance(), Calendar.getInstance(), "", "", "",
-				new String[] { " | " }, "");
+				new String[] {}, "");
 	}
 
 	// pass in the cat that is under scrutiny
