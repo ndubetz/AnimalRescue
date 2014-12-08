@@ -279,14 +279,13 @@ public class AnimalInfoView extends JPanel {
 		constraints.weightx = 0;
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
 		constraints.anchor = GridBagConstraints.LINE_START;
-		
-		
-		
+
 		commentTextArea = new JTextArea("Comments",10,30);
 		JScrollPane commentSectionScrollablePanel = new JScrollPane(commentTextArea);
 		
 		commentSectionScrollablePanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		commentTextArea.setVisible(true);
+		commentTextArea.setEnabled(false);
 		
 		this.add(commentSectionScrollablePanel, constraints);
 	}
@@ -385,6 +384,7 @@ public class AnimalInfoView extends JPanel {
 			this.editAndSaveCatButton.setText("Save");
 			this.isInEditMode = true;
 			this.changeCatImageButton.setEnabled(true);
+			this.commentTextArea.setEnabled(true);
 		} else if (this.isInEditMode) {
 			saveNewCat();
 			// skip id field
@@ -405,6 +405,7 @@ public class AnimalInfoView extends JPanel {
 			this.editAndSaveCatButton.setText("Edit");
 			this.isInEditMode = false;
 			this.changeCatImageButton.setEnabled(false);
+			this.commentTextArea.setEnabled(false);
 		}
 	}
 
