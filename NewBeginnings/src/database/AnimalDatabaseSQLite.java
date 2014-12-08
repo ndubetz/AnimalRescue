@@ -94,7 +94,8 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getFeLeuk(),
 				cat.getDistemper(),
 				stringArrayToFlatString(cat.getMedicalHistory()),
-				cat.getCatPictureFilePath()
+				cat.getCatPictureFilePath(),
+				cat.getCommentsAboutCat()
 				);
 		
 		_sqlite.executeUpdate(statement);
@@ -118,6 +119,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 				cat.getDistemper(),
 				stringArrayToFlatString(cat.getMedicalHistory()),
 				cat.getCatPictureFilePath(),
+				cat.getCommentsAboutCat(),
 				cat.getID()
 				);
 		
@@ -264,7 +266,8 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 							result.getString("feLeuk"),
 							result.getString("distemper"),
 							flatStringToStringArray(result.getString("medicalHistory")), 
-							result.getString("catPictureFilePath")
+							result.getString("catPictureFilePath"),
+							result.getString("comments")
 					);
 		} catch (SQLException e) 
 		{

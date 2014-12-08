@@ -45,7 +45,7 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		
 		//currently do not have setters in the cat class
 		Cat updatedCat = new Cat("NB-14-002", newName, Calendar.getInstance(), "M", "American Curl", "Black with White Stripes", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "Comments");
 		_animalDB.updateCat(updatedCat);
 		
 		Cat retrievedNewIdCat = _animalDB.getSingleCat("NB-14-002");
@@ -59,7 +59,7 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		Calendar birthdate = Calendar.getInstance();
 		birthdate.set(2011, Calendar.JUNE, 3);
 		Cat dateCat = new Cat("NB-14-789", "Smeagol", birthdate, "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "Comments");
 		_animalDB.addNewCat(dateCat);
 		
 		Cat retrievedDateCat = _animalDB.getSingleCat(dateCat.getID());
@@ -73,13 +73,29 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 	public void testDefaultCatPictureFilePath() throws Exception {
 		
 		Cat dateCat = new Cat("NB-14-789", "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "Comments");
 		_animalDB.addNewCat(dateCat);
 		
 		Cat retrievedDateCat = _animalDB.getSingleCat(dateCat.getID());
 		
 		assertEquals(dateCat.getCatPictureFilePath(),retrievedDateCat.getCatPictureFilePath());
 
+	}
+	
+	@Test
+	public void testCommentsAddedToCat() throws Exception {
+		Cat kittyNoCommentsAdded = new Cat("NB-14-789", "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "Comments");
+		_animalDB.addNewCat(kittyNoCommentsAdded);		
+		Cat retrievedKittyCat = _animalDB.getSingleCat(kittyNoCommentsAdded.getID());		
+		assertEquals(kittyNoCommentsAdded.getCommentsAboutCat(), retrievedKittyCat.getCommentsAboutCat());
+		
+		
+		Cat kittyWithCommentsAdded = new Cat("NB-14-999", "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "This cat bites");		
+		_animalDB.addNewCat(kittyWithCommentsAdded);		
+		Cat retrievedCatCommentsEdited = _animalDB.getSingleCat(kittyWithCommentsAdded.getID());		
+		assertEquals(kittyNoCommentsAdded.getCommentsAboutCat(), retrievedCatCommentsEdited.getCommentsAboutCat());
 	}
 	
 	@Test
@@ -90,7 +106,7 @@ public class AnimalDatabaseSQLTestsWithLiveDatabase
 		String expectedSuggestedID = "NB-" + currentYear + "-999";
 		
 		Cat tempMaxCat = new Cat(tempMaxID, "Smeagol", Calendar.getInstance(), "M", "Siamese", "White", "", Calendar.getInstance(), Calendar.getInstance(),
-				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg");
+				"", "", "", new String[]{}, "src/resources/Images/TestImage.jpg", "Comments");
 		_animalDB.addNewCat(tempMaxCat);
 		
 		assertEquals(expectedSuggestedID, _animalDB.getSuggestedNextID());

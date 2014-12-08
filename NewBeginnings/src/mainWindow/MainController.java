@@ -59,13 +59,19 @@ public class MainController implements ActionListener, FocusListener {
 			this.view.addController(this);
 		} else if (e.getSource() == this.view.getSearchButton()
 				|| e.getSource() == this.view.getSearchBar()) {
+			
+			if (this.view.getSearchBar().getText()
+					.equals("Search For A Cat")) {
+						this.view.getSearchBar().setText("");
+			}
+			
 			SearchResultsView resultsView = this.searchResultsViewController
 					.buildView(this.model.getAnimalDatabase().getFilteredCats(
 							SearchFilterType.Name,
 							this.view.getSearchBar().getText()));
 
 			this.view.changePanelOnScrollPane(resultsView);
-		} else if (e.getSource() == this.searchResultsViewController) {
+		} else if (e.getSource() == this.searchResultsViewController) {		
 			AnimalInfoView animalView = this.animalInfoViewController
 					.buildView(this.searchResultsViewController
 							.getSelectedCat());
