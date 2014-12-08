@@ -28,7 +28,8 @@ public class SQLiteDatabaseInterface
 			{"feLeuk", "TEXT"},
 			{"distemper", "TEXT"},
 			{"medicalHistory", "TEXT"},
-			{"catPictureFilePath", "TEXT"}
+			{"catPictureFilePath", "TEXT"},
+			{"comments", "TEXT"}
 		};
 	
 	/**
