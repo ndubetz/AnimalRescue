@@ -62,6 +62,7 @@ public class AnimalInfoViewController implements ActionListener, FocusListener {
 		} else if (e.getSource() == this.animalInfoView
 				.getAddMedicalHistoryButton()) {
 			this.animalInfoView.addRowOfMedicalHistory();
+			this.mainController.getFrame().validate();
 		}
 	}
 

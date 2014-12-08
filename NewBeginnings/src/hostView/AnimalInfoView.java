@@ -53,11 +53,11 @@ public class AnimalInfoView extends JPanel {
 	private boolean isInEditMode;
 	private JPanel upperControlPanel;
 	private JPanel basicInfoPanel;
-	private JPanel medicalHistoryPanel1;
+	private JPanel medicalInfoPanel;
 	private JPanel imageDisplayPanel;
 	private JButton changeCatImageButton;
 	private final IAnimalDatabase database;
-	private JPanel medicalHistoryPanel2;
+	private JPanel medicalHistoryPanel;
 	private JTextArea commentTextArea;
 	private JButton addMedicalHistoryButton;
 
@@ -69,10 +69,8 @@ public class AnimalInfoView extends JPanel {
 		buildAndAddUpperControlPanel();
 		buildAndAddImageDisplayPanel();
 		buildAndAddBasicInfoPanel();
-		buildAndAddMedicalHistoryPanel1();
-		buildHeader("Medical History:");
-		buildAndAddMedicalHistoryPanel2();
-		buildHeader("Comments:");
+		buildAndAddMedicalInfoPanel();
+		buildAndAddMedicalHistoryPanel();
 		buildCommentPanel();
 	}
 
@@ -233,7 +231,7 @@ public class AnimalInfoView extends JPanel {
 		this.add(this.basicInfoPanel, constraints);
 	}
 
-	private void buildAndAddMedicalHistoryPanel1() {
+	private void buildAndAddMedicalInfoPanel() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridy = 3;
@@ -253,13 +251,13 @@ public class AnimalInfoView extends JPanel {
 				this.theCat.getRabies(), this.theCat.getDistemper(),
 				this.theCat.getFeLeuk() };
 
-		this.medicalHistoryPanel1 = PanelFactory
-				.buildLabelAndTextFieldPairPanel(labels, content);
-		this.add(this.medicalHistoryPanel1, constraints);
+		this.medicalInfoPanel = PanelFactory.buildLabelAndTextFieldPairPanel(
+				labels, content);
+		this.add(this.medicalInfoPanel, constraints);
 
 	}
 
-	private void buildAndAddMedicalHistoryPanel2() {
+	private void buildAndAddMedicalHistoryPanel() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(2, 2, 2, 2);
 		constraints.gridx = 0;
@@ -296,9 +294,9 @@ public class AnimalInfoView extends JPanel {
 			}
 		}
 
-		this.medicalHistoryPanel2 = PanelFactory
+		this.medicalHistoryPanel = PanelFactory
 				.buildTextFieldAndTextFieldPairPanel(dates, medicalInfo);
-		this.add(this.medicalHistoryPanel2, constraints);
+		this.add(this.medicalHistoryPanel, constraints);
 
 	}
 
@@ -327,7 +325,7 @@ public class AnimalInfoView extends JPanel {
 		this.add(commentSectionScrollablePanel, constraints);
 	}
 
-	private void saveNewCat() {
+	private void saveCat() {
 		List<Component> bInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		JTextField textfield1 = (JTextField) bInfoComponents.get(1);
@@ -338,13 +336,16 @@ public class AnimalInfoView extends JPanel {
 		JTextField textfield7 = (JTextField) bInfoComponents.get(13);
 		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
+
+		String[] medicalHistory = extractMedicalHistory();
+
 		Cat newCat = new Cat(textfield1.getText(), textfield2.getText(),
 				convertDateFormattedStringToCalendar(textfield3.getText()),
 				textfield5.getText(), textfield6.getText(),
 				textfield7.getText(), "",
 				convertDateFormattedStringToCalendar(textfield8.getText()),
 				convertDateFormattedStringToCalendar(textfield9.getText()), "",
-				"", "", new String[] {}, this.theCat.getCatPictureFilePath(),
+				"", "", medicalHistory, this.theCat.getCatPictureFilePath(),
 				this.commentTextArea.getText());
 		System.out.println(this.commentTextArea.getText());
 
@@ -354,6 +355,22 @@ public class AnimalInfoView extends JPanel {
 		} else {
 			this.database.addNewCat(newCat);
 		}
+	}
+
+	private String[] extractMedicalHistory() {
+		List<Component> medicalHistoryComponents = Arrays
+				.asList(this.medicalHistoryPanel.getComponents());
+		String[] medicalHistory = new String[medicalHistoryComponents.size() / 2];
+		// turn each pair of textfields into one string
+		for (int i = 0; i < medicalHistory.length * 2; i = i + 2) {
+			JTextField dateField = (JTextField) medicalHistoryComponents.get(i);
+			JTextField infoField = (JTextField) medicalHistoryComponents
+					.get(i + 1);
+			medicalHistory[i / 2] = dateField.getText() + " : "
+					+ infoField.getText();
+		}
+
+		return medicalHistory;
 	}
 
 	protected Calendar convertDateFormattedStringToCalendar(String date) {
@@ -407,7 +424,20 @@ public class AnimalInfoView extends JPanel {
 	}
 
 	protected void addRowOfMedicalHistory() {
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(5, 5, 5, 5);
+		constraints.gridy = this.medicalHistoryPanel.getComponentCount() / 2 + 1;
+		constraints.gridx = 0;
+		constraints.anchor = GridBagConstraints.LINE_START;
 
+		JTextField dateField = new JTextField(10);
+		this.medicalHistoryPanel.add(dateField, constraints);
+
+		JTextField infoField = new JTextField(40);
+		constraints.gridx = 1;
+		constraints.anchor = GridBagConstraints.LINE_END;
+		this.medicalHistoryPanel.add(infoField, constraints);
+		validatePanels();
 	}
 
 	// toggleEditMode is responsible for enabling/disabling text fields and
@@ -416,7 +446,9 @@ public class AnimalInfoView extends JPanel {
 		List<Component> basicInfoComponents = Arrays.asList(this.basicInfoPanel
 				.getComponents());
 		List<Component> medicalHistoryComponents = Arrays
-				.asList(this.medicalHistoryPanel1.getComponents());
+				.asList(this.medicalInfoPanel.getComponents());
+		List<Component> medicalHistoryComponents2 = Arrays
+				.asList(this.medicalHistoryPanel.getComponents());
 
 		if (!this.isInEditMode) {
 			// skip id field
@@ -434,13 +466,18 @@ public class AnimalInfoView extends JPanel {
 					textField.setEditable(true);
 				}
 			}
+			for (int i = 0; i < medicalHistoryComponents2.size(); i++) {
+				JTextField textField = (JTextField) medicalHistoryComponents2
+						.get(i);
+				textField.setEditable(true);
+			}
 			this.editAndSaveCatButton.setText("Save");
 			this.isInEditMode = true;
 			this.addMedicalHistoryButton.setEnabled(true);
 			this.changeCatImageButton.setEnabled(true);
 			this.commentTextArea.setEnabled(true);
 		} else if (this.isInEditMode) {
-			saveNewCat();
+			saveCat();
 			for (int i = 0; i < basicInfoComponents.size(); i++) {
 				if (i % 2 == 1) {
 					JTextField textField = (JTextField) basicInfoComponents
@@ -454,6 +491,11 @@ public class AnimalInfoView extends JPanel {
 							.get(i);
 					textField.setEditable(false);
 				}
+			}
+			for (int i = 0; i < medicalHistoryComponents2.size(); i++) {
+				JTextField textField = (JTextField) medicalHistoryComponents2
+						.get(i);
+				textField.setEditable(false);
 			}
 			this.editAndSaveCatButton.setText("Edit");
 			this.isInEditMode = false;

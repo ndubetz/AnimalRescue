@@ -255,13 +255,13 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 					(
 							result.getString("id"),
 							result.getString("name"),
-							longToCalander(result.getLong("birthdate")),
+							longToCalendar(result.getLong("birthdate")),
 							result.getString("gender"),
 							result.getString("breed"),
 							result.getString("hairColor"),
 							result.getString("fixed"),
-							longToCalander(result.getLong("arrivalDate")),
-							longToCalander(result.getLong("departureDate")),
+							longToCalendar(result.getLong("arrivalDate")),
+							longToCalendar(result.getLong("departureDate")),
 							result.getString("rabies"),
 							result.getString("feLeuk"),
 							result.getString("distemper"),
@@ -373,7 +373,7 @@ public class AnimalDatabaseSQLite implements IAnimalDatabase
 		}
 	}
 	
-	private Calendar longToCalander(long timeInMs)
+	private Calendar longToCalendar(long timeInMs)
 	{
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(timeInMs);
