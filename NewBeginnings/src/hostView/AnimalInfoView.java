@@ -313,7 +313,7 @@ public class AnimalInfoView extends JPanel {
 		this.add(buildHeader("Comments:"), constraints);
 
 		constraints.gridy = 8;
-		this.commentTextArea = new JTextArea("Comments", 10, 30);
+		this.commentTextArea = new JTextArea(this.theCat.getCommentsAboutCat(), 10, 30);
 		JScrollPane commentSectionScrollablePanel = new JScrollPane(
 				this.commentTextArea);
 
@@ -336,16 +336,23 @@ public class AnimalInfoView extends JPanel {
 		JTextField textfield7 = (JTextField) bInfoComponents.get(13);
 		JTextField textfield8 = (JTextField) bInfoComponents.get(15);
 		JTextField textfield9 = (JTextField) bInfoComponents.get(17);
-
+		
+		List<Component> mInfoComponents = Arrays.asList(this.medicalInfoPanel
+				.getComponents());
+		JTextField spayNeut = (JTextField)mInfoComponents.get(1);
+		JTextField rabies = (JTextField)mInfoComponents.get(3);
+		JTextField distemper = (JTextField)mInfoComponents.get(5);
+		JTextField fiv = (JTextField)mInfoComponents.get(7);
+		
 		String[] medicalHistory = extractMedicalHistory();
 
 		Cat newCat = new Cat(textfield1.getText(), textfield2.getText(),
 				convertDateFormattedStringToCalendar(textfield3.getText()),
 				textfield5.getText(), textfield6.getText(),
-				textfield7.getText(), "",
+				textfield7.getText(), spayNeut.getText(),
 				convertDateFormattedStringToCalendar(textfield8.getText()),
-				convertDateFormattedStringToCalendar(textfield9.getText()), "",
-				"", "", medicalHistory, this.theCat.getCatPictureFilePath(),
+				convertDateFormattedStringToCalendar(textfield9.getText()), rabies.getText(),
+				distemper.getText(), fiv.getText(), medicalHistory, this.theCat.getCatPictureFilePath(),
 				this.commentTextArea.getText());
 		System.out.println(this.commentTextArea.getText());
 
